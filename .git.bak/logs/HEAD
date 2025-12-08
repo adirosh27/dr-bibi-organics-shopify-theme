@@ -1,0 +1,3 @@
+0000000000000000000000000000000000000000 e1e377d3655b0fb0cba8b76c1c7f8d181b33b36d Dr. Bibi Organics <contact@drbibiorganics.com> 1765161824 -0500	commit (initial): Initial commit: Complete Dr. Bibi Organics website
+e1e377d3655b0fb0cba8b76c1c7f8d181b33b36d 4ebeca127a2f974ec5ce194bba970f7f97f6567d Dr. Bibi Organics <adir@example.com> 1765161883 -0500	commit (amend): Initial commit: Complete Dr. Bibi Organics website
+4ebeca127a2f974ec5ce194bba970f7f97f6567d beace02832115be9eff47565c7f822892705bdec Dr. Bibi Organics <adir@example.com> 1765162172 -0500	commit: Add static site configuration and routes manifest

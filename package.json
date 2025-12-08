@@ -1,0 +1,12 @@
+{
+  "name": "dr-bibi-organics",
+  "version": "1.0.0",
+  "description": "Dr. Bibi Organics - Premium Natural Skincare Website",
+  "scripts": {
+    "vercel-build": "echo 'Static site - no build needed'"
+  },
+  "keywords": ["skincare", "natural", "organic"],
+  "author": "Dr. Bibi Organics",
+  "license": "UNLICENSED",
+  "private": true
+}
