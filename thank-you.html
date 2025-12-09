@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thank You - Dr. Bibi Organics</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Jost:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        ivory: '#FFFEF9',
+                        pearl: '#F5F3ED',
+                        sage: '#E8EDE7',
+                        mint: '#C8E5D3',
+                        emerald: '#4A9B7F',
+                        forest: '#2D5F4F',
+                        gold: '#C8A882',
+                        charcoal: '#1F1F1F',
+                        slate: '#475569',
+                    },
+                    fontFamily: {
+                        display: ['Playfair Display', 'serif'],
+                        sans: ['Jost', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="font-sans bg-gradient-to-br from-sage via-mint to-pearl min-h-screen flex items-center justify-center p-6">
+
+    <div class="max-w-2xl w-full bg-white/90 backdrop-blur-sm rounded-3xl shadow-2xl p-12 text-center">
+        <!-- Success Icon -->
+        <div class="w-20 h-20 bg-gradient-to-br from-emerald to-forest rounded-full flex items-center justify-center mx-auto mb-6">
+            <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+            </svg>
+        </div>
+
+        <h1 class="text-4xl lg:text-5xl font-display font-bold text-forest mb-4">
+            Thank You!
+        </h1>
+
+        <p class="text-xl text-slate/80 mb-8">
+            Your message has been received. We'll get back to you within 24 hours at the email address you provided.
+        </p>
+
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+            <a href="index.html" class="bg-gradient-to-r from-emerald to-forest text-white px-8 py-4 rounded-full text-lg font-bold hover:shadow-2xl hover:scale-105 transition-all duration-300">
+                Back to Home
+            </a>
+            <a href="product.html" class="bg-white border-2 border-emerald text-emerald px-8 py-4 rounded-full text-lg font-bold hover:bg-emerald hover:text-white hover:shadow-2xl hover:scale-105 transition-all duration-300">
+                Shop Now
+            </a>
+        </div>
+    </div>
+
+</body>
+</html>

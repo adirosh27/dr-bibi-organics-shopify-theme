@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thank You for Your Order!</title>
+</head>
+<body style="margin: 0; padding: 0; font-family: 'Helvetica Neue', Arial, sans-serif; background-color: #f4f1ed;">
+    <table width="100%" cellpadding="0" cellspacing="0" style="background-color: #f4f1ed; padding: 40px 20px;">
+        <tr>
+            <td align="center">
+                <table width="600" cellpadding="0" cellspacing="0" style="background-color: #ffffff; border-radius: 16px; overflow: hidden; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+
+                    <!-- Header -->
+                    <tr>
+                        <td style="padding: 50px 40px; text-align: center; background: linear-gradient(135deg, #4a9b7f 0%, #2d5f4f 100%);">
+                            <h1 style="margin: 0 0 15px; font-size: 36px; color: #ffffff; font-weight: 700;">🎉 Welcome to the Family!</h1>
+                            <p style="margin: 0; font-size: 18px; color: rgba(255,255,255,0.9); font-weight: 300;">
+                                Your journey to healthier skin starts now
+                            </p>
+                        </td>
+                    </tr>
+
+                    <!-- Main Content -->
+                    <tr>
+                        <td style="padding: 40px;">
+                            <p style="margin: 0 0 20px; font-size: 16px; line-height: 1.6; color: #555;">
+                                Hi {{CUSTOMER_NAME}},
+                            </p>
+
+                            <p style="margin: 0 0 20px; font-size: 16px; line-height: 1.6; color: #555;">
+                                Thank you for choosing Dr. Bibi Organics! We're honored to be part of your skincare journey. Your <strong>Butter Oasis Balm</strong> will be on its way to you shortly.
+                            </p>
+
+                            <!-- Order Summary -->
+                            <table width="100%" cellpadding="0" cellspacing="0" style="margin: 30px 0; background-color: #fafaf8; border-radius: 12px; overflow: hidden;">
+                                <tr>
+                                    <td style="padding: 25px; border-bottom: 2px solid #e8e4df;">
+                                        <h3 style="margin: 0 0 15px; font-size: 18px; color: #2d5f4f; font-weight: 600;">Order Confirmation</h3>
+                                        <p style="margin: 0; font-size: 14px; color: #777;">Order #{{ORDER_NUMBER}}</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 25px;">
+                                        <table width="100%" cellpadding="0" cellspacing="0">
+                                            <tr>
+                                                <td>
+                                                    <p style="margin: 0 0 8px; font-size: 16px; color: #2d5f4f; font-weight: 600;">Butter Oasis Moisturizing Balm</p>
+                                                    <p style="margin: 0; font-size: 14px; color: #777;">4oz jar</p>
+                                                </td>
+                                                <td align="right">
+                                                    <p style="margin: 0; font-size: 18px; color: #c8a882; font-weight: 700;">$70.00</p>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 0 25px 25px;">
+                                        <table width="100%" cellpadding="0" cellspacing="0">
+                                            <tr>
+                                                <td><p style="margin: 5px 0; font-size: 14px; color: #777;">Shipping</p></td>
+                                                <td align="right"><p style="margin: 5px 0; font-size: 14px; color: #777;">FREE</p></td>
+                                            </tr>
+                                            <tr>
+                                                <td style="padding-top: 15px; border-top: 1px solid #e8e4df;">
+                                                    <p style="margin: 5px 0; font-size: 16px; color: #2d5f4f; font-weight: 700;">Total</p>
+                                                </td>
+                                                <td align="right" style="padding-top: 15px; border-top: 1px solid #e8e4df;">
+                                                    <p style="margin: 5px 0; font-size: 18px; color: #2d5f4f; font-weight: 700;">$70.00</p>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </table>
+
+                            <!-- Shipping Info -->
+                            <table width="100%" cellpadding="0" cellspacing="0" style="margin: 30px 0;">
+                                <tr>
+                                    <td style="padding: 20px; background: linear-gradient(135deg, #fafaf8 0%, #f0ede8 100%); border-left: 4px solid #4a9b7f; border-radius: 8px;">
+                                        <p style="margin: 0 0 10px; font-size: 16px; color: #2d5f4f; font-weight: 600;">
+                                            📦 Shipping to:
+                                        </p>
+                                        <p style="margin: 0; font-size: 14px; line-height: 1.6; color: #555;">
+                                            {{SHIPPING_ADDRESS}}
+                                        </p>
+                                        <p style="margin: 15px 0 0; font-size: 13px; color: #777; font-style: italic;">
+                                            Expected delivery: {{DELIVERY_DATE}}
+                                        </p>
+                                    </td>
+                                </tr>
+                            </table>
+
+                            <!-- What to Expect -->
+                            <h3 style="margin: 40px 0 20px; font-size: 22px; color: #2d5f4f; font-weight: 600;">What to expect:</h3>
+
+                            <table width="100%" cellpadding="0" cellspacing="0">
+                                <tr>
+                                    <td style="padding: 15px 0;">
+                                        <table width="100%" cellpadding="0" cellspacing="0">
+                                            <tr>
+                                                <td width="50" valign="top">
+                                                    <div style="width: 40px; height: 40px; background-color: #4a9b7f; color: white; text-align: center; line-height: 40px; border-radius: 50%; font-weight: bold;">1</div>
+                                                </td>
+                                                <td>
+                                                    <p style="margin: 0 0 5px; font-size: 16px; color: #2d5f4f; font-weight: 600;">First 3 days</p>
+                                                    <p style="margin: 0; font-size: 14px; color: #777; line-height: 1.5;">You'll feel instant moisture. Your skin will feel softer and more supple.</p>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 15px 0;">
+                                        <table width="100%" cellpadding="0" cellspacing="0">
+                                            <tr>
+                                                <td width="50" valign="top">
+                                                    <div style="width: 40px; height: 40px; background-color: #c8a882; color: white; text-align: center; line-height: 40px; border-radius: 50%; font-weight: bold;">2</div>
+                                                </td>
+                                                <td>
+                                                    <p style="margin: 0 0 5px; font-size: 16px; color: #2d5f4f; font-weight: 600;">Week 1-2</p>
+                                                    <p style="margin: 0; font-size: 14px; color: #777; line-height: 1.5;">Cracks begin to heal. Rough patches start to smooth out. Redness reduces.</p>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 15px 0;">
+                                        <table width="100%" cellpadding="0" cellspacing="0">
+                                            <tr>
+                                                <td width="50" valign="top">
+                                                    <div style="width: 40px; height: 40px; background-color: #2d5f4f; color: white; text-align: center; line-height: 40px; border-radius: 50%; font-weight: bold;">3</div>
+                                                </td>
+                                                <td>
+                                                    <p style="margin: 0 0 5px; font-size: 16px; color: #2d5f4f; font-weight: 600;">Week 3-4</p>
+                                                    <p style="margin: 0; font-size: 14px; color: #777; line-height: 1.5;">Dramatic transformation. Skin looks and feels healthier, softer, and more radiant.</p>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </table>
+
+                            <!-- Pro Tip -->
+                            <table width="100%" cellpadding="0" cellspacing="0" style="margin: 30px 0;">
+                                <tr>
+                                    <td style="padding: 25px; background-color: #fef9f3; border: 2px solid #c8a882; border-radius: 12px;">
+                                        <p style="margin: 0 0 10px; font-size: 16px; color: #c8a882; font-weight: 700;">
+                                            💡 PRO TIP
+                                        </p>
+                                        <p style="margin: 0; font-size: 14px; line-height: 1.6; color: #555;">
+                                            For best results, apply twice daily—once in the morning and once before bed. Warm a small amount between your palms before applying to help it absorb faster.
+                                        </p>
+                                    </td>
+                                </tr>
+                            </table>
+
+                            <p style="margin: 30px 0 0; font-size: 15px; line-height: 1.6; color: #555; text-align: center;">
+                                Questions? Reply to this email anytime. We're here to help! 💚
+                            </p>
+                        </td>
+                    </tr>
+
+                    <!-- Footer -->
+                    <tr>
+                        <td style="padding: 30px 40px; background-color: #fafaf8; border-top: 1px solid #e8e4df; text-align: center;">
+                            <p style="margin: 0 0 15px; font-size: 14px; color: #555;">
+                                <a href="{{TRACK_ORDER_URL}}" style="color: #4a9b7f; text-decoration: underline; font-weight: 600;">Track Your Order</a>
+                            </p>
+                            <p style="margin: 0 0 10px; font-size: 12px; color: #999;">
+                                Dr. Bibi Organics - Natural skincare crafted with pure African ingredients
+                            </p>
+                            <p style="margin: 0; font-size: 12px; color: #999;">
+                                <a href="{{UNSUBSCRIBE_URL}}" style="color: #999; text-decoration: underline;">Unsubscribe</a>
+                            </p>
+                        </td>
+                    </tr>
+
+                </table>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>

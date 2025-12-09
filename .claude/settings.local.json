@@ -10,7 +10,9 @@
       "Bash(vercel whoami:*)",
       "Bash(vercel:*)",
       "Bash(cat:*)",
-      "Bash(tee:*)"
+      "Bash(tee:*)",
+      "Bash(git tag:*)",
+      "Bash(curl:*)"
     ],
     "deny": [],
     "ask": []
