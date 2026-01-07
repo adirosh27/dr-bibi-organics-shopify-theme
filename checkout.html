@@ -76,51 +76,6 @@
         .cta-button {
             animation: cta-pulse 2s ease-in-out infinite;
         }
-
-        /* Iframe checkout styles */
-        .checkout-iframe-container {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: white;
-            z-index: 9999;
-            display: none;
-        }
-
-        .checkout-iframe-container.active {
-            display: block;
-        }
-
-        .checkout-iframe {
-            width: 100%;
-            height: 100%;
-            border: none;
-        }
-
-        .iframe-loading {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            text-align: center;
-        }
-
-        .spinner {
-            border: 4px solid #E8EDE7;
-            border-top: 4px solid #4A9B7F;
-            border-radius: 50%;
-            width: 50px;
-            height: 50px;
-            animation: spin 1s linear infinite;
-            margin: 0 auto 1rem;
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
     </style>
 </head>
 <body class="font-sans bg-gradient-to-br from-ivory via-pearl to-sage/10 text-charcoal">
@@ -452,15 +407,6 @@
         </div>
     </div>
 
-    <!-- Shopify Checkout iframe Container -->
-    <div id="checkoutIframeContainer" class="checkout-iframe-container">
-        <div id="iframeLoading" class="iframe-loading">
-            <div class="spinner"></div>
-            <p class="text-forest font-semibold">Loading secure checkout...</p>
-        </div>
-        <iframe id="checkoutIframe" class="checkout-iframe"></iframe>
-    </div>
-
     <!-- Footer -->
     <footer class="bg-forest text-white/80 py-12 lg:py-16 mt-16">
         <div class="max-w-7xl mx-auto px-6 lg:px-8">
@@ -644,24 +590,16 @@
                 'checkout[shipping_address][phone]': phone
             });
 
-            // Load Shopify checkout in iframe instead of redirecting
+            // Redirect to Shopify checkout with pre-filled customer info
             const checkoutUrl = `${SHOPIFY_DOMAIN}/cart/${SHOPIFY_VARIANT_ID}:${totalQuantity}?${checkoutParams.toString()}`;
 
-            // Get iframe elements
-            const iframeContainer = document.getElementById('checkoutIframeContainer');
-            const iframe = document.getElementById('checkoutIframe');
-            const loadingIndicator = document.getElementById('iframeLoading');
+            // Show loading message
+            const completeOrderBtn = document.getElementById('completeOrderBtn');
+            completeOrderBtn.innerHTML = '<span class="inline-block animate-pulse">Processing...</span>';
+            completeOrderBtn.disabled = true;
 
-            // Show iframe container
-            iframeContainer.classList.add('active');
-
-            // Set iframe source
-            iframe.src = checkoutUrl;
-
-            // Hide loading indicator when iframe loads
-            iframe.onload = function() {
-                loadingIndicator.style.display = 'none';
-            };
+            // Redirect to Shopify
+            window.location.href = checkoutUrl;
         }
 
     </script>
