@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search - Dr. Bibi Organics</title>
+    <link rel="icon" type="image/png" href="https://drbibiorganics.com/cdn/shop/files/Bibi_logo-Venmo_007d67d2-4cab-4b38-8401-9114d5c90045.png?height=32">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        ivory: '#FFFEF9',
+                        pearl: '#F5F3ED',
+                        sage: '#E8EDE7',
+                        mint: '#C8E5D3',
+                        emerald: '#4A9B7F',
+                        forest: '#2D5F4F',
+                        gold: '#C8A882',
+                        charcoal: '#1F1F1F',
+                        slate: '#475569'
+                    },
+                    fontFamily: {
+                        display: ['Playfair Display', 'serif'],
+                        sans: ['Jost', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="font-sans bg-ivory text-charcoal">
+    <!-- Navigation -->
+    <nav class="bg-ivory/95 backdrop-blur-lg fixed w-full z-50 shadow-sm">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <a href="index.html" class="flex items-center gap-3">
+                    <img src="https://drbibiorganics.com/cdn/shop/files/Bibi_logo-Venmo_007d67d2-4cab-4b38-8401-9114d5c90045.png?height=40" alt="Dr. Bibi Organics Logo" class="h-10">
+                    <h1 class="text-2xl lg:text-3xl font-display font-bold text-emerald">Dr. Bibi Organics</h1>
+                </a>
+                <div class="flex items-center gap-6">
+                    <a href="index.html" class="text-charcoal hover:text-emerald transition-colors">Home</a>
+                    <a href="product.html" class="text-charcoal hover:text-emerald transition-colors">Shop</a>
+                    <a href="contact.html" class="text-charcoal hover:text-emerald transition-colors">Contact</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Search Section -->
+    <section class="pt-32 pb-12 px-6">
+        <div class="max-w-4xl mx-auto">
+            <h1 class="text-4xl lg:text-5xl font-display font-bold text-forest mb-8 text-center">Search</h1>
+
+            <!-- Search Bar -->
+            <div class="mb-12">
+                <div class="relative">
+                    <input
+                        type="text"
+                        id="searchInput"
+                        placeholder="Try 'butter', 'balm', 'eczema', or 'moisturizer'..."
+                        class="w-full px-6 py-4 pl-14 rounded-full border-2 border-sage/30 focus:border-emerald focus:outline-none focus:ring-2 focus:ring-emerald/20 transition text-lg"
+                        autocomplete="off"
+                    >
+                    <svg class="w-6 h-6 text-slate absolute left-5 top-1/2 transform -translate-y-1/2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                    </svg>
+                </div>
+                <p class="text-sm text-slate/60 mt-3 text-center">Search as you type - results appear instantly</p>
+            </div>
+
+            <!-- Search Results -->
+            <div id="searchResults">
+                <!-- Default: Show all products -->
+                <div id="allProducts">
+                    <h2 class="text-2xl font-display font-semibold text-forest mb-6">Our Products</h2>
+
+                    <div class="grid md:grid-cols-2 gap-8">
+                        <!-- Product Card: Butter Oasis Balm -->
+                        <a href="product.html" class="group bg-white rounded-3xl overflow-hidden shadow-md hover:shadow-2xl transition-all duration-300 hover:scale-105">
+                            <div class="aspect-square bg-gradient-to-br from-sage/20 to-mint/20 relative overflow-hidden">
+                                <img src="https://drbibiorganics.com/cdn/shop/files/BibiButterproduct_002.jpg?v=1732747253&width=600"
+                                     alt="Butter Oasis Balm"
+                                     class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                                <div class="absolute top-4 right-4 bg-emerald text-white text-xs font-bold px-3 py-1 rounded-full">
+                                    Best Seller
+                                </div>
+                            </div>
+                            <div class="p-6">
+                                <h3 class="text-2xl font-display font-bold text-forest mb-2">Butter Oasis Balm</h3>
+                                <p class="text-slate mb-4">Clinical-grade relief for eczema, psoriasis, and dry skin. Made with pure African shea butter.</p>
+                                <div class="flex items-center justify-between">
+                                    <div class="text-2xl font-bold text-emerald">$70</div>
+                                    <div class="flex items-center gap-1 text-gold">
+                                        <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/></svg>
+                                        <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/></svg>
+                                        <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/></svg>
+                                        <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/></svg>
+                                        <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/></svg>
+                                        <span class="text-slate text-sm ml-1">(500+)</span>
+                                    </div>
+                                </div>
+                                <div class="mt-4 flex gap-2">
+                                    <span class="inline-block bg-emerald/10 text-emerald text-xs font-semibold px-3 py-1 rounded-full">Natural</span>
+                                    <span class="inline-block bg-gold/10 text-gold text-xs font-semibold px-3 py-1 rounded-full">Clinical-Grade</span>
+                                </div>
+                            </div>
+                        </a>
+
+                        <!-- Placeholder for future products -->
+                        <div class="bg-gradient-to-br from-sage/10 to-mint/10 rounded-3xl p-8 flex flex-col items-center justify-center text-center border-2 border-dashed border-sage/30">
+                            <div class="w-20 h-20 bg-emerald/10 rounded-full flex items-center justify-center mb-4">
+                                <svg class="w-10 h-10 text-emerald" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"/>
+                                </svg>
+                            </div>
+                            <h3 class="text-xl font-display font-semibold text-forest mb-2">More Products Coming Soon</h3>
+                            <p class="text-slate">We're working on expanding our product line with more natural skincare solutions.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- No Results Message (hidden by default) -->
+                <div id="noResults" class="hidden text-center py-16">
+                    <div class="w-24 h-24 bg-sage/20 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <svg class="w-12 h-12 text-slate" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-2xl font-display font-semibold text-forest mb-3">No results found</h3>
+                    <p class="text-slate mb-6">Try searching with different keywords</p>
+                    <a href="product.html" class="inline-block bg-gradient-to-r from-emerald to-forest text-white px-8 py-3 rounded-full font-semibold hover:shadow-xl hover:scale-105 transition-all">
+                        Browse All Products
+                    </a>
+                </div>
+
+                <!-- Filtered Results Container -->
+                <div id="filteredResults" class="hidden">
+                    <h2 class="text-2xl font-display font-semibold text-forest mb-6">Search Results for "<span id="searchQuery"></span>"</h2>
+                    <div id="resultsContainer" class="grid md:grid-cols-2 gap-8"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quick Links Section -->
+    <section class="py-12 px-6 bg-gradient-to-br from-sage/10 to-mint/10">
+        <div class="max-w-4xl mx-auto text-center">
+            <h2 class="text-3xl font-display font-semibold text-forest mb-8">Quick Links</h2>
+            <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                <a href="product.html" class="bg-white p-6 rounded-2xl shadow-md hover:shadow-xl hover:scale-105 transition-all">
+                    <div class="w-12 h-12 bg-emerald/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <svg class="w-6 h-6 text-emerald" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/>
+                        </svg>
+                    </div>
+                    <h3 class="font-semibold text-forest mb-2">Shop Now</h3>
+                    <p class="text-sm text-slate">Browse our products</p>
+                </a>
+
+                <a href="index.html#story" class="bg-white p-6 rounded-2xl shadow-md hover:shadow-xl hover:scale-105 transition-all">
+                    <div class="w-12 h-12 bg-gold/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <svg class="w-6 h-6 text-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
+                        </svg>
+                    </div>
+                    <h3 class="font-semibold text-forest mb-2">Our Story</h3>
+                    <p class="text-sm text-slate">Learn about Dr. Bibi</p>
+                </a>
+
+                <a href="contact.html" class="bg-white p-6 rounded-2xl shadow-md hover:shadow-xl hover:scale-105 transition-all">
+                    <div class="w-12 h-12 bg-emerald/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <svg class="w-6 h-6 text-emerald" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                        </svg>
+                    </div>
+                    <h3 class="font-semibold text-forest mb-2">Contact Us</h3>
+                    <p class="text-sm text-slate">Get in touch</p>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-forest text-white/80 py-12 lg:py-16">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="grid md:grid-cols-4 gap-12 mb-12">
+                <div class="md:col-span-2">
+                    <h4 class="text-3xl font-display font-semibold text-white mb-4">Dr. Bibi Organics</h4>
+                    <p class="text-base leading-relaxed mb-6 text-white/70 max-w-md">
+                        Clinical-grade natural skincare crafted with pure African ingredients. Healing your skin, naturally.
+                    </p>
+                </div>
+
+                <div>
+                    <h5 class="font-semibold text-white text-lg mb-4">Quick Links</h5>
+                    <ul class="space-y-3 text-base">
+                        <li><a href="search.html" class="hover:text-gold transition">Search</a></li>
+                        <li><a href="faqs.html" class="hover:text-gold transition">FAQs</a></li>
+                        <li><a href="terms-of-service.html" class="hover:text-gold transition">Terms and Conditions</a></li>
+                        <li><a href="privacy-policy.html" class="hover:text-gold transition">Privacy Policy</a></li>
+                        <li><a href="return-policy.html" class="hover:text-gold transition">Refund Policy</a></li>
+                        <li><a href="data-sharing-opt-out.html" class="hover:text-gold transition">Your Privacy Choices</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h5 class="font-semibold text-white text-lg mb-4">Support</h5>
+                    <ul class="space-y-3 text-base">
+                        <li><a href="contact.html" class="hover:text-gold transition">Contact Us</a></li>
+                        <li><a href="tel:561-201-9109" class="hover:text-gold transition">561-201-9109</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="border-t border-white/20 pt-8">
+                <div class="flex flex-col md:flex-row justify-between items-center gap-4">
+                    <p class="text-sm text-white/60">&copy; 2024 Dr. Bibi Organics. All rights reserved.</p>
+                    <p class="text-sm text-white/60">Boca Raton, Florida</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Search Functionality -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const searchInput = document.getElementById('searchInput');
+            const allProducts = document.getElementById('allProducts');
+            const noResults = document.getElementById('noResults');
+            const filteredResults = document.getElementById('filteredResults');
+            const resultsContainer = document.getElementById('resultsContainer');
+            const searchQuery = document.getElementById('searchQuery');
+
+        // Product database
+        const products = [
+            {
+                name: 'Butter Oasis Balm',
+                description: 'Clinical-grade relief for eczema, psoriasis, and dry skin. Made with pure African shea butter.',
+                price: 70,
+                url: 'product.html',
+                image: 'https://drbibiorganics.com/cdn/shop/files/BibiButterproduct_002.jpg?v=1732747253&width=600',
+                tags: ['natural', 'clinical-grade', 'eczema', 'psoriasis', 'dry skin', 'shea butter', 'balm', 'moisturizer', 'healing', 'butter', 'oasis', 'cream', 'lotion', 'organic', 'skincare', 'skin care', 'dr bibi', 'bibi', 'african', 'relief']
+            }
+        ];
+
+            // Search function
+            function performSearch(query) {
+                const searchTerm = query.toLowerCase().trim();
+
+                if (searchTerm === '') {
+                    // Show all products
+                    allProducts.classList.remove('hidden');
+                    allProducts.classList.add('block');
+                    filteredResults.classList.add('hidden');
+                    filteredResults.classList.remove('block');
+                    noResults.classList.add('hidden');
+                    return;
+                }
+
+                // Filter products
+                const results = products.filter(product => {
+                    return product.name.toLowerCase().includes(searchTerm) ||
+                           product.description.toLowerCase().includes(searchTerm) ||
+                           product.tags.some(tag => tag.toLowerCase().includes(searchTerm));
+                });
+
+                // Update UI
+                if (results.length > 0) {
+                    displayResults(results, searchTerm);
+                } else {
+                    showNoResults();
+                }
+            }
+
+            function displayResults(results, query) {
+                allProducts.classList.add('hidden');
+                noResults.classList.add('hidden');
+                filteredResults.classList.remove('hidden');
+                filteredResults.classList.add('block');
+
+                // Ensure visibility
+                filteredResults.style.display = 'block';
+                filteredResults.style.visibility = 'visible';
+
+                searchQuery.textContent = query;
+
+            resultsContainer.innerHTML = results.map(product => `
+                <a href="${product.url}" class="group bg-white rounded-3xl overflow-hidden shadow-md hover:shadow-2xl transition-all duration-300 hover:scale-105">
+                    <div class="aspect-square bg-gradient-to-br from-sage/20 to-mint/20 relative overflow-hidden">
+                        <img src="${product.image}"
+                             alt="${product.name}"
+                             class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                        <div class="absolute top-4 right-4 bg-emerald text-white text-xs font-bold px-3 py-1 rounded-full">
+                            Best Seller
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-2xl font-display font-bold text-forest mb-2">${product.name}</h3>
+                        <p class="text-slate mb-4">${product.description}</p>
+                        <div class="flex items-center justify-between">
+                            <div class="text-2xl font-bold text-emerald">$${product.price}</div>
+                            <div class="flex items-center gap-1 text-gold">
+                                <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/></svg>
+                                <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/></svg>
+                                <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/></svg>
+                                <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/></svg>
+                                <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/></svg>
+                                <span class="text-slate text-sm ml-1">(500+)</span>
+                            </div>
+                        </div>
+                        <div class="mt-4 flex gap-2">
+                            <span class="inline-block bg-emerald/10 text-emerald text-xs font-semibold px-3 py-1 rounded-full">Natural</span>
+                            <span class="inline-block bg-gold/10 text-gold text-xs font-semibold px-3 py-1 rounded-full">Clinical-Grade</span>
+                        </div>
+                    </div>
+                </a>
+            `).join('');
+            }
+
+            function showNoResults() {
+                allProducts.classList.add('hidden');
+                filteredResults.classList.add('hidden');
+                filteredResults.classList.remove('block');
+                noResults.classList.remove('hidden');
+                noResults.classList.add('block');
+            }
+
+            // Event listeners
+            searchInput.addEventListener('input', (e) => {
+                performSearch(e.target.value);
+            });
+
+            searchInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    performSearch(e.target.value);
+                }
+            });
+
+            // Check for URL parameters
+            const urlParams = new URLSearchParams(window.location.search);
+            const queryParam = urlParams.get('q');
+            if (queryParam) {
+                searchInput.value = queryParam;
+                performSearch(queryParam);
+            }
+        }); // End DOMContentLoaded
+    </script>
+</body>
+</html>

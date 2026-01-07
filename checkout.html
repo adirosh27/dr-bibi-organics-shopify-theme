@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout - Dr. Bibi Organics</title>
+    <link rel="icon" type="image/png" href="https://drbibiorganics.com/cdn/shop/files/Bibi_logo-Venmo_007d67d2-4cab-4b38-8401-9114d5c90045.png?height=32">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        ivory: '#FFFEF9',
+                        pearl: '#F5F3ED',
+                        sage: '#E8EDE7',
+                        mint: '#C8E5D3',
+                        emerald: '#4A9B7F',
+                        forest: '#2D5F4F',
+                        gold: '#C8A882',
+                        charcoal: '#1F1F1F',
+                        slate: '#475569'
+                    },
+                    fontFamily: {
+                        display: ['Playfair Display', 'serif'],
+                        sans: ['Jost', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Glowing red neon border for invalid fields */
+        .field-error {
+            border: 2px solid #ef4444 !important;
+            box-shadow: 0 0 10px #ef4444, 0 0 20px #ef4444, 0 0 30px #ef4444 !important;
+            animation: glow-pulse 1.5s ease-in-out infinite;
+        }
+
+        @keyframes glow-pulse {
+            0%, 100% {
+                box-shadow: 0 0 10px #ef4444, 0 0 20px #ef4444, 0 0 30px #ef4444;
+            }
+            50% {
+                box-shadow: 0 0 15px #ef4444, 0 0 30px #ef4444, 0 0 45px #ef4444;
+            }
+        }
+
+        .field-valid {
+            border: 2px solid #10b981 !important;
+            position: relative;
+        }
+
+        .field-valid::after {
+            content: "✓";
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #10b981;
+            font-weight: bold;
+            font-size: 18px;
+        }
+
+        /* CTA Button pulse animation */
+        @keyframes cta-pulse {
+            0%, 100% {
+                box-shadow: 0 4px 20px rgba(45, 95, 76, 0.4);
+            }
+            50% {
+                box-shadow: 0 4px 30px rgba(45, 95, 76, 0.6);
+            }
+        }
+
+        .cta-button {
+            animation: cta-pulse 2s ease-in-out infinite;
+        }
+    </style>
+</head>
+<body class="font-sans bg-gradient-to-br from-ivory via-pearl to-sage/10 text-charcoal">
+    <!-- Navigation -->
+    <nav class="bg-ivory/95 backdrop-blur-lg fixed w-full z-50 shadow-sm">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <a href="index.html" class="flex items-center gap-3">
+                    <img src="https://drbibiorganics.com/cdn/shop/files/Bibi_logo-Venmo_007d67d2-4cab-4b38-8401-9114d5c90045.png?height=40" alt="Dr. Bibi Organics Logo" class="h-10">
+                    <h1 class="text-2xl lg:text-3xl font-display font-bold text-emerald">Dr. Bibi Organics</h1>
+                </a>
+                <div class="flex items-center gap-6">
+                    <a href="product.html" class="text-charcoal hover:text-emerald transition-colors">Shop</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Checkout Container -->
+    <div class="pt-32 pb-20 px-6">
+        <div class="max-w-7xl mx-auto">
+            <!-- Progress Indicator -->
+            <div class="max-w-2xl mx-auto mb-12">
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center gap-2">
+                        <div class="w-8 h-8 bg-emerald/20 rounded-full flex items-center justify-center">
+                            <span class="text-emerald font-bold text-sm">✓</span>
+                        </div>
+                        <span class="text-sm font-semibold text-emerald">Cart</span>
+                    </div>
+                    <div class="flex-1 h-1 bg-emerald mx-4"></div>
+                    <div class="flex items-center gap-2">
+                        <div class="w-8 h-8 bg-emerald rounded-full flex items-center justify-center">
+                            <span class="text-white font-bold text-sm">2</span>
+                        </div>
+                        <span class="text-sm font-semibold text-emerald">Checkout</span>
+                    </div>
+                    <div class="flex-1 h-1 bg-sage/30 mx-4"></div>
+                    <div class="flex items-center gap-2">
+                        <div class="w-8 h-8 bg-sage/30 rounded-full flex items-center justify-center">
+                            <span class="text-slate font-bold text-sm">3</span>
+                        </div>
+                        <span class="text-sm font-medium text-slate/60">Confirmation</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Header -->
+            <div class="text-center mb-12">
+                <h1 class="text-4xl lg:text-5xl font-display font-bold text-forest mb-4">Secure Checkout</h1>
+                <p class="text-lg text-slate">Your information is protected with SSL encryption</p>
+            </div>
+
+            <!-- Trust Badges -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12 max-w-4xl mx-auto">
+                <div class="bg-white/80 backdrop-blur-sm rounded-2xl p-4 text-center shadow-sm">
+                    <div class="text-2xl mb-2">🔒</div>
+                    <p class="text-xs font-semibold text-forest">Secure Payment</p>
+                </div>
+                <div class="bg-white/80 backdrop-blur-sm rounded-2xl p-4 text-center shadow-sm">
+                    <div class="text-2xl mb-2">✓</div>
+                    <p class="text-xs font-semibold text-forest">30-Day Guarantee</p>
+                </div>
+                <div class="bg-white/80 backdrop-blur-sm rounded-2xl p-4 text-center shadow-sm">
+                    <div class="text-2xl mb-2">🚚</div>
+                    <p class="text-xs font-semibold text-forest">Free Shipping</p>
+                </div>
+                <div class="bg-white/80 backdrop-blur-sm rounded-2xl p-4 text-center shadow-sm">
+                    <div class="text-2xl mb-2">⭐</div>
+                    <p class="text-xs font-semibold text-forest">500+ Reviews</p>
+                </div>
+            </div>
+
+            <!-- Main Checkout Grid -->
+            <div class="grid lg:grid-cols-3 gap-8">
+                <!-- Left Column - Form -->
+                <div class="lg:col-span-2 space-y-6">
+                    <!-- Contact Information -->
+                    <div class="bg-white/90 backdrop-blur-sm rounded-3xl p-8 shadow-lg">
+                        <h2 class="text-2xl font-display font-bold text-forest mb-6">Contact Information</h2>
+                        <div class="space-y-4">
+                            <div>
+                                <label class="block text-sm font-semibold text-forest mb-2">Email Address *</label>
+                                <input type="email" id="email" required
+                                    class="w-full px-4 py-3 rounded-xl border-2 border-sage/30 focus:border-emerald focus:outline-none transition"
+                                    placeholder="you@example.com">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Shipping Address -->
+                    <div class="bg-white/90 backdrop-blur-sm rounded-3xl p-8 shadow-lg">
+                        <h2 class="text-2xl font-display font-bold text-forest mb-6">Shipping Address</h2>
+                        <div class="space-y-4">
+                            <div class="grid md:grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-sm font-semibold text-forest mb-2">First Name *</label>
+                                    <input type="text" id="firstName" required
+                                        class="w-full px-4 py-3 rounded-xl border-2 border-sage/30 focus:border-emerald focus:outline-none transition"
+                                        placeholder="John">
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-semibold text-forest mb-2">Last Name *</label>
+                                    <input type="text" id="lastName" required
+                                        class="w-full px-4 py-3 rounded-xl border-2 border-sage/30 focus:border-emerald focus:outline-none transition"
+                                        placeholder="Doe">
+                                </div>
+                            </div>
+
+                            <div>
+                                <label class="block text-sm font-semibold text-forest mb-2">Address *</label>
+                                <input type="text" id="address" required
+                                    class="w-full px-4 py-3 rounded-xl border-2 border-sage/30 focus:border-emerald focus:outline-none transition"
+                                    placeholder="123 Main Street">
+                            </div>
+
+                            <div>
+                                <label class="block text-sm font-semibold text-forest mb-2">Apartment, suite, etc. (optional)</label>
+                                <input type="text" id="apartment"
+                                    class="w-full px-4 py-3 rounded-xl border-2 border-sage/30 focus:border-emerald focus:outline-none transition"
+                                    placeholder="Apt 4B">
+                            </div>
+
+                            <div class="grid md:grid-cols-3 gap-4">
+                                <div>
+                                    <label class="block text-sm font-semibold text-forest mb-2">City *</label>
+                                    <input type="text" id="city" required
+                                        class="w-full px-4 py-3 rounded-xl border-2 border-sage/30 focus:border-emerald focus:outline-none transition"
+                                        placeholder="Boca Raton">
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-semibold text-forest mb-2">State *</label>
+                                    <select id="state" required
+                                        class="w-full px-4 py-3 rounded-xl border-2 border-sage/30 focus:border-emerald focus:outline-none transition">
+                                        <option value="">Select State</option>
+                                        <option value="FL">Florida</option>
+                                        <option value="AL">Alabama</option>
+                                        <option value="AK">Alaska</option>
+                                        <option value="AZ">Arizona</option>
+                                        <option value="AR">Arkansas</option>
+                                        <option value="CA">California</option>
+                                        <option value="CO">Colorado</option>
+                                        <option value="CT">Connecticut</option>
+                                        <!-- Add all states -->
+                                    </select>
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-semibold text-forest mb-2">ZIP Code *</label>
+                                    <input type="text" id="zipCode" required
+                                        class="w-full px-4 py-3 rounded-xl border-2 border-sage/30 focus:border-emerald focus:outline-none transition"
+                                        placeholder="33431">
+                                </div>
+                            </div>
+
+                            <div>
+                                <label class="block text-sm font-semibold text-forest mb-2">Phone *</label>
+                                <input type="tel" id="phone" required
+                                    class="w-full px-4 py-3 rounded-xl border-2 border-sage/30 focus:border-emerald focus:outline-none transition"
+                                    placeholder="561-201-9109">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Optional: Add Another Jar -->
+                    <div class="bg-sage/5 border border-sage/20 rounded-2xl p-6">
+                        <div class="flex items-start gap-4">
+                            <div class="flex-1">
+                                <label class="flex items-start gap-3 cursor-pointer">
+                                    <input type="checkbox" id="upsell1" class="mt-1 w-5 h-5 text-emerald rounded">
+                                    <div>
+                                        <span class="font-semibold text-forest">Add a second jar & save 15%</span>
+                                        <p class="text-sm text-slate mt-1">Many customers buy multiple jars. Add another for $59.50 (save $10.50)</p>
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Payment Information -->
+                    <div class="bg-white/90 backdrop-blur-sm rounded-3xl p-8 shadow-lg">
+                        <div class="flex items-center justify-between mb-6">
+                            <h2 class="text-2xl font-display font-bold text-forest">Payment Information</h2>
+                            <div class="flex items-center gap-2">
+                                <svg class="w-5 h-5 text-emerald" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
+                                </svg>
+                                <span class="text-sm text-emerald font-semibold">Secure & Encrypted</span>
+                            </div>
+                        </div>
+
+                        <!-- Payment Method Logos -->
+                        <div class="flex items-center gap-3 mb-6 pb-6 border-b border-sage/20">
+                            <span class="text-xs text-slate font-medium">We accept:</span>
+                            <div class="flex items-center gap-2">
+                                <div class="px-3 py-1.5 bg-white border border-sage/20 rounded text-xs font-bold text-slate">VISA</div>
+                                <div class="px-3 py-1.5 bg-white border border-sage/20 rounded text-xs font-bold text-slate">MC</div>
+                                <div class="px-3 py-1.5 bg-white border border-sage/20 rounded text-xs font-bold text-slate">AMEX</div>
+                                <div class="px-3 py-1.5 bg-white border border-sage/20 rounded text-xs font-bold text-slate">DISC</div>
+                            </div>
+                        </div>
+
+                        <div class="space-y-4">
+                            <div>
+                                <label class="block text-sm font-semibold text-forest mb-2">Card Number *</label>
+                                <input type="text" id="cardNumber" required maxlength="19"
+                                    class="w-full px-4 py-3 rounded-xl border-2 border-sage/30 focus:border-emerald focus:outline-none transition"
+                                    placeholder="1234 5678 9012 3456">
+                            </div>
+
+                            <div class="grid md:grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-sm font-semibold text-forest mb-2">Expiration Date *</label>
+                                    <input type="text" id="expiry" required maxlength="5"
+                                        class="w-full px-4 py-3 rounded-xl border-2 border-sage/30 focus:border-emerald focus:outline-none transition"
+                                        placeholder="MM/YY">
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-semibold text-forest mb-2">CVV *</label>
+                                    <input type="text" id="cvv" required maxlength="4"
+                                        class="w-full px-4 py-3 rounded-xl border-2 border-sage/30 focus:border-emerald focus:outline-none transition"
+                                        placeholder="123">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Right Column - Order Summary -->
+                <div class="lg:col-span-1">
+                    <div class="bg-white/90 backdrop-blur-sm rounded-3xl p-8 shadow-lg sticky top-24">
+                        <h2 class="text-2xl font-display font-bold text-forest mb-6">Order Summary</h2>
+
+                        <!-- Product -->
+                        <div class="flex gap-4 mb-6 pb-6 border-b border-sage/30">
+                            <img src="https://drbibiorganics.com/cdn/shop/files/BibiButterproduct_002.jpg?v=1732747253&width=150"
+                                alt="Butter Oasis Balm"
+                                class="w-20 h-20 rounded-xl object-cover">
+                            <div class="flex-1">
+                                <h3 class="font-semibold text-forest mb-1">Butter Oasis Balm</h3>
+                                <p class="text-sm text-slate mb-2">Qty: 1</p>
+                                <p class="font-bold text-emerald">$70.00</p>
+                            </div>
+                        </div>
+
+                        <!-- Upsell Item #1 (shown when checked) -->
+                        <div id="upsellItem1" class="hidden flex gap-4 mb-6 pb-6 border-b border-sage/30">
+                            <img src="https://drbibiorganics.com/cdn/shop/files/BibiButterproduct_002.jpg?v=1732747253&width=150"
+                                alt="Butter Oasis Balm"
+                                class="w-20 h-20 rounded-xl object-cover">
+                            <div class="flex-1">
+                                <h3 class="font-semibold text-forest mb-1">Butter Oasis Balm</h3>
+                                <p class="text-sm text-slate mb-2">Qty: 1 <span class="text-emerald font-semibold">(15% off)</span></p>
+                                <p class="font-bold text-emerald">$59.50</p>
+                            </div>
+                        </div>
+
+                        <!-- Free Shipping Banner -->
+                        <div class="bg-gradient-to-r from-emerald/20 to-mint/20 rounded-xl p-4 mb-6">
+                            <div class="flex items-center gap-3">
+                                <span class="text-2xl">🚚</span>
+                                <div>
+                                    <p class="font-bold text-forest">FREE SHIPPING!</p>
+                                    <p class="text-xs text-slate">On all orders</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Pricing -->
+                        <div class="space-y-3 mb-6">
+                            <div class="flex justify-between text-slate">
+                                <span>Subtotal</span>
+                                <span id="subtotal">$70.00</span>
+                            </div>
+                            <div class="flex justify-between text-emerald font-semibold">
+                                <span>Shipping</span>
+                                <span>FREE</span>
+                            </div>
+                            <div class="flex justify-between text-slate">
+                                <span>Tax</span>
+                                <span id="tax">$5.25</span>
+                            </div>
+                            <div class="border-t-2 border-sage/30 pt-3 flex justify-between text-xl font-bold text-forest">
+                                <span>Total</span>
+                                <span id="total">$75.25</span>
+                            </div>
+                        </div>
+
+                        <!-- Reassurance Before CTA -->
+                        <div class="bg-emerald/5 rounded-xl p-4 mb-4 space-y-2">
+                            <div class="flex items-center gap-2 text-sm">
+                                <svg class="w-4 h-4 text-emerald" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
+                                </svg>
+                                <span class="text-forest font-medium">256-bit SSL Secure Checkout</span>
+                            </div>
+                            <div class="flex items-center gap-2 text-sm">
+                                <svg class="w-4 h-4 text-emerald" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+                                </svg>
+                                <span class="text-forest font-medium">30-Day Money Back Guarantee</span>
+                            </div>
+                            <p class="text-xs text-slate/70 mt-2">You won't be charged until you click Complete Order</p>
+                        </div>
+
+                        <!-- Complete Order Button -->
+                        <button onclick="validateAndSubmit()" id="ctaButton"
+                            class="w-full bg-gradient-to-r from-emerald to-forest text-white py-5 rounded-full font-bold text-xl hover:shadow-2xl hover:scale-105 transition-all duration-300 mb-4 cta-button">
+                            <span id="ctaText">Complete My Order</span>
+                            <span id="ctaTotal" class="block text-sm font-normal mt-1 opacity-90">Total: $75.25</span>
+                        </button>
+
+                        <!-- Payment Logos -->
+                        <div class="flex items-center justify-center gap-2 mb-4 flex-wrap">
+                            <div class="px-2 py-1 bg-white border border-sage/20 rounded text-xs font-bold text-slate">VISA</div>
+                            <div class="px-2 py-1 bg-white border border-sage/20 rounded text-xs font-bold text-slate">MC</div>
+                            <div class="px-2 py-1 bg-white border border-sage/20 rounded text-xs font-bold text-slate">AMEX</div>
+                            <div class="px-2 py-1 bg-white border border-sage/20 rounded text-xs font-bold text-slate">DISCOVER</div>
+                        </div>
+
+                        <!-- Why Customers Love Us -->
+                        <div class="mt-6 pt-6 border-t border-sage/30">
+                            <h3 class="font-semibold text-forest mb-3 text-sm">Why Customers Love Us:</h3>
+                            <ul class="space-y-2 text-sm text-slate">
+                                <li class="flex items-start gap-2">
+                                    <span class="text-emerald mt-0.5">✓</span>
+                                    <span>Clinical-grade natural ingredients</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <span class="text-emerald mt-0.5">✓</span>
+                                    <span>500+ 5-star reviews</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <span class="text-emerald mt-0.5">✓</span>
+                                    <span>Dermatologist recommended</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <span class="text-emerald mt-0.5">✓</span>
+                                    <span>Made with pure African shea butter</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-forest text-white/80 py-12 lg:py-16 mt-16">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="grid md:grid-cols-4 gap-12 mb-12">
+                <div class="md:col-span-2">
+                    <h4 class="text-3xl font-display font-semibold text-white mb-4">Dr. Bibi Organics</h4>
+                    <p class="text-base leading-relaxed mb-6 text-white/70 max-w-md">
+                        Clinical-grade natural skincare crafted with pure African ingredients. Healing your skin, naturally.
+                    </p>
+                </div>
+
+                <div>
+                    <h5 class="font-semibold text-white text-lg mb-4">Quick Links</h5>
+                    <ul class="space-y-3 text-base">
+                        <li><a href="search.html" class="hover:text-gold transition">Search</a></li>
+                        <li><a href="faqs.html" class="hover:text-gold transition">FAQs</a></li>
+                        <li><a href="terms-of-service.html" class="hover:text-gold transition">Terms and Conditions</a></li>
+                        <li><a href="privacy-policy.html" class="hover:text-gold transition">Privacy Policy</a></li>
+                        <li><a href="return-policy.html" class="hover:text-gold transition">Refund Policy</a></li>
+                        <li><a href="data-sharing-opt-out.html" class="hover:text-gold transition">Your Privacy Choices</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h5 class="font-semibold text-white text-lg mb-4">Support</h5>
+                    <ul class="space-y-3 text-base">
+                        <li><a href="contact.html" class="hover:text-gold transition">Contact Us</a></li>
+                        <li><a href="tel:561-201-9109" class="hover:text-gold transition">561-201-9109</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="border-t border-white/20 pt-8">
+                <div class="flex flex-col md:flex-row justify-between items-center gap-4">
+                    <p class="text-sm text-white/60">&copy; 2024 Dr. Bibi Organics. All rights reserved.</p>
+                    <p class="text-sm text-white/60">Boca Raton, Florida</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // Update pricing when upsell is checked
+        function updatePricing() {
+            const upsell1Checked = document.getElementById('upsell1').checked;
+            const upsellItem1 = document.getElementById('upsellItem1');
+            const subtotalEl = document.getElementById('subtotal');
+            const taxEl = document.getElementById('tax');
+            const totalEl = document.getElementById('total');
+            const ctaTotalEl = document.getElementById('ctaTotal');
+
+            let subtotal = 70.00; // Base price
+
+            // Show/hide upsell 1
+            if (upsell1Checked) {
+                upsellItem1.classList.remove('hidden');
+                upsellItem1.classList.add('flex');
+                subtotal += 59.50;
+            } else {
+                upsellItem1.classList.add('hidden');
+                upsellItem1.classList.remove('flex');
+            }
+
+            // Calculate tax (7.5%)
+            const tax = subtotal * 0.075;
+            const total = subtotal + tax;
+
+            // Update display
+            subtotalEl.textContent = '$' + subtotal.toFixed(2);
+            taxEl.textContent = '$' + tax.toFixed(2);
+            totalEl.textContent = '$' + total.toFixed(2);
+            ctaTotalEl.textContent = 'Total: $' + total.toFixed(2);
+        }
+
+        document.getElementById('upsell1').addEventListener('change', updatePricing);
+
+        // Real-time validation with glowing borders
+        const requiredFields = [
+            'email', 'firstName', 'lastName', 'address',
+            'city', 'state', 'zipCode', 'phone',
+            'cardNumber', 'expiry', 'cvv'
+        ];
+
+        // Add blur event listeners for validation
+        requiredFields.forEach(fieldId => {
+            const field = document.getElementById(fieldId);
+            if (field) {
+                field.addEventListener('blur', () => validateField(field));
+                field.addEventListener('input', () => {
+                    // Remove error when user starts typing
+                    if (field.value.trim()) {
+                        field.classList.remove('field-error');
+                        field.classList.add('field-valid');
+                    }
+                });
+            }
+        });
+
+        function validateField(field) {
+            if (!field.value.trim() || (field.tagName === 'SELECT' && !field.value)) {
+                field.classList.add('field-error');
+                field.classList.remove('field-valid');
+                return false;
+            } else {
+                field.classList.remove('field-error');
+                field.classList.add('field-valid');
+                return true;
+            }
+        }
+
+        function validateAndSubmit() {
+            let allValid = true;
+            let firstInvalidField = null;
+
+            // Validate all required fields
+            requiredFields.forEach(fieldId => {
+                const field = document.getElementById(fieldId);
+                if (field) {
+                    const isValid = validateField(field);
+                    if (!isValid) {
+                        allValid = false;
+                        if (!firstInvalidField) {
+                            firstInvalidField = field;
+                        }
+                    }
+                }
+            });
+
+            if (!allValid) {
+                // Scroll to first invalid field
+                if (firstInvalidField) {
+                    firstInvalidField.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    firstInvalidField.focus();
+                }
+
+                // Show error message
+                alert('Please fill in all required fields (marked with glowing red borders)');
+                return false;
+            }
+
+            // If all valid, redirect to thank you page
+            window.location.href = 'thank-you.html';
+        }
+
+        // Format card number with spaces
+        document.getElementById('cardNumber').addEventListener('input', function(e) {
+            let value = e.target.value.replace(/\s/g, '');
+            let formattedValue = value.match(/.{1,4}/g)?.join(' ') || value;
+            e.target.value = formattedValue;
+        });
+
+        // Format expiry date
+        document.getElementById('expiry').addEventListener('input', function(e) {
+            let value = e.target.value.replace(/\D/g, '');
+            if (value.length >= 2) {
+                value = value.slice(0, 2) + '/' + value.slice(2, 4);
+            }
+            e.target.value = value;
+        });
+    </script>
+</body>
+</html>

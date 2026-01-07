@@ -12,7 +12,11 @@
       "Bash(cat:*)",
       "Bash(tee:*)",
       "Bash(git tag:*)",
-      "Bash(curl:*)"
+      "Bash(curl:*)",
+      "WebFetch(domain:skyorganics.com)",
+      "WebSearch",
+      "Bash(ls:*)",
+      "WebFetch(domain:www.mypillow.com)"
     ],
     "deny": [],
     "ask": []
