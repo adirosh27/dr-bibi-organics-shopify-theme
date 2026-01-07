@@ -594,7 +594,7 @@
             const checkoutUrl = `${SHOPIFY_DOMAIN}/cart/${SHOPIFY_VARIANT_ID}:${totalQuantity}?${checkoutParams.toString()}`;
 
             // Show loading message
-            const completeOrderBtn = document.getElementById('completeOrderBtn');
+            const completeOrderBtn = document.getElementById('ctaButton');
             completeOrderBtn.innerHTML = '<span class="inline-block animate-pulse">Processing...</span>';
             completeOrderBtn.disabled = true;
 
