@@ -254,51 +254,33 @@
                         </div>
                     </div>
 
-                    <!-- Payment Information -->
-                    <div class="bg-white/90 backdrop-blur-sm rounded-3xl p-8 shadow-lg">
-                        <div class="flex items-center justify-between mb-6">
-                            <h2 class="text-2xl font-display font-bold text-forest">Payment Information</h2>
-                            <div class="flex items-center gap-2">
-                                <svg class="w-5 h-5 text-emerald" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <!-- Payment - Next Step Notice -->
+                    <div class="bg-gradient-to-br from-emerald/10 to-mint/10 rounded-3xl p-8 shadow-lg border-2 border-emerald/20">
+                        <div class="text-center">
+                            <div class="w-16 h-16 bg-emerald/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                                <svg class="w-8 h-8 text-emerald" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
                                 </svg>
-                                <span class="text-sm text-emerald font-semibold">Secure & Encrypted</span>
                             </div>
-                        </div>
+                            <h2 class="text-2xl font-display font-bold text-forest mb-3">Payment on Next Step</h2>
+                            <p class="text-slate text-lg mb-4">After reviewing your order, you'll be securely redirected to enter your payment information.</p>
 
-                        <!-- Payment Method Logos -->
-                        <div class="flex items-center gap-3 mb-6 pb-6 border-b border-sage/20">
-                            <span class="text-xs text-slate font-medium">We accept:</span>
-                            <div class="flex items-center gap-2">
-                                <div class="px-3 py-1.5 bg-white border border-sage/20 rounded text-xs font-bold text-slate">VISA</div>
-                                <div class="px-3 py-1.5 bg-white border border-sage/20 rounded text-xs font-bold text-slate">MC</div>
-                                <div class="px-3 py-1.5 bg-white border border-sage/20 rounded text-xs font-bold text-slate">AMEX</div>
-                                <div class="px-3 py-1.5 bg-white border border-sage/20 rounded text-xs font-bold text-slate">DISC</div>
-                            </div>
-                        </div>
-
-                        <div class="space-y-4">
-                            <div>
-                                <label class="block text-sm font-semibold text-forest mb-2">Card Number *</label>
-                                <input type="text" id="cardNumber" required maxlength="19"
-                                    class="w-full px-4 py-3 rounded-xl border-2 border-sage/30 focus:border-emerald focus:outline-none transition"
-                                    placeholder="1234 5678 9012 3456">
-                            </div>
-
-                            <div class="grid md:grid-cols-2 gap-4">
-                                <div>
-                                    <label class="block text-sm font-semibold text-forest mb-2">Expiration Date *</label>
-                                    <input type="text" id="expiry" required maxlength="5"
-                                        class="w-full px-4 py-3 rounded-xl border-2 border-sage/30 focus:border-emerald focus:outline-none transition"
-                                        placeholder="MM/YY">
-                                </div>
-                                <div>
-                                    <label class="block text-sm font-semibold text-forest mb-2">CVV *</label>
-                                    <input type="text" id="cvv" required maxlength="4"
-                                        class="w-full px-4 py-3 rounded-xl border-2 border-sage/30 focus:border-emerald focus:outline-none transition"
-                                        placeholder="123">
+                            <!-- Payment Method Logos -->
+                            <div class="flex items-center justify-center gap-3 pt-4 border-t border-emerald/20">
+                                <span class="text-xs text-slate font-medium">We accept:</span>
+                                <div class="flex items-center gap-2">
+                                    <div class="px-3 py-1.5 bg-white border border-sage/20 rounded text-xs font-bold text-slate">VISA</div>
+                                    <div class="px-3 py-1.5 bg-white border border-sage/20 rounded text-xs font-bold text-slate">MC</div>
+                                    <div class="px-3 py-1.5 bg-white border border-sage/20 rounded text-xs font-bold text-slate">AMEX</div>
+                                    <div class="px-3 py-1.5 bg-white border border-sage/20 rounded text-xs font-bold text-slate">DISC</div>
                                 </div>
                             </div>
+                            <p class="text-xs text-slate/70 mt-4">
+                                <svg class="w-4 h-4 inline text-emerald" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+                                </svg>
+                                256-bit SSL encryption & PCI compliant checkout
+                            </p>
                         </div>
                     </div>
 
@@ -505,8 +487,7 @@
         // Real-time validation with glowing borders
         const requiredFields = [
             'email', 'firstName', 'lastName', 'address',
-            'city', 'state', 'zipCode', 'phone',
-            'cardNumber', 'expiry', 'cvv'
+            'city', 'state', 'zipCode', 'phone'
         ];
 
         // Add blur event listeners for validation
@@ -566,37 +547,54 @@
                 return false;
             }
 
-            // If all valid, redirect to Shopify checkout
+            // If all valid, collect customer info and redirect to Shopify checkout
+            // Get form data
+            const email = document.getElementById('email').value;
+            const firstName = document.getElementById('firstName').value;
+            const lastName = document.getElementById('lastName').value;
+            const address = document.getElementById('address').value;
+            const apartment = document.getElementById('apartment').value;
+            const city = document.getElementById('city').value;
+            const state = document.getElementById('state').value;
+            const zipCode = document.getElementById('zipCode').value;
+            const phone = document.getElementById('phone').value;
+
             // Get cart data
             const cart = JSON.parse(localStorage.getItem('drBibiCart') || '[]');
             const SHOPIFY_DOMAIN = 'https://drbibiorganics.com';
             const SHOPIFY_VARIANT_ID = '50253534298387';
 
-            if (cart.length === 0) {
-                // No cart data, add default product
-                window.location.href = `${SHOPIFY_DOMAIN}/cart/${SHOPIFY_VARIANT_ID}:1`;
-            } else {
-                // Build cart URL from localStorage cart
-                const totalQuantity = cart.reduce((sum, item) => sum + item.quantity, 0);
-                window.location.href = `${SHOPIFY_DOMAIN}/cart/${SHOPIFY_VARIANT_ID}:${totalQuantity}`;
+            // Calculate quantity
+            let totalQuantity = 1;
+            if (cart.length > 0) {
+                totalQuantity = cart.reduce((sum, item) => sum + item.quantity, 0);
             }
+
+            // Add upsell if checked
+            const upsell1 = document.getElementById('upsell1').checked;
+            if (upsell1) {
+                totalQuantity += 1;
+            }
+
+            // Build Shopify checkout URL with pre-filled customer information
+            const checkoutParams = new URLSearchParams({
+                'checkout[email]': email,
+                'checkout[shipping_address][first_name]': firstName,
+                'checkout[shipping_address][last_name]': lastName,
+                'checkout[shipping_address][address1]': address,
+                'checkout[shipping_address][address2]': apartment,
+                'checkout[shipping_address][city]': city,
+                'checkout[shipping_address][province]': state,
+                'checkout[shipping_address][zip]': zipCode,
+                'checkout[shipping_address][country]': 'United States',
+                'checkout[shipping_address][phone]': phone
+            });
+
+            // Redirect to Shopify with cart and pre-filled customer info
+            const checkoutUrl = `${SHOPIFY_DOMAIN}/cart/${SHOPIFY_VARIANT_ID}:${totalQuantity}?${checkoutParams.toString()}`;
+            window.location.href = checkoutUrl;
         }
 
-        // Format card number with spaces
-        document.getElementById('cardNumber').addEventListener('input', function(e) {
-            let value = e.target.value.replace(/\s/g, '');
-            let formattedValue = value.match(/.{1,4}/g)?.join(' ') || value;
-            e.target.value = formattedValue;
-        });
-
-        // Format expiry date
-        document.getElementById('expiry').addEventListener('input', function(e) {
-            let value = e.target.value.replace(/\D/g, '');
-            if (value.length >= 2) {
-                value = value.slice(0, 2) + '/' + value.slice(2, 4);
-            }
-            e.target.value = value;
-        });
     </script>
 </body>
 </html>

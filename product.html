@@ -1155,7 +1155,7 @@
         // Checkout functionality
         const checkoutBtn = document.getElementById('checkoutBtn');
 
-        // Redirect directly to Shopify checkout (ACTIVE)
+        // Redirect to our checkout page (which then sends to Shopify with customer info)
         checkoutBtn.addEventListener('click', () => {
             const cart = getCart();
             if (cart.length === 0) {
@@ -1163,10 +1163,8 @@
                 return;
             }
 
-            const totalQuantity = cart.reduce((sum, item) => sum + item.quantity, 0);
-
-            // Redirect directly to Shopify with cart items
-            window.location.href = `${SHOPIFY_DOMAIN}/cart/${SHOPIFY_VARIANT_ID}:${totalQuantity}`;
+            // Redirect to our beautiful checkout page
+            window.location.href = 'checkout.html';
         });
 
         // Initialize cart display on page load
