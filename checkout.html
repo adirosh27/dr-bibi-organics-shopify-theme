@@ -566,8 +566,20 @@
                 return false;
             }
 
-            // If all valid, redirect to thank you page
-            window.location.href = 'thank-you.html';
+            // If all valid, redirect to Shopify checkout
+            // Get cart data
+            const cart = JSON.parse(localStorage.getItem('drBibiCart') || '[]');
+            const SHOPIFY_DOMAIN = 'https://drbibiorganics.com';
+            const SHOPIFY_VARIANT_ID = '50253534298387';
+
+            if (cart.length === 0) {
+                // No cart data, add default product
+                window.location.href = `${SHOPIFY_DOMAIN}/cart/${SHOPIFY_VARIANT_ID}:1`;
+            } else {
+                // Build cart URL from localStorage cart
+                const totalQuantity = cart.reduce((sum, item) => sum + item.quantity, 0);
+                window.location.href = `${SHOPIFY_DOMAIN}/cart/${SHOPIFY_VARIANT_ID}:${totalQuantity}`;
+            }
         }
 
         // Format card number with spaces

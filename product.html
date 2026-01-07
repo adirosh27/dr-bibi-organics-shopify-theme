@@ -1155,20 +1155,7 @@
         // Checkout functionality
         const checkoutBtn = document.getElementById('checkoutBtn');
 
-        checkoutBtn.addEventListener('click', () => {
-            const cart = getCart();
-
-            if (cart.length === 0) {
-                alert('Your cart is empty');
-                return;
-            }
-
-            // Redirect to our checkout page
-            window.location.href = 'checkout.html';
-        });
-
-        // Alternative: Direct URL method (comment out above and use this if preferred)
-        /*
+        // Redirect directly to Shopify checkout (ACTIVE)
         checkoutBtn.addEventListener('click', () => {
             const cart = getCart();
             if (cart.length === 0) {
@@ -1181,7 +1168,6 @@
             // Redirect directly to Shopify with cart items
             window.location.href = `${SHOPIFY_DOMAIN}/cart/${SHOPIFY_VARIANT_ID}:${totalQuantity}`;
         });
-        */
 
         // Initialize cart display on page load
         document.addEventListener('DOMContentLoaded', () => {
