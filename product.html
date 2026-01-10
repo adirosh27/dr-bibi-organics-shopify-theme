@@ -345,13 +345,41 @@
                         <div class="aspect-square bg-sage/20 rounded-2xl overflow-hidden mb-4 relative">
                             <img src="https://drbibiorganics.com/cdn/shop/files/Chloe_s_Butter_Oasis_Story.jpg?v=1764336758&width=1200"
                                  alt="Butter Oasis Moisturizing Balm - 4oz jar"
-                                 class="w-full h-full object-cover"
+                                 class="w-full h-full object-cover transition-all duration-300"
                                  loading="eager"
                                  id="mainProductImage">
                             <!-- Best Seller Badge -->
                             <div class="absolute top-4 left-4 bg-gold text-white px-4 py-2 rounded-full text-sm font-semibold shadow-lg">
                                 🏆 Best Seller
                             </div>
+                        </div>
+
+                        <!-- Image Thumbnails Gallery -->
+                        <div class="grid grid-cols-4 gap-3">
+                            <button onclick="changeProductImage('https://drbibiorganics.com/cdn/shop/files/Chloe_s_Butter_Oasis_Story.jpg?v=1764336758&width=800', this)"
+                                    class="aspect-square bg-sage/20 rounded-lg overflow-hidden border-2 border-emerald cursor-pointer hover:border-gold transition-all">
+                                <img src="https://drbibiorganics.com/cdn/shop/files/Chloe_s_Butter_Oasis_Story.jpg?v=1764336758&width=200"
+                                     alt="Product view 1"
+                                     class="w-full h-full object-cover">
+                            </button>
+                            <button onclick="changeProductImage('https://drbibiorganics.com/cdn/shop/files/BibiButterproduct_002.jpg?v=1732747253&width=800', this)"
+                                    class="aspect-square bg-sage/20 rounded-lg overflow-hidden border-2 border-transparent cursor-pointer hover:border-gold transition-all">
+                                <img src="https://drbibiorganics.com/cdn/shop/files/BibiButterproduct_002.jpg?v=1732747253&width=200"
+                                     alt="Product view 2"
+                                     class="w-full h-full object-cover">
+                            </button>
+                            <button onclick="changeProductImage('https://drbibiorganics.com/cdn/shop/files/butter.jpg?v=1732747253&width=800', this)"
+                                    class="aspect-square bg-sage/20 rounded-lg overflow-hidden border-2 border-transparent cursor-pointer hover:border-gold transition-all">
+                                <img src="https://drbibiorganics.com/cdn/shop/files/butter.jpg?v=1732747253&width=200"
+                                     alt="Product view 3"
+                                     class="w-full h-full object-cover">
+                            </button>
+                            <button onclick="changeProductImage('https://drbibiorganics.com/cdn/shop/files/Bibi_logo-Venmo_007d67d2-4cab-4b38-8401-9114d5c90045.png?v=1732747253&width=800', this)"
+                                    class="aspect-square bg-white rounded-lg overflow-hidden border-2 border-transparent cursor-pointer hover:border-gold transition-all p-4">
+                                <img src="https://drbibiorganics.com/cdn/shop/files/Bibi_logo-Venmo_007d67d2-4cab-4b38-8401-9114d5c90045.png?v=1732747253&width=200"
+                                     alt="Brand logo"
+                                     class="w-full h-full object-contain">
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -487,7 +515,7 @@
                         </div>
                         <div class="bg-sage/20 p-4 rounded-xl">
                             <p class="text-2xl mb-1">🔒</p>
-                            <p class="text-xs font-medium text-charcoal">30-Day Guarantee</p>
+                            <p class="text-xs font-medium text-charcoal">60-Day Guarantee</p>
                         </div>
                         <div class="bg-sage/20 p-4 rounded-xl">
                             <p class="text-2xl mb-1">⚡</p>
@@ -496,10 +524,38 @@
                     </div>
 
                     <!-- Additional Info -->
-                    <div class="text-sm text-charcoal/60 space-y-1">
+                    <div class="text-sm text-charcoal/60 space-y-1 mb-6">
                         <p>✓ Small-batch handcrafted in the USA</p>
                         <p>✓ Cruelty-free & recyclable packaging</p>
                         <p>✓ Direct trade African-sourced ingredients</p>
+                    </div>
+
+                    <!-- Payment Methods Accepted -->
+                    <div class="border-t border-sage/30 pt-6">
+                        <p class="text-xs text-slate/70 text-center mb-3 font-medium">Secure payment methods:</p>
+                        <div class="flex items-center justify-center gap-2 flex-wrap">
+                            <div class="px-3 py-1.5 bg-white border border-sage/30 rounded-lg shadow-sm">
+                                <span class="text-xs font-bold" style="color: #1A1F71;">VISA</span>
+                            </div>
+                            <div class="px-3 py-1.5 bg-white border border-sage/30 rounded-lg shadow-sm">
+                                <span class="text-xs font-bold" style="color: #EB001B;">MC</span>
+                            </div>
+                            <div class="px-3 py-1.5 bg-white border border-sage/30 rounded-lg shadow-sm">
+                                <span class="text-xs font-bold" style="color: #006FCF;">AMEX</span>
+                            </div>
+                            <div class="px-3 py-1.5 bg-white border border-sage/30 rounded-lg shadow-sm">
+                                <span class="text-xs font-bold" style="color: #FF6000;">Disc</span>
+                            </div>
+                            <div class="px-2 py-1.5 bg-black border border-black rounded-lg shadow-sm">
+                                <span class="text-xs font-bold text-white">Apple Pay</span>
+                            </div>
+                            <div class="px-3 py-1.5 bg-white border border-sage/30 rounded-lg shadow-sm">
+                                <span class="text-xs font-bold" style="color: #5F6368;">G Pay</span>
+                            </div>
+                            <div class="px-3 py-1.5 bg-white border border-sage/30 rounded-lg shadow-sm">
+                                <span class="text-xs font-bold" style="color: #5469D4;">Shop Pay</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -1017,7 +1073,7 @@
                 </div>
                 <div class="bg-white/10 backdrop-blur-sm p-6 rounded-xl">
                     <p class="text-3xl mb-2">💚</p>
-                    <p class="font-semibold mb-1">30-Day Returns</p>
+                    <p class="font-semibold mb-1">60-Day Returns</p>
                     <p class="text-sm text-white/70">Full satisfaction guaranteed</p>
                 </div>
             </div>
@@ -1471,6 +1527,25 @@
 
             updateCountdown();
             setInterval(updateCountdown, 60000); // Update every minute
+        }
+
+        // Product Image Gallery
+        function changeProductImage(imageUrl, thumbnailButton) {
+            const mainImage = document.getElementById('mainProductImage');
+
+            // Update main image
+            mainImage.src = imageUrl;
+
+            // Update thumbnail borders
+            const allThumbnails = thumbnailButton.parentElement.querySelectorAll('button');
+            allThumbnails.forEach(btn => {
+                btn.classList.remove('border-emerald');
+                btn.classList.add('border-transparent');
+            });
+
+            // Highlight selected thumbnail
+            thumbnailButton.classList.remove('border-transparent');
+            thumbnailButton.classList.add('border-emerald');
         }
 
         // Initialize all urgency elements
