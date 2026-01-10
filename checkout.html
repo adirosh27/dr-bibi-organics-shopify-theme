@@ -603,5 +603,44 @@
         }
 
     </script>
+
+    <!-- Tawk.to Live Chat Widget -->
+    <!-- To activate: Sign up FREE at https://www.tawk.to and replace YOUR_PROPERTY_ID below -->
+    <script type="text/javascript">
+        var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+        (function(){
+            var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+            s1.async=true;
+            s1.src='https://embed.tawk.to/YOUR_PROPERTY_ID/default';
+            s1.charset='UTF-8';
+            s1.setAttribute('crossorigin','*');
+            s0.parentNode.insertBefore(s1,s0);
+        })();
+
+        // Customize chat widget appearance to match brand
+        Tawk_API.onLoad = function(){
+            Tawk_API.setAttributes({
+                'name'  : 'Dr. Bibi Organics Support',
+                'email' : 'support@drbibiorganics.com'
+            }, function(error){});
+
+            // Brand colors for chat widget
+            Tawk_API.customStyle = {
+                visibility : {
+                    desktop : {
+                        position : 'br', // bottom-right
+                        xOffset : 20,
+                        yOffset : 20
+                    },
+                    mobile : {
+                        position : 'br',
+                        xOffset : 10,
+                        yOffset : 10
+                    }
+                }
+            };
+        };
+    </script>
+
 </body>
 </html>
