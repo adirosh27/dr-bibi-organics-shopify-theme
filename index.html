@@ -111,7 +111,7 @@
             z-index: 100;
         }
 
-        .dropdown:hover .dropdown-menu {
+        .dropdown-menu.show {
             display: block;
         }
 
@@ -251,6 +251,29 @@
             if (e.key === 'Enter') {
                 performSearch();
             }
+        });
+
+        // Improved dropdown behavior with delay
+        document.addEventListener('DOMContentLoaded', function() {
+            const dropdowns = document.querySelectorAll('.dropdown');
+
+            dropdowns.forEach(dropdown => {
+                let closeTimer;
+                const menu = dropdown.querySelector('.dropdown-menu');
+
+                // Show dropdown on mouse enter
+                dropdown.addEventListener('mouseenter', function() {
+                    clearTimeout(closeTimer);
+                    menu.classList.add('show');
+                });
+
+                // Delay closing dropdown on mouse leave
+                dropdown.addEventListener('mouseleave', function() {
+                    closeTimer = setTimeout(() => {
+                        menu.classList.remove('show');
+                    }, 300); // 300ms delay before closing
+                });
+            });
         });
     </script>
 
