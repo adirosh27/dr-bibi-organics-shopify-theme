@@ -1,0 +1,9 @@
+{
+  "sections": {
+    "main": {
+      "type": "product-butter-oasis-inline",
+      "settings": {}
+    }
+  },
+  "order": ["main"]
+}

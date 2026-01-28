@@ -1,0 +1,175 @@
+/* Dr. Bibi Organics - Butter Oasis Custom Styles */
+
+/* Color Variables */
+:root {
+  --color-ivory: #FFFEF9;
+  --color-pearl: #F5F3ED;
+  --color-sage: #E8EDE7;
+  --color-mint: #C8E5D3;
+  --color-emerald: #2D5F4C;
+  --color-forest: #1A3A2E;
+  --color-gold: #D4AF37;
+  --color-bronze: #B08968;
+  --color-charcoal: #1F1F1F;
+  --color-slate: #475569;
+}
+
+/* Typography */
+.font-display {
+  font-family: 'Playfair Display', serif;
+}
+
+.font-sans {
+  font-family: 'Jost', sans-serif;
+}
+
+/* Custom Product Page Styles */
+.butter-oasis-page {
+  font-family: 'Jost', sans-serif;
+  background-color: var(--color-ivory);
+  color: var(--color-charcoal);
+}
+
+.butter-oasis-page h1,
+.butter-oasis-page h2,
+.butter-oasis-page h3,
+.butter-oasis-page h4 {
+  font-family: 'Playfair Display', serif;
+}
+
+/* Gradient backgrounds */
+.bg-emerald-forest {
+  background: linear-gradient(to right, var(--color-emerald), var(--color-forest));
+}
+
+/* Trust strip */
+.trust-strip {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  padding: 0.75rem 0;
+  border-top: 1px solid rgba(232, 237, 231, 0.5);
+  border-bottom: 1px solid rgba(232, 237, 231, 0.5);
+  font-size: 0.875rem;
+  color: rgba(31, 31, 31, 0.7);
+}
+
+.trust-strip svg {
+  width: 1rem;
+  height: 1rem;
+  color: var(--color-emerald);
+}
+
+/* Review snippets */
+.review-snippet {
+  background: rgba(251, 243, 219, 0.5);
+  border: 1px solid rgba(251, 191, 36, 0.2);
+  border-radius: 0.5rem;
+  padding: 0.75rem;
+}
+
+.review-snippet .stars {
+  color: #f59e0b;
+  font-size: 0.75rem;
+}
+
+/* Buy box */
+.buy-box {
+  background: white;
+  border: 2px solid rgba(184, 150, 104, 0.2);
+  border-radius: 1rem;
+  padding: 1.5rem;
+}
+
+/* CTA Button */
+.btn-cta {
+  width: 100%;
+  background: linear-gradient(to right, var(--color-emerald), var(--color-forest));
+  color: white;
+  padding: 1rem 2rem;
+  border-radius: 9999px;
+  font-weight: 600;
+  font-size: 1rem;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+}
+
+.btn-cta:hover {
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+  transform: translateY(-1px);
+}
+
+/* FAQ Accordion */
+.faq-item {
+  background: rgba(232, 237, 231, 0.3);
+  border-radius: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.faq-item summary {
+  padding: 1.5rem;
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: 600;
+}
+
+.faq-item summary::-webkit-details-marker {
+  display: none;
+}
+
+.faq-item[open] summary svg {
+  transform: rotate(180deg);
+}
+
+.faq-item .faq-answer {
+  padding: 0 1.5rem 1.5rem;
+  color: rgba(31, 31, 31, 0.7);
+}
+
+/* Guarantee section */
+.guarantee-section {
+  background: linear-gradient(to right, var(--color-emerald), var(--color-forest));
+  color: white;
+  padding: 4rem 1.5rem;
+  text-align: center;
+}
+
+/* Key benefits box */
+.benefits-box {
+  background: rgba(245, 243, 237, 0.7);
+  padding: 1.5rem;
+  border-radius: 0.75rem;
+  border: 1px solid rgba(45, 95, 76, 0.1);
+}
+
+/* Texture callout */
+.texture-callout {
+  font-size: 0.75rem;
+  color: rgba(31, 31, 31, 0.6);
+  text-align: center;
+  margin-bottom: 0.75rem;
+}
+
+/* Animations */
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .trust-strip {
+    gap: 0.75rem 1rem;
+  }
+}

@@ -1,0 +1,615 @@
+{% comment %}
+  Custom Homepage for Dr. Bibi Organics
+
+  SETUP:
+  1. Upload this file to: sections/homepage-custom.liquid
+  2. Update templates/index.json to use this section
+  3. Upload video and images to Shopify Files
+{% endcomment %}
+
+{%- style -%}
+@keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+}
+
+.animate-float {
+    animation: float 3s ease-in-out infinite;
+}
+
+/* Hero heading responsive size */
+@media (min-width: 1024px) {
+    .drb-hero-heading {
+        font-size: 96px !important;
+    }
+}
+
+.shine {
+    position: relative;
+    overflow: hidden;
+}
+
+.shine::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+    transition: left 0.5s;
+}
+
+.shine:hover::before {
+    left: 100%;
+}
+{%- endstyle -%}
+
+<!-- Hero Section -->
+<section class="pt-28 pb-12 lg:pt-32 lg:pb-16 bg-gradient-to-br from-pearl via-ivory to-sage relative overflow-hidden">
+    <div class="absolute top-20 right-0 w-96 h-96 bg-mint/20 rounded-full blur-3xl"></div>
+    <div class="absolute bottom-0 left-0 w-80 h-80 bg-emerald/10 rounded-full blur-3xl"></div>
+    <div class="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
+        <div class="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+            <div class="order-2 lg:order-1">
+                <div class="inline-flex items-center gap-2 bg-gradient-to-r from-gold/20 to-emerald/20 backdrop-blur-sm px-5 py-2 rounded-full text-xs font-semibold mb-6 border border-gold/30">
+                    <span class="text-gold">★★★★★</span>
+                    <span class="text-emerald">5.0 from verified customers</span>
+                </div>
+                <h1 class="drb-hero-heading" style="font-family: 'Playfair Display', Georgia, serif; font-size: 48px; font-weight: 700; line-height: 0.95; margin-bottom: 24px; color: #1A3A2E;">
+                    Deep Healing.
+                    <span style="display: block; color: #2D5F4C; font-style: italic; margin-top: 8px;">Pure Nature.</span>
+                </h1>
+                <p class="text-lg lg:text-2xl text-slate/80 mb-10 leading-relaxed max-w-xl font-light">
+                    When ordinary moisturizers fail, our <span class="font-semibold text-emerald">skin-loving</span> Butter Oasis Balm delivers transformative relief. Just 3 pure African ingredients.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-5 mb-12">
+                    <a href="/products/butter-oasis-balm" class="group inline-flex items-center justify-center bg-gradient-to-r from-emerald to-forest text-white px-6 py-3 sm:px-10 sm:py-5 rounded-full text-base sm:text-lg font-bold hover:shadow-2xl hover:scale-105 transition-all duration-300 shine">
+                        Shop Butter Oasis
+                        <svg class="w-5 h-5 sm:w-6 sm:h-6 ml-2 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+                        </svg>
+                    </a>
+                    <a href="#story" class="inline-flex items-center justify-center border-2 border-emerald text-emerald px-6 py-3 sm:px-10 sm:py-5 rounded-full text-base sm:text-lg font-semibold hover:bg-emerald hover:text-white transition-all duration-300">
+                        Our Story
+                    </a>
+                </div>
+                <div class="grid grid-cols-3 gap-6 pt-8">
+                    <div class="text-center lg:text-left">
+                        <p class="text-4xl font-display font-bold text-emerald mb-2">24hr+</p>
+                        <p class="text-sm text-slate font-medium">Deep Hydration</p>
+                    </div>
+                    <div class="text-center lg:text-left">
+                        <p class="text-4xl font-display font-bold text-gold mb-2">3</p>
+                        <p class="text-sm text-slate font-medium">Pure Ingredients</p>
+                    </div>
+                    <div class="text-center lg:text-left">
+                        <p class="text-4xl font-display font-bold text-forest mb-2">0</p>
+                        <p class="text-sm text-slate font-medium">Harsh Chemicals</p>
+                    </div>
+                </div>
+            </div>
+            <div class="order-1 lg:order-2 relative">
+                <div class="relative animate-float">
+                    <div class="absolute -z-10 inset-0 bg-gradient-to-br from-emerald/20 to-gold/20 rounded-full blur-3xl transform scale-110"></div>
+                    <div class="aspect-square bg-gradient-to-br from-sage to-pearl rounded-3xl overflow-hidden shadow-2xl ring-1 ring-emerald/10">
+                        {% if section.settings.hero_video != blank %}
+                        <video autoplay loop muted playsinline preload="auto" class="w-full h-full object-cover">
+                            <source src="{{ section.settings.hero_video }}" type="video/mp4">
+                        </video>
+                        {% elsif section.settings.hero_image != blank %}
+                        <img src="{{ section.settings.hero_image | image_url: width: 800 }}" alt="Butter Oasis Balm" class="w-full h-full object-cover">
+                        {% else %}
+                        <img src="https://drbibiorganics.com/cdn/shop/files/Chloe_s_Butter_Oasis_Story.jpg?v=1764336758&width=800" alt="Butter Oasis Balm" class="w-full h-full object-cover">
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Trust Badges Section -->
+<section class="py-10 bg-white border-y border-sage/20">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <div class="flex flex-col items-center text-center">
+                <div class="w-16 h-16 bg-gradient-to-br from-emerald/10 to-sage/10 rounded-full flex items-center justify-center mb-4">
+                    <svg class="w-8 h-8 text-emerald" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16V6a1 1 0 00-1-1H4a1 1 0 00-1 1v10a1 1 0 001 1h1m8-1a1 1 0 01-1 1H9m4-1V8a1 1 0 011-1h2.586a1 1 0 01.707.293l3.414 3.414a1 1 0 01.293.707V16a1 1 0 01-1 1h-1m-6-1a1 1 0 001 1h1M5 17a2 2 0 104 0m-4 0a2 2 0 114 0m6 0a2 2 0 104 0m-4 0a2 2 0 114 0"/>
+                    </svg>
+                </div>
+                <h4 class="text-lg font-semibold text-forest mb-2">Free Shipping</h4>
+                <p class="text-sm text-slate/70">All orders ship free. Expedited available.</p>
+            </div>
+            <div class="flex flex-col items-center text-center">
+                <div class="w-16 h-16 bg-gradient-to-br from-emerald/10 to-sage/10 rounded-full flex items-center justify-center mb-4">
+                    <svg class="w-8 h-8 text-emerald" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"/>
+                    </svg>
+                </div>
+                <h4 class="text-lg font-semibold text-forest mb-2">Secure Payments</h4>
+                <p class="text-sm text-slate/70">Our customers can pay securely through our website</p>
+            </div>
+            <div class="flex flex-col items-center text-center">
+                <div class="w-16 h-16 bg-gradient-to-br from-emerald/10 to-sage/10 rounded-full flex items-center justify-center mb-4">
+                    <svg class="w-8 h-8 text-emerald" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/>
+                    </svg>
+                </div>
+                <h4 class="text-lg font-semibold text-forest mb-2">Customer Support</h4>
+                <p class="text-sm text-slate/70">We are available 24/7 for our customers</p>
+            </div>
+            <div class="flex flex-col items-center text-center">
+                <div class="w-16 h-16 bg-gradient-to-br from-gold/10 to-bronze/10 rounded-full flex items-center justify-center mb-4">
+                    <svg class="w-8 h-8 text-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
+                    </svg>
+                </div>
+                <h4 class="text-lg font-semibold text-forest mb-2">30-Day Guarantee</h4>
+                <p class="text-sm text-slate/70">Love it or your money back. Risk-free.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Benefits Section -->
+<section id="benefits" class="py-12 lg:py-20 bg-white relative">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+        <div class="text-center mb-10">
+            <h2 class="text-3xl lg:text-5xl font-display font-light mb-4 text-forest leading-tight">
+                Transformative benefits you can <span class="italic font-bold">see and feel</span>
+            </h2>
+            <p class="text-xl text-slate/80 max-w-2xl mx-auto font-light">
+                Pure ingredients working in harmony to nourish, protect, and restore your skin's natural vitality.
+            </p>
+        </div>
+
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div class="group bg-gradient-to-br from-sage/20 to-mint/20 p-10 rounded-3xl border border-emerald/10 hover:border-emerald/30 hover:shadow-2xl transition-all duration-300">
+                <div class="w-16 h-16 bg-gradient-to-br from-emerald to-forest rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                    <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                    </svg>
+                </div>
+                <h3 class="text-2xl font-display font-semibold mb-4 text-forest">24-Hour Deep Hydration</h3>
+                <p class="text-slate/80 leading-relaxed">
+                    Shea butter penetrates beyond the surface, locking in moisture at the cellular level for all-day comfort and suppleness.
+                </p>
+            </div>
+
+            <div class="group bg-gradient-to-br from-sage/20 to-mint/20 p-10 rounded-3xl border border-emerald/10 hover:border-emerald/30 hover:shadow-2xl transition-all duration-300">
+                <div class="w-16 h-16 bg-gradient-to-br from-emerald to-forest rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                    <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
+                    </svg>
+                </div>
+                <h3 class="text-2xl font-display font-semibold mb-4 text-forest">Repairs Damaged Skin Barrier</h3>
+                <p class="text-slate/80 leading-relaxed">
+                    Essential fatty acids rebuild your skin's protective barrier, healing cracks, rough patches, and chronic dryness at the source.
+                </p>
+            </div>
+
+            <div class="group bg-gradient-to-br from-sage/20 to-mint/20 p-10 rounded-3xl border border-emerald/10 hover:border-emerald/30 hover:shadow-2xl transition-all duration-300">
+                <div class="w-16 h-16 bg-gradient-to-br from-emerald to-forest rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                    <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707"/>
+                    </svg>
+                </div>
+                <h3 class="text-2xl font-display font-semibold mb-4 text-forest">Powerful Antioxidant Protection</h3>
+                <p class="text-slate/80 leading-relaxed">
+                    Vitamins A, E, and F combat environmental damage, reduce inflammation, and protect against premature aging.
+                </p>
+            </div>
+
+            <div class="group bg-gradient-to-br from-sage/20 to-mint/20 p-10 rounded-3xl border border-emerald/10 hover:border-emerald/30 hover:shadow-2xl transition-all duration-300">
+                <div class="w-16 h-16 bg-gradient-to-br from-emerald to-forest rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                    <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"/>
+                    </svg>
+                </div>
+                <h3 class="text-2xl font-display font-semibold mb-4 text-forest">Soothes Sensitive Skin</h3>
+                <p class="text-slate/80 leading-relaxed">
+                    Gentle enough for dry, irritated skin and reactive skin. Non-comedogenic formula won't clog pores or cause breakouts.
+                </p>
+            </div>
+
+            <div class="group bg-gradient-to-br from-sage/20 to-mint/20 p-10 rounded-3xl border border-emerald/10 hover:border-emerald/30 hover:shadow-2xl transition-all duration-300">
+                <div class="w-16 h-16 bg-gradient-to-br from-emerald to-forest rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                    <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"/>
+                    </svg>
+                </div>
+                <h3 class="text-2xl font-display font-semibold mb-4 text-forest">Visibly Improves Texture & Tone</h3>
+                <p class="text-slate/80 leading-relaxed">
+                    Softens fine lines, evens skin tone, and restores youthful radiance. See visible improvement in just 7 days.
+                </p>
+            </div>
+
+            <div class="group bg-gradient-to-br from-sage/20 to-mint/20 p-10 rounded-3xl border border-emerald/10 hover:border-emerald/30 hover:shadow-2xl transition-all duration-300">
+                <div class="w-16 h-16 bg-gradient-to-br from-emerald to-forest rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                    <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064"/>
+                    </svg>
+                </div>
+                <h3 class="text-2xl font-display font-semibold mb-4 text-forest">Safe for the Whole Family</h3>
+                <p class="text-slate/80 leading-relaxed">
+                    From babies to grandparents. Safe during pregnancy and nursing. Multi-purpose formula works on face, hands, body, and feet.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- YouTube Feature Section -->
+<section class="py-12 lg:py-16 bg-gradient-to-r from-charcoal via-forest to-charcoal text-white relative overflow-hidden">
+    <div class="absolute inset-0 opacity-10">
+        <div class="absolute top-0 right-1/4 w-96 h-96 bg-red-600 rounded-full blur-3xl"></div>
+        <div class="absolute bottom-0 left-1/4 w-80 h-80 bg-gold rounded-full blur-3xl"></div>
+    </div>
+
+    <div class="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
+        <div class="grid lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+            <div class="lg:col-span-7">
+                <div class="inline-flex items-center gap-2 bg-red-600/20 backdrop-blur-sm px-4 py-2 rounded-full text-sm font-semibold mb-4 border border-red-500/30">
+                    <svg class="w-4 h-4 text-red-500" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+                    </svg>
+                    <span class="text-red-500">Featured on YouTube</span>
+                </div>
+                <h2 class="text-3xl lg:text-5xl font-display font-light mb-4 leading-tight">
+                    Expert advice from <span class="italic font-bold">The Rogue Dermatologist</span>
+                </h2>
+                <p class="text-xl text-white/90 mb-8 leading-relaxed">
+                    Dr. Bibi shares science-backed skincare tips, natural ingredient breakdowns, and real dermatology Q&A. Subscribe for weekly expert content.
+                </p>
+                <a href="https://www.youtube.com/@theroguedermatologist?sub_confirmation=1" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center gap-2 bg-red-600 hover:bg-red-700 text-white px-8 py-4 rounded-full text-lg font-bold transition-all shadow-2xl hover:shadow-3xl hover:scale-105">
+                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+                    </svg>
+                    Subscribe Now
+                </a>
+            </div>
+
+            <div class="lg:col-span-5">
+                <a href="https://www.youtube.com/shorts/nxByXKdYTJc" target="_blank" rel="noopener noreferrer" class="block group">
+                    <div class="relative bg-black rounded-2xl overflow-hidden shadow-2xl hover:shadow-3xl transition-all duration-300 max-w-sm mx-auto">
+                        <div class="relative" style="padding-bottom: 177.78%;">
+                            <img src="https://i.ytimg.com/vi/nxByXKdYTJc/hqdefault.jpg" alt="The Rogue Dermatologist - Skincare Tips" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent flex items-center justify-center">
+                                <div class="w-16 h-16 bg-red-600 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform shadow-2xl">
+                                    <svg class="w-7 h-7 text-white ml-1" fill="currentColor" viewBox="0 0 24 24">
+                                        <path d="M8 5v14l11-7z"/>
+                                    </svg>
+                                </div>
+                            </div>
+                            <div class="absolute top-3 left-3 bg-red-600 text-white px-2.5 py-1 rounded-md text-xs font-bold">
+                                Shorts
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Results Section -->
+<section class="py-12 lg:py-20 bg-gradient-to-br from-forest via-emerald to-forest text-white relative overflow-hidden">
+    <div class="absolute top-0 right-0 w-96 h-96 bg-gold/20 rounded-full blur-3xl"></div>
+    <div class="absolute bottom-0 left-0 w-80 h-80 bg-mint/10 rounded-full blur-3xl"></div>
+    <div class="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
+        <div class="text-center mb-10">
+            <h2 class="text-3xl lg:text-5xl font-display font-light mb-4 leading-tight">
+                Real results. <span class="italic font-bold">Real people.</span>
+            </h2>
+            <p class="text-lg text-white/90 max-w-2xl mx-auto font-light">
+                See the transformative power of pure ingredients in just 7-14 days.
+            </p>
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-6 mb-8">
+            <div class="bg-white/10 backdrop-blur-md p-8 rounded-3xl border border-white/20 hover:bg-white/15 transition-all">
+                <h3 class="font-display font-semibold text-xl mb-2 text-white">Cracked Hands Healed</h3>
+                <p class="text-white/80 text-sm mb-4">After just 10 days of twice-daily use</p>
+                <div class="flex items-center gap-1 text-gold text-base">★★★★★</div>
+            </div>
+            <div class="bg-white/10 backdrop-blur-md p-8 rounded-3xl border border-white/20 hover:bg-white/15 transition-all">
+                <h3 class="font-display font-semibold text-xl mb-2 text-white">Rough Patches Softened</h3>
+                <p class="text-white/80 text-sm mb-4">Elbows and knees visibly improved in 7 days</p>
+                <div class="flex items-center gap-1 text-gold text-base">★★★★★</div>
+            </div>
+            <div class="bg-white/10 backdrop-blur-md p-8 rounded-3xl border border-white/20 hover:bg-white/15 transition-all">
+                <h3 class="font-display font-semibold text-xl mb-2 text-white">Radiant Glow Restored</h3>
+                <p class="text-white/80 text-sm mb-4">Mature skin regains youthful luminosity</p>
+                <div class="flex items-center gap-1 text-gold text-base">★★★★★</div>
+            </div>
+        </div>
+
+        <div class="text-center">
+            <a href="/products/butter-oasis-balm" class="inline-flex items-center justify-center bg-white text-forest px-6 py-3 sm:px-10 sm:py-5 rounded-full text-sm sm:text-lg font-bold hover:bg-gold hover:text-charcoal transition-all shadow-2xl shine">
+                <span class="hidden sm:inline">Experience the Transformation</span>
+                <span class="sm:hidden">Get Started</span>
+                <svg class="w-5 h-5 sm:w-6 sm:h-6 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+                </svg>
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- Testimonials Section -->
+<section id="reviews" class="py-12 lg:py-20 bg-gradient-to-b from-pearl to-ivory">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+        <div class="text-center mb-10">
+            <div class="inline-flex items-center gap-2 bg-gradient-to-r from-gold/20 to-emerald/20 backdrop-blur-sm text-emerald px-6 py-3 rounded-full text-sm font-semibold mb-4 border border-gold/30">
+                <span class="text-gold">★★★★★</span>
+                <span>Rated 5.0 by verified customers</span>
+            </div>
+            <h2 class="text-3xl lg:text-5xl font-display font-light mb-4 text-forest leading-tight">
+                Trusted by <span class="italic font-bold">thousands</span>
+            </h2>
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-6 mb-8">
+            <div class="bg-white/80 backdrop-blur-sm p-10 rounded-3xl border border-emerald/10 shadow-lg hover:shadow-2xl hover:scale-105 transition-all duration-300">
+                <div class="flex items-center gap-1 text-gold mb-6 text-lg">★★★★★</div>
+                <p class="text-slate/90 leading-relaxed mb-8 italic text-lg">
+                    "I've tried everything for my dry, irritated skin. This is the only product that actually works. My skin has never felt better."
+                </p>
+                <div class="flex items-center gap-4">
+                    <div class="w-14 h-14 bg-gradient-to-br from-emerald to-forest rounded-full flex items-center justify-center font-display font-bold text-white text-lg">JM</div>
+                    <div>
+                        <p class="font-bold text-forest">Jennifer M., 52</p>
+                        <p class="text-sm text-slate/70">Verified Customer</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white/80 backdrop-blur-sm p-10 rounded-3xl border border-emerald/10 shadow-lg hover:shadow-2xl hover:scale-105 transition-all duration-300">
+                <div class="flex items-center gap-1 text-gold mb-6 text-lg">★★★★★</div>
+                <p class="text-slate/90 leading-relaxed mb-8 italic text-lg">
+                    "As a nurse, my hands were destroyed. This balm healed years of damage in just two weeks. Absolutely life-changing."
+                </p>
+                <div class="flex items-center gap-4">
+                    <div class="w-14 h-14 bg-gradient-to-br from-emerald to-forest rounded-full flex items-center justify-center font-display font-bold text-white text-lg">SK</div>
+                    <div>
+                        <p class="font-bold text-forest">Sarah K., 38</p>
+                        <p class="text-sm text-slate/70">ICU Nurse</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white/80 backdrop-blur-sm p-10 rounded-3xl border border-emerald/10 shadow-lg hover:shadow-2xl hover:scale-105 transition-all duration-300">
+                <div class="flex items-center gap-1 text-gold mb-6 text-lg">★★★★★</div>
+                <p class="text-slate/90 leading-relaxed mb-8 italic text-lg">
+                    "Finally, a product that's safe for my baby's sensitive skin and powerful enough for my sun-damaged face. One jar does it all."
+                </p>
+                <div class="flex items-center gap-4">
+                    <div class="w-14 h-14 bg-gradient-to-br from-emerald to-forest rounded-full flex items-center justify-center font-display font-bold text-white text-lg">ML</div>
+                    <div>
+                        <p class="font-bold text-forest">Maria L., 45</p>
+                        <p class="text-sm text-slate/70">Mother of Two</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Founder Story Section -->
+<section id="story" class="py-12 lg:py-20 bg-white relative overflow-hidden scroll-mt-20">
+    <div class="absolute top-0 right-0 w-96 h-96 bg-sage/20 rounded-full blur-3xl"></div>
+    <div class="max-w-6xl mx-auto px-6 lg:px-8 relative z-10">
+        <div class="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+            <div class="order-2 lg:order-1">
+                <div class="aspect-[4/5] bg-gradient-to-br from-sage to-mint rounded-3xl overflow-hidden shadow-2xl ring-1 ring-emerald/10">
+                    {% if section.settings.founder_image != blank %}
+                    <img src="{{ section.settings.founder_image | image_url: width: 800 }}" alt="Dr. Yuval Bibi - Founder" class="w-full h-full object-cover" loading="lazy">
+                    {% else %}
+                    <img src="https://drbibiorganics.com/cdn/shop/files/dr-bibi-founder.jpg" alt="Dr. Yuval Bibi - Founder" class="w-full h-full object-cover" loading="lazy">
+                    {% endif %}
+                </div>
+            </div>
+            <div class="order-1 lg:order-2">
+                <div class="mb-8">
+                    <p class="text-sm font-bold text-gold mb-3 uppercase tracking-widest">Meet Dr. Yuval Bibi</p>
+                    <h2 class="text-4xl lg:text-6xl font-display font-light mb-4 text-forest leading-tight">
+                        The Man Behind <span class="italic font-bold">Your Skin's New Best Friend</span>
+                    </h2>
+                </div>
+
+                <div class="space-y-5 text-slate/80 leading-relaxed">
+                    <p class="text-xl text-forest font-medium">
+                        Sometimes the most powerful solutions are the simplest ones.
+                    </p>
+                    <p>
+                        After years of watching patients struggle with complicated skincare routines that promised everything and delivered disappointment, I knew there had to be a better way.
+                    </p>
+                    <p class="font-semibold text-emerald">
+                        Three ingredients. That's all.
+                    </p>
+                    <p>
+                        No water to dilute their power. No synthetic fillers to pad the formula. No fragrances to mask the purity. Just pure concentrations of nature's most effective skin healers, working in perfect harmony.
+                    </p>
+                </div>
+
+                <div class="mt-10 p-8 bg-gradient-to-br from-emerald/10 to-forest/5 border-l-4 border-gold rounded-r-2xl shadow-lg">
+                    <p class="text-slate/90 italic text-xl leading-relaxed mb-4">
+                        "I created Butter Oasis for people who've tried everything else. For those ready to trade complicated routines for simple, proven results."
+                    </p>
+                    <div class="flex items-center gap-4">
+                        <div class="w-14 h-14 bg-gradient-to-br from-gold to-bronze rounded-full flex items-center justify-center shadow-lg">
+                            <span class="font-display font-bold text-xl text-white">YB</span>
+                        </div>
+                        <div>
+                            <p class="text-forest font-bold text-lg">Dr. Yuval Bibi</p>
+                            <p class="text-slate/70 text-sm">Founder, Dr. Bibi Organics</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Ingredients Section -->
+<section id="ingredients" class="py-12 lg:py-20 bg-gradient-to-br from-pearl via-ivory to-sage relative overflow-hidden scroll-mt-20">
+    <div class="absolute top-0 left-0 w-96 h-96 bg-emerald/10 rounded-full blur-3xl"></div>
+    <div class="absolute bottom-0 right-0 w-80 h-80 bg-gold/10 rounded-full blur-3xl"></div>
+
+    <div class="max-w-6xl mx-auto px-6 lg:px-8 relative z-10">
+        <div class="text-center mb-12">
+            <h2 class="text-3xl lg:text-5xl font-display font-light mb-4 text-forest leading-tight">
+                Three ingredients. <span class="italic font-bold">Infinite benefits.</span>
+            </h2>
+            <p class="text-xl text-slate/80 max-w-2xl mx-auto font-light">
+                Each ingredient is sourced directly from its origin, tested for purity, and used in pure, concentrated formulations.
+            </p>
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-8">
+            <div class="bg-white/80 backdrop-blur-sm p-8 rounded-2xl border border-emerald/10 hover:shadow-xl transition-all text-center">
+                <div class="w-24 h-24 mb-6 mx-auto bg-sage/30 rounded-full flex items-center justify-center">
+                    <span class="text-4xl">🥜</span>
+                </div>
+                <div class="inline-block bg-emerald/10 text-emerald px-3 py-1 rounded-full text-xs font-semibold mb-3">60% Concentration</div>
+                <h3 class="text-xl font-display font-semibold mb-3 text-forest">African Shea Butter</h3>
+                <p class="text-slate/70 text-sm leading-relaxed">
+                    Sourced from women's cooperatives in West Africa. Provides deep hydration, repairs skin barrier, and fights inflammation.
+                </p>
+            </div>
+
+            <div class="bg-white/80 backdrop-blur-sm p-8 rounded-2xl border border-emerald/10 hover:shadow-xl transition-all text-center">
+                <div class="w-24 h-24 mb-6 mx-auto bg-sage/30 rounded-full flex items-center justify-center">
+                    <span class="text-4xl">🫘</span>
+                </div>
+                <div class="inline-block bg-emerald/10 text-emerald px-3 py-1 rounded-full text-xs font-semibold mb-3">30% Concentration</div>
+                <h3 class="text-xl font-display font-semibold mb-3 text-forest">Pure Cocoa Butter</h3>
+                <p class="text-slate/70 text-sm leading-relaxed">
+                    Cold-pressed from premium cacao beans. Creates moisture lock for 24+ hours and improves skin elasticity.
+                </p>
+            </div>
+
+            <div class="bg-white/80 backdrop-blur-sm p-8 rounded-2xl border border-emerald/10 hover:shadow-xl transition-all text-center">
+                <div class="w-24 h-24 mb-6 mx-auto bg-sage/30 rounded-full flex items-center justify-center">
+                    <span class="text-4xl">🌰</span>
+                </div>
+                <div class="inline-block bg-emerald/10 text-emerald px-3 py-1 rounded-full text-xs font-semibold mb-3">10% Concentration</div>
+                <h3 class="text-xl font-display font-semibold mb-3 text-forest">Moroccan Argan Oil</h3>
+                <p class="text-slate/70 text-sm leading-relaxed">
+                    Cold-pressed liquid gold from Morocco. Rich in Vitamin E and Omega fatty acids for cellular repair and regeneration.
+                </p>
+            </div>
+        </div>
+
+        <div class="text-center mt-12">
+            <a href="/products/butter-oasis-balm" class="inline-flex items-center justify-center gap-2 bg-gradient-to-r from-emerald to-forest text-white px-8 py-4 rounded-full text-lg font-bold hover:shadow-xl hover:scale-105 transition-all duration-300 shine">
+                Learn More About Our Ingredients
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+                </svg>
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- Final CTA Section -->
+<section class="py-12 lg:py-20 bg-gradient-to-br from-forest via-emerald to-forest text-white relative overflow-hidden">
+    <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[800px] bg-gold/20 rounded-full blur-3xl"></div>
+    <div class="max-w-4xl mx-auto px-6 lg:px-8 text-center relative z-10">
+        <h2 class="text-4xl lg:text-7xl font-display font-light mb-8 leading-tight">
+            Your skin deserves <span class="italic font-bold">real healing</span>
+        </h2>
+        <p class="text-xl lg:text-2xl text-white/90 mb-12 max-w-2xl mx-auto font-light">
+            Join thousands who've found lasting relief with Butter Oasis. 30-day money-back guarantee. Free shipping available.
+        </p>
+        <a href="/products/butter-oasis-balm" class="inline-flex items-center justify-center bg-white text-forest px-6 py-3 lg:px-12 lg:py-6 rounded-full text-sm lg:text-xl font-bold hover:bg-gold hover:text-charcoal hover:scale-105 transition-all shadow-2xl shine">
+            <span>Get Yours Now - $70</span>
+            <svg class="hidden lg:inline-block w-7 h-7 ml-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+            </svg>
+        </a>
+        <p class="text-base text-white/80 mt-8 flex items-center justify-center gap-2">
+            <span class="text-gold text-xl">★★★★★</span>
+            <span>Rated 5.0 by verified customers</span>
+        </p>
+    </div>
+</section>
+
+<!-- Newsletter Section -->
+<section class="py-12 lg:py-20 bg-gradient-to-br from-sage via-mint to-pearl relative overflow-hidden">
+    <div class="absolute top-1/2 left-1/4 w-[600px] h-[600px] bg-emerald/10 rounded-full blur-3xl"></div>
+    <div class="max-w-4xl mx-auto px-6 lg:px-8 text-center relative z-10">
+        <div class="bg-white/80 backdrop-blur-sm rounded-3xl shadow-2xl ring-1 ring-emerald/10 p-12 lg:p-16">
+            <h2 class="text-4xl lg:text-6xl font-display font-light text-forest mb-6 leading-tight">
+                Subscribe to our <span class="italic font-bold">Newsletter!</span>
+            </h2>
+            <p class="text-xl lg:text-2xl text-emerald/80 mb-10 max-w-2xl mx-auto">
+                Get 10% off your first purchase by subscribing to our newsletter.
+            </p>
+
+            {% form 'customer', id: 'newsletter-form' %}
+                {{ form.errors | default_errors }}
+                {% if form.posted_successfully? %}
+                <p class="p-6 rounded-xl text-center font-semibold bg-emerald/20 text-emerald border-2 border-emerald/40 mb-6">
+                    ✓ Success! Check your email for your 10% discount code.
+                </p>
+                {% endif %}
+                <input type="hidden" name="contact[tags]" value="newsletter">
+                <div class="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
+                    <div class="flex-1 relative">
+                        <svg class="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-emerald/40" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                        </svg>
+                        <input type="email" name="contact[email]" placeholder="Enter your email" required class="w-full pl-12 pr-4 py-4 rounded-full border-2 border-sage/30 focus:border-emerald focus:outline-none focus:ring-2 focus:ring-emerald/20 transition text-forest placeholder-emerald/40"/>
+                    </div>
+                    <button type="submit" class="bg-gradient-to-r from-emerald to-forest text-white px-10 py-4 rounded-full font-bold hover:from-forest hover:to-emerald hover:scale-105 transition-all shadow-xl shine whitespace-nowrap">
+                        Subscribe
+                    </button>
+                </div>
+                <p class="text-sm text-emerald/60 mt-4">
+                    Join thousands of happy customers. Unsubscribe anytime.
+                </p>
+            {% endform %}
+        </div>
+    </div>
+</section>
+
+{% schema %}
+{
+  "name": "Homepage Custom",
+  "tag": "section",
+  "class": "homepage-custom",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Hero Section"
+    },
+    {
+      "type": "image_picker",
+      "id": "hero_image",
+      "label": "Hero Image (fallback if no video)"
+    },
+    {
+      "type": "url",
+      "id": "hero_video",
+      "label": "Hero Video URL (MP4)"
+    },
+    {
+      "type": "header",
+      "content": "Founder Section"
+    },
+    {
+      "type": "image_picker",
+      "id": "founder_image",
+      "label": "Founder Photo"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Homepage Custom"
+    }
+  ]
+}
+{% endschema %}

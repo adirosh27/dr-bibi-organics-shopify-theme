@@ -1,0 +1,947 @@
+{% comment %}
+  Custom Product Page: Butter Oasis
+
+  SETUP INSTRUCTIONS:
+  1. Copy this file to: themes/[your-theme]/sections/product-butter-oasis.liquid
+  2. Create template file: templates/product.butter-oasis.json (see bottom of this file)
+  3. In Shopify Admin > Products > Butter Oasis > Theme template > Select "butter-oasis"
+{% endcomment %}
+
+{%- style -%}
+/* Custom styles for Butter Oasis product page */
+@keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+}
+
+.animate-float {
+    animation: float 3s ease-in-out infinite;
+}
+
+.shine {
+    position: relative;
+    overflow: hidden;
+}
+
+.shine::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+    transition: left 0.5s;
+}
+
+.shine:hover::before {
+    left: 100%;
+}
+
+/* FAQ accordion styles */
+details summary::-webkit-details-marker {
+    display: none;
+}
+
+details[open] summary svg {
+    transform: rotate(180deg);
+}
+{%- endstyle -%}
+
+<!-- Product Hero Section -->
+<section id="bestseller" class="pt-32 pb-16 lg:pt-40 lg:pb-24 bg-white scroll-mt-20">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+        <div class="grid lg:grid-cols-2 gap-12 lg:gap-16">
+            <!-- Product Images -->
+            <div class="order-1">
+                <div class="sticky top-32">
+                    <!-- Main Image -->
+                    <div class="aspect-square bg-sage/20 rounded-2xl overflow-hidden mb-4 relative">
+                        <img src="{{ product.featured_image | image_url: width: 1200 }}"
+                             alt="{{ product.featured_image.alt | default: product.title }}"
+                             class="w-full h-full object-cover transition-all duration-300"
+                             loading="eager"
+                             id="mainProductImage">
+                        <!-- Best Seller Badge -->
+                        <div class="absolute top-4 left-4 bg-gold text-white px-4 py-2 rounded-full text-sm font-semibold shadow-lg">
+                            Best Seller
+                        </div>
+                    </div>
+
+                    <!-- Image Thumbnails Gallery -->
+                    {% if product.images.size > 1 %}
+                    <div class="grid grid-cols-4 gap-3">
+                        {% for image in product.images limit: 4 %}
+                        <button onclick="changeProductImage('{{ image | image_url: width: 800 }}', this)"
+                                class="aspect-square bg-sage/20 rounded-lg overflow-hidden border-2 {% if forloop.first %}border-emerald{% else %}border-transparent{% endif %} cursor-pointer hover:border-gold transition-all">
+                            <img src="{{ image | image_url: width: 200 }}"
+                                 alt="{{ image.alt | default: product.title }}"
+                                 class="w-full h-full object-cover">
+                        </button>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+
+            <!-- Product Details -->
+            <div class="order-2">
+                <div class="flex flex-wrap gap-2 mb-4">
+                    <div class="inline-flex items-center gap-2 bg-emerald/10 text-emerald px-3 py-1.5 rounded-full text-xs font-medium">
+                        <span class="text-yellow-500">★★★★★</span>
+                        <span>5.0 (10 verified reviews)</span>
+                    </div>
+                    <div class="inline-flex items-center gap-1 bg-gold/10 text-gold px-3 py-1.5 rounded-full text-xs font-semibold">
+                        <span>BEST SELLER</span>
+                    </div>
+                </div>
+
+                <h1 class="text-4xl lg:text-5xl font-display font-light leading-tight mb-4 text-charcoal">
+                    Butter Oasis<br/>
+                    <span class="font-semibold">Shea Butter Body Balm</span>
+                </h1>
+
+                <p class="text-xl text-charcoal/70 mb-6 leading-relaxed">
+                    For very dry, cracked, or flaky skin on hands, body, and feet.
+                </p>
+
+                <!-- Price Anchoring -->
+                <div class="mb-6">
+                    <div class="flex items-center gap-3 mb-2">
+                        {% if product.compare_at_price > product.price %}
+                        <span class="text-2xl text-slate/40 line-through font-display">{{ product.compare_at_price | money }}</span>
+                        {% endif %}
+                        <span class="text-5xl font-display font-bold text-charcoal">{{ product.price | money }}</span>
+                        {% if product.compare_at_price > product.price %}
+                        {% assign savings = product.compare_at_price | minus: product.price %}
+                        <span class="bg-red-500 text-white px-3 py-1 rounded-full text-sm font-bold">SAVE {{ savings | money }}</span>
+                        {% endif %}
+                    </div>
+                    <div class="flex items-baseline gap-3">
+                        <span class="text-sm text-charcoal/60">4oz jar &bull; Only <span class="font-semibold text-emerald">$0.58/day</span> for 4 months</span>
+                        <span class="text-sm bg-bronze/10 text-terracotta px-3 py-1 rounded-full font-medium">120+ day supply</span>
+                    </div>
+                    <p class="text-xs text-emerald font-semibold mt-2">✓ Worth over $200+ in comparable products</p>
+                    <p class="text-xs text-emerald font-semibold mt-1">✓ Free shipping on all orders</p>
+                </div>
+
+                <!-- Key Benefits -->
+                <div class="bg-pearl/70 p-6 rounded-xl mb-8 border border-emerald/10">
+                    <h3 class="font-semibold text-charcoal mb-4 flex items-center gap-2">
+                        <svg class="w-5 h-5 text-emerald" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                        </svg>
+                        What makes this different
+                    </h3>
+                    <ul class="space-y-2.5 text-sm text-charcoal/80">
+                        <li class="flex items-start gap-2">
+                            <span class="text-emerald mt-0.5">✓</span>
+                            <span><strong>Only 3 pure ingredients</strong> — Raw shea butter, cocoa butter & argan oil</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <span class="text-emerald mt-0.5">✓</span>
+                            <span><strong>24-hour+ deep hydration</strong> — Not just surface moisture</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <span class="text-emerald mt-0.5">✓</span>
+                            <span><strong>Supports skin barrier</strong> — Softens cracks, rough patches & dry, irritated skin</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <span class="text-emerald mt-0.5">✓</span>
+                            <span><strong>Multi-purpose formula</strong> — Face, hands, body, feet</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <span class="text-emerald mt-0.5">✓</span>
+                            <span><strong>Safe for all ages</strong> — From babies to mature skin</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Purchase Section with Shopify Form -->
+                <div id="purchase" class="bg-white border-2 border-clay/20 rounded-2xl p-6 mb-8">
+                    {% form 'product', product, id: 'product-form' %}
+                        <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+
+                        <div class="flex items-center justify-between mb-4">
+                            <div>
+                                <p class="text-sm text-charcoal/60 mb-1">Quantity</p>
+                                <div class="flex items-center gap-3">
+                                    <button type="button" id="decreaseQty" class="w-10 h-10 border border-sage rounded-lg flex items-center justify-center hover:bg-sage/20 transition">−</button>
+                                    <input type="number" name="quantity" id="quantity" value="1" min="1" max="99" class="text-lg font-semibold w-12 text-center border-0 p-0">
+                                    <button type="button" id="increaseQty" class="w-10 h-10 border border-sage rounded-lg flex items-center justify-center hover:bg-sage/20 transition">+</button>
+                                </div>
+                            </div>
+                            <div class="text-right">
+                                <p class="text-sm text-charcoal/60 mb-1">Total</p>
+                                <p id="totalPrice" class="text-2xl font-display font-semibold text-charcoal">{{ product.price | money }}</p>
+                            </div>
+                        </div>
+
+                        <!-- Texture/Scent/Absorption callout -->
+                        <p class="text-xs text-charcoal/60 text-center mb-3">
+                            No added fragrance (mild natural cocoa-shea scent) · Absorbs in 2-3 min · Not greasy
+                        </p>
+
+                        <button type="submit"
+                                id="addToCart"
+                                class="w-full bg-gradient-to-r from-emerald to-forest text-white py-4 rounded-full text-base font-semibold hover:bg-charcoal transition shadow-lg hover:shadow-xl mb-4"
+                                {% unless product.available %}disabled{% endunless %}>
+                            {% if product.available %}
+                                Add to Cart — {{ product.price | money }}
+                            {% else %}
+                                Sold Out
+                            {% endif %}
+                        </button>
+                    {% endform %}
+
+                    <div class="bg-gradient-to-br from-emerald/10 via-mint/20 to-emerald/10 p-4 sm:p-5 rounded-2xl border-2 border-emerald/30 relative overflow-hidden">
+                        <div class="absolute top-0 right-0 bg-gold text-white text-xs font-bold px-2 sm:px-3 py-1 rounded-bl-lg">
+                            SAVE $21
+                        </div>
+                        <p class="text-base sm:text-lg font-bold text-forest mb-1">Bundle & Save 15%</p>
+                        <p class="text-sm text-charcoal/80 mb-2">Buy 2 jars for <span class="font-bold text-emerald text-lg sm:text-xl">$119</span> <span class="line-through text-slate/50 text-sm">$140</span></p>
+                        <p class="text-xs text-emerald font-semibold">✓ Most popular &bull; 6-8 months</p>
+                    </div>
+                </div>
+
+                <!-- Trust Strip -->
+                <div class="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm text-charcoal/70 mb-4 py-3 border-y border-sage/30">
+                    <span class="flex items-center gap-1.5">
+                        <svg class="w-4 h-4 text-emerald" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                        Free shipping
+                    </span>
+                    <span class="flex items-center gap-1.5">
+                        <svg class="w-4 h-4 text-emerald" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                        Ships in 1-2 days
+                    </span>
+                    <span class="flex items-center gap-1.5">
+                        <svg class="w-4 h-4 text-emerald" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                        30-day returns
+                    </span>
+                </div>
+
+                <!-- Review Snippets -->
+                <div class="space-y-3 mb-6">
+                    <div class="bg-amber-50/50 border border-amber-100 rounded-lg p-3">
+                        <div class="flex items-center gap-1 text-amber-500 text-xs mb-1">★★★★★</div>
+                        <p class="text-sm text-charcoal/80 italic">"My hands are finally soft after 40 years of struggling with dryness."</p>
+                        <p class="text-xs text-charcoal/50 mt-1">— Jennifer M., Verified Buyer</p>
+                    </div>
+                    <div class="bg-amber-50/50 border border-amber-100 rounded-lg p-3">
+                        <div class="flex items-center gap-1 text-amber-500 text-xs mb-1">★★★★★</div>
+                        <p class="text-sm text-charcoal/80 italic">"Transformed my cracked heels in 10 days. I actually cried when I saw the difference."</p>
+                        <p class="text-xs text-charcoal/50 mt-1">— Maria S., Verified Buyer</p>
+                    </div>
+                </div>
+
+                <!-- Payment Methods -->
+                <div class="border-t border-sage/30 pt-6">
+                    <p class="text-xs text-slate/70 text-center mb-3 font-medium">Secure payment methods:</p>
+                    <div class="flex items-center justify-center gap-2 flex-wrap">
+                        {{ shop.enabled_payment_types | payment_type_svg_tag }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Product Story Section -->
+<section class="py-16 lg:py-24 bg-gradient-to-b from-cream to-white">
+    <div class="max-w-4xl mx-auto px-6 lg:px-8">
+        <div class="text-center mb-12">
+            <h2 class="text-3xl lg:text-4xl font-display font-light mb-4 text-charcoal">
+                Why Butter Oasis <span class="italic font-semibold">actually works</span>
+            </h2>
+            <p class="text-lg text-charcoal/70">
+                When conventional moisturizers fail, pure ingredients succeed
+            </p>
+        </div>
+
+        <div class="prose prose-lg max-w-none">
+            <p class="text-charcoal/80 leading-relaxed mb-6">
+                Most moisturizers are 70-90% water with synthetic fillers. They provide temporary relief, but they don't deeply nourish.
+                Your skin drinks them up and hours later, you're dry again.
+            </p>
+            <p class="text-charcoal/80 leading-relaxed mb-6">
+                Butter Oasis is different. We use <strong>only three specially formulated ingredients</strong> in their purest form—raw shea butter,
+                cold-pressed cocoa butter, and Moroccan argan oil. No water. No fillers. No synthetics.
+            </p>
+            <p class="text-charcoal/80 leading-relaxed mb-6">
+                These nutrient-dense butters don't just hydrate the surface. They penetrate deep to support your skin's natural barrier,
+                locking in moisture for 24+ hours while softening cracks and roughness.
+            </p>
+            <div class="bg-emerald/5 border-l-4 border-clay p-6 rounded-r-xl my-8">
+                <p class="text-charcoal/90 italic font-medium">
+                    "I created this formula after seeing too many people struggle with persistent dryness that traditional products couldn't address.
+                    The answer wasn't more ingredients—it was the right ingredients in their purest form."
+                </p>
+                <p class="text-charcoal/60 text-sm mt-3">— Dr. Bibi</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Ingredients Deep Dive -->
+<section class="py-16 lg:py-24 bg-white">
+    <div class="max-w-6xl mx-auto px-6 lg:px-8">
+        <div class="text-center mb-16">
+            <h2 class="text-3xl lg:text-4xl font-display font-light mb-4 text-charcoal">
+                Three ingredients. <span class="italic font-semibold">Infinite benefits.</span>
+            </h2>
+            <p class="text-lg text-charcoal/70 max-w-2xl mx-auto">
+                Each ingredient is sourced directly from its origin, tested for purity, and used in pure, concentrated formulations
+            </p>
+        </div>
+
+        <div class="space-y-12">
+            <!-- Ingredient 1: Shea Butter -->
+            <div class="max-w-3xl mx-auto">
+                <div class="inline-block bg-emerald/10 text-emerald px-3 py-1 rounded-full text-xs font-semibold mb-3">
+                    60% Concentration
+                </div>
+                <h3 class="text-2xl font-display font-semibold mb-3 text-charcoal">African Shea Butter</h3>
+                <p class="text-charcoal/70 mb-4 leading-relaxed">
+                    Sourced from women's cooperatives in West Africa. Unrefined and cold-pressed to preserve its full nutrient profile.
+                </p>
+                <div class="bg-sage/20 p-5 rounded-xl border border-emerald/10">
+                    <p class="font-semibold text-sm text-charcoal mb-3">Key Benefits:</p>
+                    <ul class="space-y-2 text-sm text-charcoal/80">
+                        <li class="flex items-start gap-2">
+                            <span class="text-emerald">&bull;</span>
+                            <span><strong>Vitamins A & E:</strong> Powerful antioxidants that protect against free radical damage and soothe skin</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <span class="text-emerald">&bull;</span>
+                            <span><strong>Essential Fatty Acids:</strong> Rebuild and strengthen the skin barrier for lasting hydration</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <span class="text-emerald">&bull;</span>
+                            <span><strong>Natural Collagen Production:</strong> Improves elasticity and reduces appearance of fine lines</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <span class="text-emerald">&bull;</span>
+                            <span><strong>Anti-inflammatory:</strong> Soothes dry, irritated skin, flaky, irritated skin, and other skin irritations</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Ingredient 2: Cocoa Butter -->
+            <div class="max-w-3xl mx-auto">
+                <div class="inline-block bg-emerald/10 text-emerald px-3 py-1 rounded-full text-xs font-semibold mb-3">
+                    30% Concentration
+                </div>
+                <h3 class="text-2xl font-display font-semibold mb-3 text-charcoal">Pure Cocoa Butter</h3>
+                <p class="text-charcoal/70 mb-4 leading-relaxed">
+                    Cold-pressed from premium cacao beans. Rich, creamy texture that melts into skin without greasiness.
+                </p>
+                <div class="bg-sage/20 p-5 rounded-xl border border-emerald/10">
+                    <p class="font-semibold text-sm text-charcoal mb-3">Key Benefits:</p>
+                    <ul class="space-y-2 text-sm text-charcoal/80">
+                        <li class="flex items-start gap-2">
+                            <span class="text-emerald">&bull;</span>
+                            <span><strong>Deep Moisture Lock:</strong> Forms a protective barrier that prevents water loss for 24+ hours</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <span class="text-emerald">&bull;</span>
+                            <span><strong>Non-Comedogenic:</strong> Won't clog pores despite its rich texture—safe for facial use</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <span class="text-emerald">&bull;</span>
+                            <span><strong>Polyphenols & Antioxidants:</strong> Protect against environmental stressors and premature aging</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <span class="text-emerald">&bull;</span>
+                            <span><strong>Stretch Mark & Scar Reduction:</strong> Improves skin elasticity and appearance of damaged tissue</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Ingredient 3: Argan Oil -->
+            <div class="max-w-3xl mx-auto">
+                <div class="inline-block bg-emerald/10 text-emerald px-3 py-1 rounded-full text-xs font-semibold mb-3">
+                    10% Concentration
+                </div>
+                <h3 class="text-2xl font-display font-semibold mb-3 text-charcoal">Cold-Pressed Moroccan Argan Oil</h3>
+                <p class="text-charcoal/70 mb-4 leading-relaxed">
+                    Liquid gold from Morocco's argan trees. Cold-pressed to preserve delicate nutrients and essential fatty acids.
+                </p>
+                <div class="bg-sage/20 p-5 rounded-xl border border-emerald/10">
+                    <p class="font-semibold text-sm text-charcoal mb-3">Key Benefits:</p>
+                    <ul class="space-y-2 text-sm text-charcoal/80">
+                        <li class="flex items-start gap-2">
+                            <span class="text-emerald">&bull;</span>
+                            <span><strong>Vitamin E Powerhouse:</strong> One of nature's highest concentrations for skin renewal</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <span class="text-emerald">&bull;</span>
+                            <span><strong>Omega-6 & Omega-9 Fatty Acids:</strong> Calm and condition skin while supporting renewal</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <span class="text-emerald">&bull;</span>
+                            <span><strong>Fast Absorption:</strong> Lightweight carrier that helps other ingredients penetrate deeper</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <span class="text-emerald">&bull;</span>
+                            <span><strong>Balances Sebum Production:</strong> Regulates oil production without stripping skin</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Ingredient Purity Statement -->
+        <div class="mt-16 bg-gradient-to-r from-clay/10 to-forest/10 p-8 rounded-2xl border border-clay/20">
+            <div class="max-w-3xl mx-auto text-center">
+                <h3 class="text-2xl font-display font-semibold mb-4 text-charcoal">That's it. Just 3 ingredients.</h3>
+                <p class="text-charcoal/70 leading-relaxed mb-6">
+                    No water. No fragrances. No parabens. No sulfates. No phthalates. No petroleum derivatives.
+                    No synthetic preservatives. No fillers. No compromises.
+                </p>
+                <p class="text-sm text-charcoal/60 italic">
+                    Every ingredient is third-party tested for purity and sourced through ethical fair-trade partnerships.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- How to Use -->
+<section class="py-16 lg:py-24 bg-pearl">
+    <div class="max-w-4xl mx-auto px-6 lg:px-8">
+        <div class="text-center mb-12">
+            <h2 class="text-3xl lg:text-4xl font-display font-light mb-4 text-charcoal">
+                How to use for <span class="italic font-semibold">best results</span>
+            </h2>
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-8 mb-12">
+            <div class="text-center">
+                <div class="w-16 h-16 bg-emerald/10 rounded-full flex items-center justify-center text-2xl font-display font-semibold text-emerald mx-auto mb-4">
+                    1
+                </div>
+                <h3 class="font-semibold mb-2 text-charcoal">Warm & Soften</h3>
+                <p class="text-sm text-charcoal/70">
+                    Scoop a small amount (pea-size for face, dime-size for body). Rub between palms to warm and melt.
+                </p>
+            </div>
+
+            <div class="text-center">
+                <div class="w-16 h-16 bg-emerald/10 rounded-full flex items-center justify-center text-2xl font-display font-semibold text-emerald mx-auto mb-4">
+                    2
+                </div>
+                <h3 class="font-semibold mb-2 text-charcoal">Apply & Massage</h3>
+                <p class="text-sm text-charcoal/70">
+                    Massage into skin using gentle circular motions. Focus on dry areas, cracks, or rough patches.
+                </p>
+            </div>
+
+            <div class="text-center">
+                <div class="w-16 h-16 bg-emerald/10 rounded-full flex items-center justify-center text-2xl font-display font-semibold text-emerald mx-auto mb-4">
+                    3
+                </div>
+                <h3 class="font-semibold mb-2 text-charcoal">Let It Absorb</h3>
+                <p class="text-sm text-charcoal/70">
+                    Allow 2-3 minutes for full absorption. A little goes a long way—you'll feel the difference immediately.
+                </p>
+            </div>
+        </div>
+
+        <div class="bg-white p-8 rounded-2xl border border-emerald/10">
+            <h3 class="font-semibold mb-4 text-charcoal">Pro Tips:</h3>
+            <ul class="space-y-3 text-sm text-charcoal/80">
+                <li class="flex items-start gap-3">
+                    <span class="text-emerald text-lg">→</span>
+                    <span><strong>For severe dryness:</strong> Apply to damp skin after shower for enhanced absorption</span>
+                </li>
+                <li class="flex items-start gap-3">
+                    <span class="text-emerald text-lg">→</span>
+                    <span><strong>Overnight treatment:</strong> Apply generously before bed, wear cotton gloves/socks for intensive moisture</span>
+                </li>
+                <li class="flex items-start gap-3">
+                    <span class="text-emerald text-lg">→</span>
+                    <span><strong>Multi-use:</strong> Safe for face, hands, elbows, knees, feet, cuticles, and lips</span>
+                </li>
+                <li class="flex items-start gap-3">
+                    <span class="text-emerald text-lg">→</span>
+                    <span><strong>Pregnancy safe:</strong> Massage onto belly, breasts, and hips to prevent stretch marks</span>
+                </li>
+                <li class="flex items-start gap-3">
+                    <span class="text-emerald text-lg">→</span>
+                    <span><strong>For babies:</strong> Use on dry patches and sensitive skin areas</span>
+                </li>
+            </ul>
+        </div>
+    </div>
+</section>
+
+<!-- Who It's For -->
+<section class="py-16 lg:py-24 bg-white">
+    <div class="max-w-6xl mx-auto px-6 lg:px-8">
+        <div class="text-center mb-12">
+            <h2 class="text-3xl lg:text-4xl font-display font-light mb-4 text-charcoal">
+                Perfect for <span class="italic font-semibold">your unique needs</span>
+            </h2>
+            <p class="text-lg text-charcoal/70">
+                Butter Oasis works for everyone, but it's especially transformative for:
+            </p>
+        </div>
+
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div class="bg-sage/20 p-6 rounded-xl border border-emerald/10">
+                <h3 class="font-semibold mb-2 text-charcoal">Mature Skin (50+)</h3>
+                <p class="text-sm text-charcoal/70">
+                    Restores elasticity, reduces fine lines, and brings back youthful radiance without harsh chemicals.
+                </p>
+            </div>
+
+            <div class="bg-sage/20 p-6 rounded-xl border border-emerald/10">
+                <h3 class="font-semibold mb-2 text-charcoal">Sun-Damaged Skin</h3>
+                <p class="text-sm text-charcoal/70">
+                    Rich in antioxidants to deeply hydrate weathered, sun-exposed, and mature skin.
+                </p>
+            </div>
+
+            <div class="bg-sage/20 p-6 rounded-xl border border-emerald/10">
+                <h3 class="font-semibold mb-2 text-charcoal">Dry & Flaky, Irritated Skin</h3>
+                <p class="text-sm text-charcoal/70">
+                    Gentle, anti-inflammatory formula soothes irritation and strengthens compromised skin barriers.
+                </p>
+            </div>
+
+            <div class="bg-sage/20 p-6 rounded-xl border border-emerald/10">
+                <h3 class="font-semibold mb-2 text-charcoal">Persistent Dryness</h3>
+                <p class="text-sm text-charcoal/70">
+                    When nothing else works, this addresses the skin barrier—not just surface dryness—for lasting moisture.
+                </p>
+            </div>
+
+            <div class="bg-sage/20 p-6 rounded-xl border border-emerald/10">
+                <h3 class="font-semibold mb-2 text-charcoal">Working Hands</h3>
+                <p class="text-sm text-charcoal/70">
+                    Healthcare workers, mechanics, gardeners—softens cracks and roughness from constant washing and exposure.
+                </p>
+            </div>
+
+            <div class="bg-sage/20 p-6 rounded-xl border border-emerald/10">
+                <h3 class="font-semibold mb-2 text-charcoal">Sensitive Skin</h3>
+                <p class="text-sm text-charcoal/70">
+                    No fragrances, no irritants. Pure ingredients that calm and protect reactive skin.
+                </p>
+            </div>
+
+            <div class="bg-sage/20 p-6 rounded-xl border border-emerald/10">
+                <h3 class="font-semibold mb-2 text-charcoal">Pregnant & Nursing</h3>
+                <p class="text-sm text-charcoal/70">
+                    100% safe during pregnancy and breastfeeding. Prevents stretch marks and soothes breast tenderness.
+                </p>
+            </div>
+
+            <div class="bg-sage/20 p-6 rounded-xl border border-emerald/10">
+                <h3 class="font-semibold mb-2 text-charcoal">Baby's Delicate Skin</h3>
+                <p class="text-sm text-charcoal/70">
+                    Gentle enough for newborns. Nourishes dry patches and sensitive baby skin naturally.
+                </p>
+            </div>
+
+            <div class="bg-sage/20 p-6 rounded-xl border border-emerald/10">
+                <h3 class="font-semibold mb-2 text-charcoal">Athletes & Active Lifestyles</h3>
+                <p class="text-sm text-charcoal/70">
+                    Soothes chafing and dryness from outdoor exposure and intense training.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Comparison Table -->
+<section class="py-16 lg:py-24 bg-gradient-to-b from-cream to-white">
+    <div class="max-w-5xl mx-auto px-6 lg:px-8">
+        <div class="text-center mb-12">
+            <h2 class="text-3xl lg:text-4xl font-display font-light mb-4 text-charcoal">
+                Why Butter Oasis outperforms <span class="italic font-semibold">everything else</span>
+            </h2>
+        </div>
+
+        <div class="overflow-x-auto">
+            <table class="w-full bg-white rounded-2xl overflow-hidden shadow-sm">
+                <thead class="bg-gradient-to-r from-emerald to-forest text-white">
+                    <tr>
+                        <th class="py-4 px-6 text-left font-semibold">Feature</th>
+                        <th class="py-4 px-6 text-center font-semibold">Typical Moisturizers</th>
+                        <th class="py-4 px-6 text-center font-semibold bg-charcoal">Butter Oasis</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-sand/30">
+                    <tr>
+                        <td class="py-4 px-6 font-medium text-charcoal">Ingredient Count</td>
+                        <td class="py-4 px-6 text-center text-charcoal/60">20-40+ ingredients</td>
+                        <td class="py-4 px-6 text-center font-semibold text-emerald bg-emerald/5">Only 3 pure ingredients</td>
+                    </tr>
+                    <tr>
+                        <td class="py-4 px-6 font-medium text-charcoal">Hydration Duration</td>
+                        <td class="py-4 px-6 text-center text-charcoal/60">2-4 hours (surface only)</td>
+                        <td class="py-4 px-6 text-center font-semibold text-emerald bg-emerald/5">24+ hours (deep layers)</td>
+                    </tr>
+                    <tr>
+                        <td class="py-4 px-6 font-medium text-charcoal">Skin Barrier Repair</td>
+                        <td class="py-4 px-6 text-center text-charcoal/60">Minimal to none</td>
+                        <td class="py-4 px-6 text-center font-semibold text-emerald bg-emerald/5">Effective repair</td>
+                    </tr>
+                    <tr>
+                        <td class="py-4 px-6 font-medium text-charcoal">Synthetic Chemicals</td>
+                        <td class="py-4 px-6 text-center text-charcoal/60">Often present</td>
+                        <td class="py-4 px-6 text-center font-semibold text-emerald bg-emerald/5">Zero</td>
+                    </tr>
+                    <tr>
+                        <td class="py-4 px-6 font-medium text-charcoal">Safe for Babies</td>
+                        <td class="py-4 px-6 text-center text-charcoal/60">Not always</td>
+                        <td class="py-4 px-6 text-center font-semibold text-emerald bg-emerald/5">100% safe</td>
+                    </tr>
+                    <tr>
+                        <td class="py-4 px-6 font-medium text-charcoal">Non-Comedogenic</td>
+                        <td class="py-4 px-6 text-center text-charcoal/60">Varies</td>
+                        <td class="py-4 px-6 text-center font-semibold text-emerald bg-emerald/5">Yes, won't clog pores</td>
+                    </tr>
+                    <tr>
+                        <td class="py-4 px-6 font-medium text-charcoal">Multi-Purpose</td>
+                        <td class="py-4 px-6 text-center text-charcoal/60">Face OR body</td>
+                        <td class="py-4 px-6 text-center font-semibold text-emerald bg-emerald/5">Face, body, hands, feet</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+
+<!-- Reviews Section -->
+<section class="py-16 lg:py-24 bg-white">
+    <div class="max-w-6xl mx-auto px-6 lg:px-8">
+        <div class="text-center mb-12">
+            <div class="inline-flex items-center gap-2 bg-emerald/10 text-emerald px-4 py-2 rounded-full text-sm font-medium mb-4">
+                <span class="text-yellow-500">★★★★★</span>
+                <span>5.0 out of 5.0</span>
+            </div>
+            <h2 class="text-3xl lg:text-4xl font-display font-light mb-4 text-charcoal">
+                Real results from <span class="italic font-semibold">real customers</span>
+            </h2>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-8">
+            <!-- Review 1 -->
+            <div class="bg-sage/20 p-8 rounded-2xl border border-emerald/10">
+                <div class="flex items-center gap-1 text-yellow-500 mb-4 text-lg">
+                    ★★★★★
+                </div>
+                <h3 class="font-semibold mb-3 text-charcoal">"Finally, something that actually works"</h3>
+                <p class="text-charcoal/80 leading-relaxed mb-6 italic">
+                    "I've had dry, irritated skin my entire life. I've tried every product, every organic brand you can think of, nothing worked.
+                    This balm is the ONLY thing that's given me relief. My hands are finally soft and comfortable after 40 years of struggling with dryness. I can't recommend this enough."
+                </p>
+                <div class="flex items-center gap-3 pt-4 border-t border-emerald/10">
+                    <div class="w-12 h-12 bg-bronze/20 rounded-full flex items-center justify-center font-display font-semibold text-emerald">
+                        JM
+                    </div>
+                    <div>
+                        <p class="font-semibold text-charcoal">Jennifer M.</p>
+                        <p class="text-sm text-charcoal/60">Verified Purchase</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Review 2 -->
+            <div class="bg-sage/20 p-8 rounded-2xl border border-emerald/10">
+                <div class="flex items-center gap-1 text-yellow-500 mb-4 text-lg">
+                    ★★★★★
+                </div>
+                <h3 class="font-semibold mb-3 text-charcoal">"Saved my nurse hands"</h3>
+                <p class="text-charcoal/80 leading-relaxed mb-6 italic">
+                    "As an ICU nurse, my hands were destroyed from constant washing. Cracked, bleeding, painful.
+                    Within 2 weeks of using Butter Oasis, they're 90% better. This product is absolutely life-changing.
+                    I've already ordered 3 more jars to give to my coworkers."
+                </p>
+                <div class="flex items-center gap-3 pt-4 border-t border-emerald/10">
+                    <div class="w-12 h-12 bg-bronze/20 rounded-full flex items-center justify-center font-display font-semibold text-emerald">
+                        SK
+                    </div>
+                    <div>
+                        <p class="font-semibold text-charcoal">Sarah K.</p>
+                        <p class="text-sm text-charcoal/60">Verified Purchase</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Review 3 -->
+            <div class="bg-sage/20 p-8 rounded-2xl border border-emerald/10">
+                <div class="flex items-center gap-1 text-yellow-500 mb-4 text-lg">
+                    ★★★★★
+                </div>
+                <h3 class="font-semibold mb-3 text-charcoal">"One jar does everything"</h3>
+                <p class="text-charcoal/80 leading-relaxed mb-6 italic">
+                    "I use this on my face at night, on my baby's dry skin, and on my husband's dry elbows.
+                    It works for EVERYTHING. I love that it's only 3 ingredients—I feel safe using it on my 6-month-old.
+                    Plus my face has never looked better. Best $70 I've ever spent."
+                </p>
+                <div class="flex items-center gap-3 pt-4 border-t border-emerald/10">
+                    <div class="w-12 h-12 bg-bronze/20 rounded-full flex items-center justify-center font-display font-semibold text-emerald">
+                        ML
+                    </div>
+                    <div>
+                        <p class="font-semibold text-charcoal">Maria L.</p>
+                        <p class="text-sm text-charcoal/60">Verified Purchase</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Review 4 -->
+            <div class="bg-sage/20 p-8 rounded-2xl border border-emerald/10">
+                <div class="flex items-center gap-1 text-yellow-500 mb-4 text-lg">
+                    ★★★★★
+                </div>
+                <h3 class="font-semibold mb-3 text-charcoal">"Transformed my cracked heels in 10 days"</h3>
+                <p class="text-charcoal/80 leading-relaxed mb-6 italic">
+                    "I've had cracked heels for YEARS. So embarrassing I wouldn't wear sandals.
+                    I applied this every night with cotton socks and after 10 days, my feet are soft like a baby's.
+                    I actually cried when I saw the difference. This stuff is pure magic."
+                </p>
+                <div class="flex items-center gap-3 pt-4 border-t border-emerald/10">
+                    <div class="w-12 h-12 bg-bronze/20 rounded-full flex items-center justify-center font-display font-semibold text-emerald">
+                        TC
+                    </div>
+                    <div>
+                        <p class="font-semibold text-charcoal">Tina C.</p>
+                        <p class="text-sm text-charcoal/60">Verified Purchase</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Review Summary -->
+        <div class="mt-12 bg-gradient-to-r from-clay/10 to-forest/10 p-8 rounded-2xl text-center border border-clay/20">
+            <p class="text-2xl font-display font-semibold text-charcoal mb-2">100% of customers recommend this product</p>
+            <p class="text-charcoal/70">Based on verified reviews</p>
+        </div>
+    </div>
+</section>
+
+<!-- Guarantee Section -->
+<section class="py-16 lg:py-24 bg-gradient-to-r from-emerald to-forest text-white">
+    <div class="max-w-4xl mx-auto px-6 lg:px-8 text-center">
+        <div class="w-20 h-20 bg-white/10 rounded-full flex items-center justify-center mx-auto mb-6">
+            <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+            </svg>
+        </div>
+        <h2 class="text-3xl lg:text-4xl font-display font-light mb-6">
+            Our 30-day <span class="italic font-semibold">satisfaction guarantee</span>
+        </h2>
+        <p class="text-lg text-white/90 mb-4 leading-relaxed max-w-2xl mx-auto">
+            We're so confident Butter Oasis will transform your skin that we offer a 30-day satisfaction guarantee.
+            If you're not thrilled with the results, contact us within 30 days for a full refund of the product price.
+        </p>
+        <p class="text-sm text-white/70 mb-8">
+            <a href="/pages/return-policy" class="underline hover:text-white">Read our full return policy</a> — no fine print, no hassle.
+        </p>
+        <div class="grid md:grid-cols-3 gap-6 max-w-3xl mx-auto">
+            <div class="bg-white/10 backdrop-blur-sm p-6 rounded-xl">
+                <p class="text-3xl mb-2">📦</p>
+                <p class="font-semibold mb-1">Free Shipping</p>
+                <p class="text-sm text-white/70">Expedited option available</p>
+            </div>
+            <div class="bg-white/10 backdrop-blur-sm p-6 rounded-xl">
+                <p class="text-3xl mb-2">⚡</p>
+                <p class="font-semibold mb-1">Fast Delivery</p>
+                <p class="text-sm text-white/70">Ships in 1-2 business days</p>
+            </div>
+            <div class="bg-white/10 backdrop-blur-sm p-6 rounded-xl">
+                <p class="text-3xl mb-2">💚</p>
+                <p class="font-semibold mb-1">30-Day Returns</p>
+                <p class="text-sm text-white/70">Full satisfaction guaranteed</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Final CTA -->
+<section class="py-20 lg:py-32 bg-gradient-to-b from-charcoal to-black text-white">
+    <div class="max-w-4xl mx-auto px-6 lg:px-8 text-center">
+        <h2 class="text-4xl lg:text-6xl font-display font-light mb-6 leading-tight">
+            Your skin has been <span class="italic font-semibold">waiting for this</span>
+        </h2>
+        <p class="text-lg lg:text-xl text-white/80 mb-10 max-w-2xl mx-auto leading-relaxed">
+            Stop settling for temporary relief. Experience deep, lasting nourishment with the purest ingredients nature offers.
+        </p>
+        <a href="#purchase" class="inline-flex items-center bg-white text-charcoal px-10 py-5 rounded-full text-lg font-semibold hover:bg-pearl transition shadow-2xl mb-6">
+            Shop Butter Oasis — {{ product.price | money }}
+            <svg class="w-6 h-6 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+            </svg>
+        </a>
+        <div class="flex flex-col items-center gap-2">
+            <div class="flex items-center gap-2 text-yellow-400">
+                ★★★★★
+            </div>
+            <p class="text-sm text-white/60">
+                5.0 rating &bull; Free & expedited shipping &bull; 30-day guarantee
+            </p>
+        </div>
+    </div>
+</section>
+
+<!-- FAQ Section -->
+<section id="faq" class="py-16 lg:py-24 bg-white scroll-mt-20">
+    <div class="max-w-3xl mx-auto px-6 lg:px-8">
+        <div class="text-center mb-12">
+            <h2 class="text-3xl lg:text-4xl font-display font-light mb-4 text-charcoal">
+                Frequently Asked <span class="italic font-semibold">Questions</span>
+            </h2>
+            <p class="text-lg text-charcoal/70">
+                Everything you need to know about our shea butter body balm
+            </p>
+        </div>
+
+        <div class="space-y-4">
+            <details class="group bg-sage/30 rounded-xl">
+                <summary class="flex items-center justify-between p-6 cursor-pointer list-none">
+                    <h3 class="font-semibold text-charcoal pr-4">Is shea butter balm good for very dry skin?</h3>
+                    <svg class="w-5 h-5 text-emerald transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                    </svg>
+                </summary>
+                <div class="px-6 pb-6 text-charcoal/70">
+                    <p>Yes, shea butter is excellent for very dry skin. Our Butter Oasis balm combines raw shea butter with cocoa butter and argan oil to provide intensive, long-lasting moisture. Unlike water-based lotions that evaporate quickly, this oil-based formula creates a protective barrier that locks in hydration for 24+ hours.</p>
+                </div>
+            </details>
+
+            <details class="group bg-sage/30 rounded-xl">
+                <summary class="flex items-center justify-between p-6 cursor-pointer list-none">
+                    <h3 class="font-semibold text-charcoal pr-4">Is this body balm unscented and fragrance-free?</h3>
+                    <svg class="w-5 h-5 text-emerald transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                    </svg>
+                </summary>
+                <div class="px-6 pb-6 text-charcoal/70">
+                    <p>Yes, Butter Oasis contains only three ingredients: raw shea butter, cocoa butter, and argan oil. There are no added fragrances, essential oils, or synthetic scents. It has a subtle, natural nutty aroma from the raw butters that fades quickly after application.</p>
+                </div>
+            </details>
+
+            <details class="group bg-sage/30 rounded-xl">
+                <summary class="flex items-center justify-between p-6 cursor-pointer list-none">
+                    <h3 class="font-semibold text-charcoal pr-4">Can I use shea butter body balm on my face?</h3>
+                    <svg class="w-5 h-5 text-emerald transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                    </svg>
+                </summary>
+                <div class="px-6 pb-6 text-charcoal/70">
+                    <p>Yes, our shea butter balm is gentle enough for facial use. Many customers use it as an overnight face moisturizer or to target dry patches. Because it's oil-based and rich, a small amount goes a long way. Those with oily or acne-prone skin may prefer to use it only on dry areas.</p>
+                </div>
+            </details>
+
+            <details class="group bg-sage/30 rounded-xl">
+                <summary class="flex items-center justify-between p-6 cursor-pointer list-none">
+                    <h3 class="font-semibold text-charcoal pr-4">What's the difference between shea butter balm and regular lotion?</h3>
+                    <svg class="w-5 h-5 text-emerald transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                    </svg>
+                </summary>
+                <div class="px-6 pb-6 text-charcoal/70">
+                    <p>Most lotions are 70-90% water with emulsifiers and preservatives. They absorb quickly but don't provide lasting moisture. Our shea butter balm is 100% pure oils and butters with no water or fillers. It takes slightly longer to absorb but provides much deeper, longer-lasting hydration that actually repairs the skin barrier.</p>
+                </div>
+            </details>
+
+            <details class="group bg-sage/30 rounded-xl">
+                <summary class="flex items-center justify-between p-6 cursor-pointer list-none">
+                    <h3 class="font-semibold text-charcoal pr-4">Is shea butter balm safe for babies and sensitive skin?</h3>
+                    <svg class="w-5 h-5 text-emerald transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                    </svg>
+                </summary>
+                <div class="px-6 pb-6 text-charcoal/70">
+                    <p>Yes, our 3-ingredient formula is gentle enough for newborns and sensitive skin. It contains no fragrances, preservatives, or potential irritants. Many parents use it for dry patches on babies. As with any new product, we recommend patch testing first if you have concerns about sensitivity.</p>
+                </div>
+            </details>
+
+            <details class="group bg-sage/30 rounded-xl">
+                <summary class="flex items-center justify-between p-6 cursor-pointer list-none">
+                    <h3 class="font-semibold text-charcoal pr-4">How long does a 4oz jar of body balm last?</h3>
+                    <svg class="w-5 h-5 text-emerald transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                    </svg>
+                </summary>
+                <div class="px-6 pb-6 text-charcoal/70">
+                    <p>A 4oz jar typically lasts 3-4 months with daily use. Because the formula is so concentrated, you only need a small amount—about the size of a pea for hands or a nickel-sized amount for larger areas. This works out to roughly $0.58 per day.</p>
+                </div>
+            </details>
+        </div>
+    </div>
+</section>
+
+<!-- FDA Disclaimer -->
+<section class="py-8 bg-pearl/50">
+    <div class="max-w-4xl mx-auto px-6 lg:px-8 text-center">
+        <p class="text-xs text-slate/70 leading-relaxed">
+            <strong>Disclaimer:</strong> These statements have not been evaluated by the Food and Drug Administration. This product is not intended to diagnose, treat, cure, or prevent any disease. Individual results may vary. If you have a medical condition or are pregnant/nursing, consult your healthcare provider before use. Discontinue use if irritation occurs.
+        </p>
+    </div>
+</section>
+
+<script>
+// Quantity controls
+const quantityInput = document.getElementById('quantity');
+const totalPriceDisplay = document.getElementById('totalPrice');
+const decreaseBtn = document.getElementById('decreaseQty');
+const increaseBtn = document.getElementById('increaseQty');
+const productPrice = {{ product.price | divided_by: 100.0 }};
+
+function updateTotal() {
+    const qty = parseInt(quantityInput.value) || 1;
+    const total = (qty * productPrice).toFixed(2);
+    totalPriceDisplay.textContent = '$' + total;
+}
+
+decreaseBtn?.addEventListener('click', () => {
+    let qty = parseInt(quantityInput.value) || 1;
+    if (qty > 1) {
+        quantityInput.value = qty - 1;
+        updateTotal();
+    }
+});
+
+increaseBtn?.addEventListener('click', () => {
+    let qty = parseInt(quantityInput.value) || 1;
+    if (qty < 99) {
+        quantityInput.value = qty + 1;
+        updateTotal();
+    }
+});
+
+quantityInput?.addEventListener('change', updateTotal);
+
+// Product Image Gallery
+function changeProductImage(imageUrl, thumbnailButton) {
+    const mainImage = document.getElementById('mainProductImage');
+    if (mainImage) {
+        mainImage.src = imageUrl;
+    }
+
+    const allThumbnails = thumbnailButton.parentElement.querySelectorAll('button');
+    allThumbnails.forEach(btn => {
+        btn.classList.remove('border-emerald');
+        btn.classList.add('border-transparent');
+    });
+
+    thumbnailButton.classList.remove('border-transparent');
+    thumbnailButton.classList.add('border-emerald');
+}
+</script>
+
+{% schema %}
+{
+  "name": "Butter Oasis Product",
+  "tag": "section",
+  "class": "butter-oasis-product",
+  "settings": []
+}
+{% endschema %}

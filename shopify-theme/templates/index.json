@@ -1,0 +1,15 @@
+{
+  "sections": {
+    "homepage-custom": {
+      "type": "homepage-custom",
+      "settings": {
+        "hero_video": "",
+        "hero_image": "",
+        "founder_image": ""
+      }
+    }
+  },
+  "order": [
+    "homepage-custom"
+  ]
+}

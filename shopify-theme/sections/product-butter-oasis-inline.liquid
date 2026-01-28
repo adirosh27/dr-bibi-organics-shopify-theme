@@ -1,0 +1,914 @@
+{% comment %}
+  Custom Product Page: Butter Oasis - Inline Styled Version
+  All styles are inline to override Dawn's CSS
+  Includes slide-out cart drawer like Vercel version
+{% endcomment %}
+
+<style>
+/* Animations and base styles */
+@keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+}
+
+.bo-animate-float { animation: float 3s ease-in-out infinite; }
+
+.bo-shine {
+    position: relative;
+    overflow: hidden;
+}
+
+.bo-shine::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+    transition: left 0.5s;
+}
+
+.bo-shine:hover::before {
+    left: 100%;
+}
+
+/* FAQ accordion */
+details summary::-webkit-details-marker { display: none; }
+details[open] summary svg { transform: rotate(180deg); }
+
+/* Quantity input */
+.bo-qty-input::-webkit-inner-spin-button,
+.bo-qty-input::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
+.bo-qty-input { -moz-appearance: textfield; }
+
+/* Cart drawer styles */
+.bo-cart-drawer {
+    position: fixed;
+    top: 80px;
+    right: 0;
+    width: 100%;
+    max-width: 400px;
+    height: calc(100vh - 80px);
+    background: white;
+    box-shadow: -10px 0 40px rgba(0,0,0,0.15);
+    transform: translateX(100%);
+    transition: transform 0.3s ease;
+    z-index: 999;
+    overflow-y: auto;
+}
+.bo-cart-drawer.open {
+    transform: translateX(0);
+}
+.bo-cart-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.5);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+    z-index: 998;
+}
+.bo-cart-overlay.open {
+    opacity: 1;
+    pointer-events: auto;
+}
+</style>
+
+<!-- Cart Drawer -->
+<div id="boCartOverlay" class="bo-cart-overlay" onclick="closeBoCart()"></div>
+<div id="boCartDrawer" class="bo-cart-drawer">
+    <div style="padding: 24px;">
+        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 24px;">
+            <h3 style="font-size: 20px; font-family: 'Playfair Display', Georgia, serif; font-weight: 600; color: #2D5F4C; margin: 0;">Your Cart</h3>
+            <button onclick="closeBoCart()" style="background: none; border: none; cursor: pointer; padding: 8px;">
+                <svg style="width: 24px; height: 24px; color: #64748b;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                </svg>
+            </button>
+        </div>
+
+        <div id="boCartItems" style="margin-bottom: 24px;">
+            <!-- Cart items will be inserted here -->
+        </div>
+
+        <div id="boCartEmpty" style="text-align: center; padding: 48px 0; display: none;">
+            <svg style="width: 64px; height: 64px; margin: 0 auto 16px; color: rgba(100,116,139,0.2);" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/>
+            </svg>
+            <p style="color: rgba(100,116,139,0.6);">Your cart is empty</p>
+            <button onclick="closeBoCart()" style="margin-top: 16px; color: #2D5F4C; font-weight: 500; background: none; border: none; cursor: pointer; text-decoration: underline;">Continue Shopping</button>
+        </div>
+
+        <div id="boCartFooter" style="border-top: 1px solid #E8EDE7; padding-top: 16px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+                <span style="font-weight: 600; color: #2D5F4C;">Subtotal:</span>
+                <span id="boCartTotal" style="font-size: 24px; font-family: 'Playfair Display', Georgia, serif; font-weight: 600; color: #2D5F4C;">$0.00</span>
+            </div>
+            <a href="/checkout" id="boCheckoutBtn" style="display: block; width: 100%; background: linear-gradient(to right, #2D5F4C, #1A3A2E); color: white; padding: 14px; border-radius: 9999px; font-weight: 600; text-align: center; text-decoration: none; box-shadow: 0 4px 12px rgba(45,95,76,0.3); margin-bottom: 12px;">
+                Proceed to Checkout
+            </a>
+            <a href="/cart" style="display: block; width: 100%; border: 2px solid #E8EDE7; color: #1A3A2E; padding: 12px; border-radius: 9999px; font-weight: 600; text-align: center; text-decoration: none;">
+                View Cart
+            </a>
+            <p style="font-size: 12px; text-align: center; color: rgba(100,116,139,0.6); margin-top: 12px;">Free shipping on all orders</p>
+        </div>
+    </div>
+</div>
+
+<!-- Product Hero Section -->
+<section id="bestseller" style="padding-top: 128px; padding-bottom: 64px; background: white; scroll-margin-top: 80px;">
+    <div style="max-width: 1280px; margin: 0 auto; padding: 0 24px;">
+        <div style="display: grid; grid-template-columns: 1fr; gap: 48px;">
+            <!-- Product Images -->
+            <div style="order: 1;">
+                <div style="position: sticky; top: 128px;">
+                    <!-- Main Image -->
+                    <div style="aspect-ratio: 1/1; background: #E8EDE7; border-radius: 16px; overflow: hidden; margin-bottom: 16px; position: relative;">
+                        <img src="{{ product.featured_image | image_url: width: 1200 }}"
+                             alt="{{ product.featured_image.alt | default: product.title }}"
+                             style="width: 100%; height: 100%; object-fit: cover; transition: all 0.3s;"
+                             loading="eager"
+                             id="mainProductImage">
+                        <!-- Best Seller Badge -->
+                        <div style="position: absolute; top: 16px; left: 16px; background: #D4A574; color: white; padding: 8px 16px; border-radius: 9999px; font-size: 14px; font-weight: 600; box-shadow: 0 4px 12px rgba(0,0,0,0.15);">
+                            Best Seller
+                        </div>
+                    </div>
+
+                    <!-- Image Thumbnails Gallery -->
+                    {% if product.images.size > 1 %}
+                    <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px;">
+                        {% for image in product.images limit: 4 %}
+                        <button onclick="changeProductImage('{{ image | image_url: width: 800 }}', this)"
+                                style="aspect-ratio: 1/1; background: #E8EDE7; border-radius: 8px; overflow: hidden; border: 2px solid {% if forloop.first %}#2D5F4C{% else %}transparent{% endif %}; cursor: pointer; padding: 0;">
+                            <img src="{{ image | image_url: width: 200 }}"
+                                 alt="{{ image.alt | default: product.title }}"
+                                 style="width: 100%; height: 100%; object-fit: cover;">
+                        </button>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+
+            <!-- Product Details -->
+            <div style="order: 2;">
+                <!-- Rating & Badge -->
+                <div style="display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px;">
+                    <div style="display: inline-flex; align-items: center; gap: 8px; background: rgba(45,95,76,0.1); color: #2D5F4C; padding: 6px 12px; border-radius: 9999px; font-size: 12px; font-weight: 500;">
+                        <span style="color: #F59E0B;">★★★★★</span>
+                        <span>5.0 (10 verified reviews)</span>
+                    </div>
+                    <div style="display: inline-flex; align-items: center; gap: 4px; background: rgba(212,165,116,0.1); color: #D4A574; padding: 6px 12px; border-radius: 9999px; font-size: 12px; font-weight: 600;">
+                        <span>BEST SELLER</span>
+                    </div>
+                </div>
+
+                <!-- Product Title -->
+                <h1 style="font-size: 36px; font-weight: 300; line-height: 1.2; margin-bottom: 16px; color: #1F1F1F; font-family: 'Playfair Display', Georgia, serif;">
+                    Butter Oasis<br/>
+                    <span style="font-weight: 600;">Shea Butter Body Balm</span>
+                </h1>
+
+                <p style="font-size: 18px; color: rgba(31,31,31,0.7); margin-bottom: 24px; line-height: 1.6;">
+                    For very dry, cracked, or flaky skin on hands, body, and feet.
+                </p>
+
+                <!-- Price -->
+                <div style="margin-bottom: 24px;">
+                    <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 8px;">
+                        {% if product.compare_at_price > product.price %}
+                        <span style="font-size: 24px; color: rgba(100,116,139,0.4); text-decoration: line-through; font-family: 'Playfair Display', Georgia, serif;">{{ product.compare_at_price | money }}</span>
+                        {% endif %}
+                        <span style="font-size: 48px; font-family: 'Playfair Display', Georgia, serif; font-weight: 700; color: #1F1F1F;">{{ product.price | money }}</span>
+                        {% if product.compare_at_price > product.price %}
+                        {% assign savings = product.compare_at_price | minus: product.price %}
+                        <span style="background: #EF4444; color: white; padding: 4px 12px; border-radius: 9999px; font-size: 14px; font-weight: 700;">SAVE {{ savings | money }}</span>
+                        {% endif %}
+                    </div>
+                    <div style="display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap;">
+                        <span style="font-size: 14px; color: rgba(31,31,31,0.6);">4oz jar • Only <span style="font-weight: 600; color: #2D5F4C;">$0.58/day</span> for 4 months</span>
+                        <span style="font-size: 14px; background: rgba(205,133,63,0.1); color: #CD853F; padding: 4px 12px; border-radius: 9999px; font-weight: 500;">120+ day supply</span>
+                    </div>
+                    <p style="font-size: 12px; color: #2D5F4C; font-weight: 600; margin-top: 8px;">✓ Worth over $200+ in comparable products</p>
+                    <p style="font-size: 12px; color: #2D5F4C; font-weight: 600; margin-top: 4px;">✓ Free shipping on all orders</p>
+                </div>
+
+                <!-- Key Benefits Box -->
+                <div style="background: rgba(248,247,242,0.7); padding: 24px; border-radius: 12px; margin-bottom: 32px; border: 1px solid rgba(45,95,76,0.1);">
+                    <h3 style="font-weight: 600; color: #1F1F1F; margin-bottom: 16px; display: flex; align-items: center; gap: 8px; font-size: 16px;">
+                        <svg style="width: 20px; height: 20px; color: #2D5F4C;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                        </svg>
+                        What makes this different
+                    </h3>
+                    <ul style="list-style: none; padding: 0; margin: 0;">
+                        <li style="display: flex; align-items: flex-start; gap: 8px; margin-bottom: 10px; font-size: 14px; color: rgba(31,31,31,0.8);">
+                            <span style="color: #2D5F4C; margin-top: 2px;">✓</span>
+                            <span><strong>Only 3 pure ingredients</strong> — Raw shea butter, cocoa butter & argan oil</span>
+                        </li>
+                        <li style="display: flex; align-items: flex-start; gap: 8px; margin-bottom: 10px; font-size: 14px; color: rgba(31,31,31,0.8);">
+                            <span style="color: #2D5F4C; margin-top: 2px;">✓</span>
+                            <span><strong>24-hour+ deep hydration</strong> — Not just surface moisture</span>
+                        </li>
+                        <li style="display: flex; align-items: flex-start; gap: 8px; margin-bottom: 10px; font-size: 14px; color: rgba(31,31,31,0.8);">
+                            <span style="color: #2D5F4C; margin-top: 2px;">✓</span>
+                            <span><strong>Supports skin barrier</strong> — Softens cracks, rough patches & dry skin</span>
+                        </li>
+                        <li style="display: flex; align-items: flex-start; gap: 8px; margin-bottom: 10px; font-size: 14px; color: rgba(31,31,31,0.8);">
+                            <span style="color: #2D5F4C; margin-top: 2px;">✓</span>
+                            <span><strong>Multi-purpose formula</strong> — Face, hands, body, feet</span>
+                        </li>
+                        <li style="display: flex; align-items: flex-start; gap: 8px; font-size: 14px; color: rgba(31,31,31,0.8);">
+                            <span style="color: #2D5F4C; margin-top: 2px;">✓</span>
+                            <span><strong>Safe for all ages</strong> — From babies to mature skin</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Purchase Section -->
+                <div id="purchase" style="background: white; border: 2px solid rgba(232,237,231,0.5); border-radius: 16px; padding: 24px; margin-bottom: 32px;">
+                    {% form 'product', product, id: 'product-form' %}
+                        <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+
+                        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px;">
+                            <div>
+                                <p style="font-size: 14px; color: rgba(31,31,31,0.6); margin-bottom: 4px;">Quantity</p>
+                                <div style="display: flex; align-items: center; gap: 12px;">
+                                    <button type="button" id="decreaseQty" style="width: 40px; height: 40px; border: 1px solid #E8EDE7; border-radius: 8px; display: flex; align-items: center; justify-content: center; background: white; cursor: pointer; font-size: 18px;">−</button>
+                                    <input type="number" name="quantity" id="quantity" value="1" min="1" max="99" class="bo-qty-input" style="font-size: 18px; font-weight: 600; width: 48px; text-align: center; border: none; padding: 0; background: transparent;">
+                                    <button type="button" id="increaseQty" style="width: 40px; height: 40px; border: 1px solid #E8EDE7; border-radius: 8px; display: flex; align-items: center; justify-content: center; background: white; cursor: pointer; font-size: 18px;">+</button>
+                                </div>
+                            </div>
+                            <div style="text-align: right;">
+                                <p style="font-size: 14px; color: rgba(31,31,31,0.6); margin-bottom: 4px;">Total</p>
+                                <p id="totalPrice" style="font-size: 24px; font-family: 'Playfair Display', Georgia, serif; font-weight: 600; color: #1F1F1F;">{{ product.price | money }}</p>
+                            </div>
+                        </div>
+
+                        <!-- Texture/Scent note -->
+                        <p style="font-size: 12px; color: rgba(31,31,31,0.6); text-align: center; margin-bottom: 12px;">
+                            No added fragrance (mild natural cocoa-shea scent) · Absorbs in 2-3 min · Not greasy
+                        </p>
+
+                        <!-- ADD TO CART BUTTON - PROMINENTLY STYLED -->
+                        <button type="submit"
+                                id="addToCart"
+                                class="bo-shine"
+                                style="width: 100%; background: linear-gradient(to right, #2D5F4C, #1A3A2E); color: white; padding: 18px 24px; border-radius: 9999px; font-size: 18px; font-weight: 700; border: none; cursor: pointer; box-shadow: 0 8px 24px rgba(45,95,76,0.4); margin-bottom: 16px; transition: all 0.3s; text-transform: uppercase; letter-spacing: 0.5px;"
+                                onmouseover="this.style.boxShadow='0 12px 32px rgba(45,95,76,0.5)'; this.style.transform='translateY(-2px)';"
+                                onmouseout="this.style.boxShadow='0 8px 24px rgba(45,95,76,0.4)'; this.style.transform='translateY(0)';"
+                                {% unless product.available %}disabled{% endunless %}>
+                            {% if product.available %}
+                                Add to Cart — {{ product.price | money }}
+                            {% else %}
+                                Sold Out
+                            {% endif %}
+                        </button>
+                    {% endform %}
+
+                    <!-- Bundle Offer -->
+                    <div style="background: linear-gradient(135deg, rgba(45,95,76,0.1), rgba(134,239,172,0.2), rgba(45,95,76,0.1)); padding: 20px; border-radius: 16px; border: 2px solid rgba(45,95,76,0.3); position: relative; overflow: hidden;">
+                        <div style="position: absolute; top: 0; right: 0; background: #D4A574; color: white; font-size: 12px; font-weight: 700; padding: 4px 12px; border-bottom-left-radius: 8px;">
+                            SAVE $21
+                        </div>
+                        <p style="font-size: 18px; font-weight: 700; color: #1A3A2E; margin-bottom: 4px;">Bundle & Save 15%</p>
+                        <p style="font-size: 14px; color: rgba(31,31,31,0.8); margin-bottom: 8px;">Buy 2 jars for <span style="font-weight: 700; color: #2D5F4C; font-size: 20px;">$119</span> <span style="text-decoration: line-through; color: rgba(100,116,139,0.5); font-size: 14px;">$140</span></p>
+                        <p style="font-size: 12px; color: #2D5F4C; font-weight: 600;">✓ Most popular • 6-8 months</p>
+                    </div>
+                </div>
+
+                <!-- Trust Strip -->
+                <div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 24px; font-size: 14px; color: rgba(31,31,31,0.7); margin-bottom: 16px; padding: 12px 0; border-top: 1px solid rgba(232,237,231,0.3); border-bottom: 1px solid rgba(232,237,231,0.3);">
+                    <span style="display: flex; align-items: center; gap: 6px;">
+                        <svg style="width: 16px; height: 16px; color: #2D5F4C;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                        Free shipping
+                    </span>
+                    <span style="display: flex; align-items: center; gap: 6px;">
+                        <svg style="width: 16px; height: 16px; color: #2D5F4C;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                        Ships in 1-2 days
+                    </span>
+                    <span style="display: flex; align-items: center; gap: 6px;">
+                        <svg style="width: 16px; height: 16px; color: #2D5F4C;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                        30-day returns
+                    </span>
+                </div>
+
+                <!-- Review Snippets -->
+                <div style="margin-bottom: 24px;">
+                    <div style="background: rgba(251,191,36,0.05); border: 1px solid rgba(251,191,36,0.2); border-radius: 8px; padding: 12px; margin-bottom: 12px;">
+                        <div style="color: #F59E0B; font-size: 12px; margin-bottom: 4px;">★★★★★</div>
+                        <p style="font-size: 14px; color: rgba(31,31,31,0.8); font-style: italic;">"My hands are finally soft after 40 years of struggling with dryness."</p>
+                        <p style="font-size: 12px; color: rgba(31,31,31,0.5); margin-top: 4px;">— Jennifer M., Verified Buyer</p>
+                    </div>
+                    <div style="background: rgba(251,191,36,0.05); border: 1px solid rgba(251,191,36,0.2); border-radius: 8px; padding: 12px;">
+                        <div style="color: #F59E0B; font-size: 12px; margin-bottom: 4px;">★★★★★</div>
+                        <p style="font-size: 14px; color: rgba(31,31,31,0.8); font-style: italic;">"Transformed my cracked heels in 10 days. I actually cried when I saw the difference."</p>
+                        <p style="font-size: 12px; color: rgba(31,31,31,0.5); margin-top: 4px;">— Maria S., Verified Buyer</p>
+                    </div>
+                </div>
+
+                <!-- Payment Methods -->
+                <div style="border-top: 1px solid rgba(232,237,231,0.3); padding-top: 24px;">
+                    <p style="font-size: 12px; color: rgba(100,116,139,0.7); text-align: center; margin-bottom: 12px; font-weight: 500;">Secure payment methods:</p>
+                    <div style="display: flex; align-items: center; justify-content: center; gap: 8px; flex-wrap: wrap;">
+                        {{ shop.enabled_payment_types | payment_type_svg_tag }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Product Story Section -->
+<section style="padding: 64px 0; background: linear-gradient(to bottom, #FFFBF5, white);">
+    <div style="max-width: 896px; margin: 0 auto; padding: 0 24px;">
+        <div style="text-align: center; margin-bottom: 48px;">
+            <h2 style="font-size: 32px; font-family: 'Playfair Display', Georgia, serif; font-weight: 300; margin-bottom: 16px; color: #1F1F1F;">
+                Why Butter Oasis <span style="font-style: italic; font-weight: 600;">actually works</span>
+            </h2>
+            <p style="font-size: 18px; color: rgba(31,31,31,0.7);">
+                When conventional moisturizers fail, pure ingredients succeed
+            </p>
+        </div>
+
+        <div style="font-size: 16px; color: rgba(31,31,31,0.8); line-height: 1.7;">
+            <p style="margin-bottom: 24px;">
+                Most moisturizers are 70-90% water with synthetic fillers. They provide temporary relief, but they don't deeply nourish.
+                Your skin drinks them up and hours later, you're dry again.
+            </p>
+            <p style="margin-bottom: 24px;">
+                Butter Oasis is different. We use <strong>only three specially formulated ingredients</strong> in their purest form—raw shea butter,
+                cold-pressed cocoa butter, and Moroccan argan oil. No water. No fillers. No synthetics.
+            </p>
+            <p style="margin-bottom: 24px;">
+                These nutrient-dense butters don't just hydrate the surface. They penetrate deep to support your skin's natural barrier,
+                locking in moisture for 24+ hours while softening cracks and roughness.
+            </p>
+            <div style="background: rgba(45,95,76,0.05); border-left: 4px solid #CD853F; padding: 24px; border-radius: 0 12px 12px 0; margin: 32px 0;">
+                <p style="color: rgba(31,31,31,0.9); font-style: italic; font-weight: 500; margin: 0;">
+                    "I created this formula after seeing too many people struggle with persistent dryness that traditional products couldn't address.
+                    The answer wasn't more ingredients—it was the right ingredients in their purest form."
+                </p>
+                <p style="color: rgba(31,31,31,0.6); font-size: 14px; margin-top: 12px;">— Dr. Bibi</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Ingredients Deep Dive -->
+<section style="padding: 64px 0; background: white;">
+    <div style="max-width: 1152px; margin: 0 auto; padding: 0 24px;">
+        <div style="text-align: center; margin-bottom: 64px;">
+            <h2 style="font-size: 32px; font-family: 'Playfair Display', Georgia, serif; font-weight: 300; margin-bottom: 16px; color: #1F1F1F;">
+                Three ingredients. <span style="font-style: italic; font-weight: 600;">Infinite benefits.</span>
+            </h2>
+            <p style="font-size: 18px; color: rgba(31,31,31,0.7); max-width: 640px; margin: 0 auto;">
+                Each ingredient is sourced directly from its origin, tested for purity, and used in pure, concentrated formulations
+            </p>
+        </div>
+
+        <div style="display: flex; flex-direction: column; gap: 48px;">
+            <!-- Ingredient 1: Shea Butter -->
+            <div style="max-width: 768px; margin: 0 auto;">
+                <div style="display: inline-block; background: rgba(45,95,76,0.1); color: #2D5F4C; padding: 4px 12px; border-radius: 9999px; font-size: 12px; font-weight: 600; margin-bottom: 12px;">
+                    60% Concentration
+                </div>
+                <h3 style="font-size: 24px; font-family: 'Playfair Display', Georgia, serif; font-weight: 600; margin-bottom: 12px; color: #1F1F1F;">African Shea Butter</h3>
+                <p style="color: rgba(31,31,31,0.7); margin-bottom: 16px; line-height: 1.6;">
+                    Sourced from women's cooperatives in West Africa. Unrefined and cold-pressed to preserve its full nutrient profile.
+                </p>
+                <div style="background: rgba(232,237,231,0.5); padding: 20px; border-radius: 12px; border: 1px solid rgba(45,95,76,0.1);">
+                    <p style="font-weight: 600; font-size: 14px; color: #1F1F1F; margin-bottom: 12px;">Key Benefits:</p>
+                    <ul style="list-style: none; padding: 0; margin: 0; font-size: 14px; color: rgba(31,31,31,0.8);">
+                        <li style="display: flex; align-items: flex-start; gap: 8px; margin-bottom: 8px;">
+                            <span style="color: #2D5F4C;">•</span>
+                            <span><strong>Vitamins A & E:</strong> Powerful antioxidants that protect and soothe skin</span>
+                        </li>
+                        <li style="display: flex; align-items: flex-start; gap: 8px; margin-bottom: 8px;">
+                            <span style="color: #2D5F4C;">•</span>
+                            <span><strong>Essential Fatty Acids:</strong> Rebuild and strengthen the skin barrier</span>
+                        </li>
+                        <li style="display: flex; align-items: flex-start; gap: 8px; margin-bottom: 8px;">
+                            <span style="color: #2D5F4C;">•</span>
+                            <span><strong>Natural Collagen Production:</strong> Improves elasticity</span>
+                        </li>
+                        <li style="display: flex; align-items: flex-start; gap: 8px;">
+                            <span style="color: #2D5F4C;">•</span>
+                            <span><strong>Anti-inflammatory:</strong> Soothes dry, irritated skin</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Ingredient 2: Cocoa Butter -->
+            <div style="max-width: 768px; margin: 0 auto;">
+                <div style="display: inline-block; background: rgba(45,95,76,0.1); color: #2D5F4C; padding: 4px 12px; border-radius: 9999px; font-size: 12px; font-weight: 600; margin-bottom: 12px;">
+                    30% Concentration
+                </div>
+                <h3 style="font-size: 24px; font-family: 'Playfair Display', Georgia, serif; font-weight: 600; margin-bottom: 12px; color: #1F1F1F;">Pure Cocoa Butter</h3>
+                <p style="color: rgba(31,31,31,0.7); margin-bottom: 16px; line-height: 1.6;">
+                    Cold-pressed from premium cacao beans. Rich, creamy texture that melts into skin without greasiness.
+                </p>
+                <div style="background: rgba(232,237,231,0.5); padding: 20px; border-radius: 12px; border: 1px solid rgba(45,95,76,0.1);">
+                    <p style="font-weight: 600; font-size: 14px; color: #1F1F1F; margin-bottom: 12px;">Key Benefits:</p>
+                    <ul style="list-style: none; padding: 0; margin: 0; font-size: 14px; color: rgba(31,31,31,0.8);">
+                        <li style="display: flex; align-items: flex-start; gap: 8px; margin-bottom: 8px;">
+                            <span style="color: #2D5F4C;">•</span>
+                            <span><strong>Deep Moisture Lock:</strong> 24+ hours of hydration</span>
+                        </li>
+                        <li style="display: flex; align-items: flex-start; gap: 8px; margin-bottom: 8px;">
+                            <span style="color: #2D5F4C;">•</span>
+                            <span><strong>Non-Comedogenic:</strong> Won't clog pores</span>
+                        </li>
+                        <li style="display: flex; align-items: flex-start; gap: 8px; margin-bottom: 8px;">
+                            <span style="color: #2D5F4C;">•</span>
+                            <span><strong>Polyphenols & Antioxidants:</strong> Protect against aging</span>
+                        </li>
+                        <li style="display: flex; align-items: flex-start; gap: 8px;">
+                            <span style="color: #2D5F4C;">•</span>
+                            <span><strong>Stretch Mark Reduction:</strong> Improves skin elasticity</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Ingredient 3: Argan Oil -->
+            <div style="max-width: 768px; margin: 0 auto;">
+                <div style="display: inline-block; background: rgba(45,95,76,0.1); color: #2D5F4C; padding: 4px 12px; border-radius: 9999px; font-size: 12px; font-weight: 600; margin-bottom: 12px;">
+                    10% Concentration
+                </div>
+                <h3 style="font-size: 24px; font-family: 'Playfair Display', Georgia, serif; font-weight: 600; margin-bottom: 12px; color: #1F1F1F;">Cold-Pressed Moroccan Argan Oil</h3>
+                <p style="color: rgba(31,31,31,0.7); margin-bottom: 16px; line-height: 1.6;">
+                    Liquid gold from Morocco's argan trees. Cold-pressed to preserve delicate nutrients and essential fatty acids.
+                </p>
+                <div style="background: rgba(232,237,231,0.5); padding: 20px; border-radius: 12px; border: 1px solid rgba(45,95,76,0.1);">
+                    <p style="font-weight: 600; font-size: 14px; color: #1F1F1F; margin-bottom: 12px;">Key Benefits:</p>
+                    <ul style="list-style: none; padding: 0; margin: 0; font-size: 14px; color: rgba(31,31,31,0.8);">
+                        <li style="display: flex; align-items: flex-start; gap: 8px; margin-bottom: 8px;">
+                            <span style="color: #2D5F4C;">•</span>
+                            <span><strong>Vitamin E Powerhouse:</strong> Nature's highest concentration for skin renewal</span>
+                        </li>
+                        <li style="display: flex; align-items: flex-start; gap: 8px; margin-bottom: 8px;">
+                            <span style="color: #2D5F4C;">•</span>
+                            <span><strong>Omega-6 & Omega-9:</strong> Calm and condition skin</span>
+                        </li>
+                        <li style="display: flex; align-items: flex-start; gap: 8px; margin-bottom: 8px;">
+                            <span style="color: #2D5F4C;">•</span>
+                            <span><strong>Fast Absorption:</strong> Helps ingredients penetrate deeper</span>
+                        </li>
+                        <li style="display: flex; align-items: flex-start; gap: 8px;">
+                            <span style="color: #2D5F4C;">•</span>
+                            <span><strong>Balances Sebum:</strong> Regulates oil production</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Purity Statement -->
+        <div style="margin-top: 64px; background: linear-gradient(to right, rgba(205,133,63,0.1), rgba(26,58,46,0.1)); padding: 32px; border-radius: 16px; border: 1px solid rgba(205,133,63,0.2);">
+            <div style="max-width: 768px; margin: 0 auto; text-align: center;">
+                <h3 style="font-size: 24px; font-family: 'Playfair Display', Georgia, serif; font-weight: 600; margin-bottom: 16px; color: #1F1F1F;">That's it. Just 3 ingredients.</h3>
+                <p style="color: rgba(31,31,31,0.7); line-height: 1.6; margin-bottom: 24px;">
+                    No water. No fragrances. No parabens. No sulfates. No phthalates. No petroleum derivatives.
+                    No synthetic preservatives. No fillers. No compromises.
+                </p>
+                <p style="font-size: 14px; color: rgba(31,31,31,0.6); font-style: italic;">
+                    Every ingredient is third-party tested for purity and sourced through ethical fair-trade partnerships.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- How to Use -->
+<section style="padding: 64px 0; background: #F8F7F2;">
+    <div style="max-width: 896px; margin: 0 auto; padding: 0 24px;">
+        <div style="text-align: center; margin-bottom: 48px;">
+            <h2 style="font-size: 32px; font-family: 'Playfair Display', Georgia, serif; font-weight: 300; margin-bottom: 16px; color: #1F1F1F;">
+                How to use for <span style="font-style: italic; font-weight: 600;">best results</span>
+            </h2>
+        </div>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 32px; margin-bottom: 48px;">
+            <div style="text-align: center;">
+                <div style="width: 64px; height: 64px; background: rgba(45,95,76,0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 24px; font-family: 'Playfair Display', Georgia, serif; font-weight: 600; color: #2D5F4C; margin: 0 auto 16px;">
+                    1
+                </div>
+                <h3 style="font-weight: 600; margin-bottom: 8px; color: #1F1F1F;">Warm & Soften</h3>
+                <p style="font-size: 14px; color: rgba(31,31,31,0.7);">
+                    Scoop a small amount. Rub between palms to warm and melt.
+                </p>
+            </div>
+
+            <div style="text-align: center;">
+                <div style="width: 64px; height: 64px; background: rgba(45,95,76,0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 24px; font-family: 'Playfair Display', Georgia, serif; font-weight: 600; color: #2D5F4C; margin: 0 auto 16px;">
+                    2
+                </div>
+                <h3 style="font-weight: 600; margin-bottom: 8px; color: #1F1F1F;">Apply & Massage</h3>
+                <p style="font-size: 14px; color: rgba(31,31,31,0.7);">
+                    Massage into skin using gentle circular motions.
+                </p>
+            </div>
+
+            <div style="text-align: center;">
+                <div style="width: 64px; height: 64px; background: rgba(45,95,76,0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 24px; font-family: 'Playfair Display', Georgia, serif; font-weight: 600; color: #2D5F4C; margin: 0 auto 16px;">
+                    3
+                </div>
+                <h3 style="font-weight: 600; margin-bottom: 8px; color: #1F1F1F;">Let It Absorb</h3>
+                <p style="font-size: 14px; color: rgba(31,31,31,0.7);">
+                    Allow 2-3 minutes for full absorption. A little goes a long way.
+                </p>
+            </div>
+        </div>
+
+        <div style="background: white; padding: 32px; border-radius: 16px; border: 1px solid rgba(45,95,76,0.1);">
+            <h3 style="font-weight: 600; margin-bottom: 16px; color: #1F1F1F;">Pro Tips:</h3>
+            <ul style="list-style: none; padding: 0; margin: 0; font-size: 14px; color: rgba(31,31,31,0.8);">
+                <li style="display: flex; align-items: flex-start; gap: 12px; margin-bottom: 12px;">
+                    <span style="color: #2D5F4C; font-size: 18px;">→</span>
+                    <span><strong>For severe dryness:</strong> Apply to damp skin after shower</span>
+                </li>
+                <li style="display: flex; align-items: flex-start; gap: 12px; margin-bottom: 12px;">
+                    <span style="color: #2D5F4C; font-size: 18px;">→</span>
+                    <span><strong>Overnight treatment:</strong> Apply before bed, wear cotton gloves/socks</span>
+                </li>
+                <li style="display: flex; align-items: flex-start; gap: 12px; margin-bottom: 12px;">
+                    <span style="color: #2D5F4C; font-size: 18px;">→</span>
+                    <span><strong>Multi-use:</strong> Safe for face, hands, elbows, knees, feet, cuticles, lips</span>
+                </li>
+                <li style="display: flex; align-items: flex-start; gap: 12px;">
+                    <span style="color: #2D5F4C; font-size: 18px;">→</span>
+                    <span><strong>Pregnancy safe:</strong> Massage onto belly to prevent stretch marks</span>
+                </li>
+            </ul>
+        </div>
+    </div>
+</section>
+
+<!-- Reviews Section -->
+<section style="padding: 64px 0; background: white;">
+    <div style="max-width: 1152px; margin: 0 auto; padding: 0 24px;">
+        <div style="text-align: center; margin-bottom: 48px;">
+            <div style="display: inline-flex; align-items: center; gap: 8px; background: rgba(45,95,76,0.1); color: #2D5F4C; padding: 8px 16px; border-radius: 9999px; font-size: 14px; font-weight: 500; margin-bottom: 16px;">
+                <span style="color: #F59E0B;">★★★★★</span>
+                <span>5.0 out of 5.0</span>
+            </div>
+            <h2 style="font-size: 32px; font-family: 'Playfair Display', Georgia, serif; font-weight: 300; margin-bottom: 16px; color: #1F1F1F;">
+                Real results from <span style="font-style: italic; font-weight: 600;">real customers</span>
+            </h2>
+        </div>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 32px;">
+            <!-- Review 1 -->
+            <div style="background: rgba(232,237,231,0.5); padding: 32px; border-radius: 16px; border: 1px solid rgba(45,95,76,0.1);">
+                <div style="color: #F59E0B; font-size: 18px; margin-bottom: 16px;">★★★★★</div>
+                <h3 style="font-weight: 600; margin-bottom: 12px; color: #1F1F1F;">"Finally, something that actually works"</h3>
+                <p style="color: rgba(31,31,31,0.8); line-height: 1.6; margin-bottom: 24px; font-style: italic;">
+                    "I've had dry, irritated skin my entire life. This balm is the ONLY thing that's given me relief. My hands are finally soft after 40 years."
+                </p>
+                <div style="display: flex; align-items: center; gap: 12px; padding-top: 16px; border-top: 1px solid rgba(45,95,76,0.1);">
+                    <div style="width: 48px; height: 48px; background: rgba(205,133,63,0.2); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: 'Playfair Display', Georgia, serif; font-weight: 600; color: #2D5F4C;">
+                        JM
+                    </div>
+                    <div>
+                        <p style="font-weight: 600; color: #1F1F1F;">Jennifer M.</p>
+                        <p style="font-size: 14px; color: rgba(31,31,31,0.6);">Verified Purchase</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Review 2 -->
+            <div style="background: rgba(232,237,231,0.5); padding: 32px; border-radius: 16px; border: 1px solid rgba(45,95,76,0.1);">
+                <div style="color: #F59E0B; font-size: 18px; margin-bottom: 16px;">★★★★★</div>
+                <h3 style="font-weight: 600; margin-bottom: 12px; color: #1F1F1F;">"Saved my nurse hands"</h3>
+                <p style="color: rgba(31,31,31,0.8); line-height: 1.6; margin-bottom: 24px; font-style: italic;">
+                    "As an ICU nurse, my hands were destroyed from constant washing. Within 2 weeks of using Butter Oasis, they're 90% better."
+                </p>
+                <div style="display: flex; align-items: center; gap: 12px; padding-top: 16px; border-top: 1px solid rgba(45,95,76,0.1);">
+                    <div style="width: 48px; height: 48px; background: rgba(205,133,63,0.2); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: 'Playfair Display', Georgia, serif; font-weight: 600; color: #2D5F4C;">
+                        SK
+                    </div>
+                    <div>
+                        <p style="font-weight: 600; color: #1F1F1F;">Sarah K.</p>
+                        <p style="font-size: 14px; color: rgba(31,31,31,0.6);">Verified Purchase</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Review 3 -->
+            <div style="background: rgba(232,237,231,0.5); padding: 32px; border-radius: 16px; border: 1px solid rgba(45,95,76,0.1);">
+                <div style="color: #F59E0B; font-size: 18px; margin-bottom: 16px;">★★★★★</div>
+                <h3 style="font-weight: 600; margin-bottom: 12px; color: #1F1F1F;">"Transformed my cracked heels"</h3>
+                <p style="color: rgba(31,31,31,0.8); line-height: 1.6; margin-bottom: 24px; font-style: italic;">
+                    "After 10 days, my feet are soft like a baby's. I actually cried when I saw the difference."
+                </p>
+                <div style="display: flex; align-items: center; gap: 12px; padding-top: 16px; border-top: 1px solid rgba(45,95,76,0.1);">
+                    <div style="width: 48px; height: 48px; background: rgba(205,133,63,0.2); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: 'Playfair Display', Georgia, serif; font-weight: 600; color: #2D5F4C;">
+                        TC
+                    </div>
+                    <div>
+                        <p style="font-weight: 600; color: #1F1F1F;">Tina C.</p>
+                        <p style="font-size: 14px; color: rgba(31,31,31,0.6);">Verified Purchase</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Review Summary -->
+        <div style="margin-top: 48px; background: linear-gradient(to right, rgba(205,133,63,0.1), rgba(26,58,46,0.1)); padding: 32px; border-radius: 16px; text-align: center; border: 1px solid rgba(205,133,63,0.2);">
+            <p style="font-size: 24px; font-family: 'Playfair Display', Georgia, serif; font-weight: 600; color: #1F1F1F; margin-bottom: 8px;">100% of customers recommend this product</p>
+            <p style="color: rgba(31,31,31,0.7);">Based on verified reviews</p>
+        </div>
+    </div>
+</section>
+
+<!-- Guarantee Section -->
+<section style="padding: 64px 0; background: linear-gradient(to right, #2D5F4C, #1A3A2E); color: white;">
+    <div style="max-width: 896px; margin: 0 auto; padding: 0 24px; text-align: center;">
+        <div style="width: 80px; height: 80px; background: rgba(255,255,255,0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 24px;">
+            <svg style="width: 40px; height: 40px; color: white;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+            </svg>
+        </div>
+        <h2 style="font-size: 32px; font-family: 'Playfair Display', Georgia, serif; font-weight: 300; margin-bottom: 24px;">
+            Our 30-day <span style="font-style: italic; font-weight: 600;">satisfaction guarantee</span>
+        </h2>
+        <p style="font-size: 18px; color: rgba(255,255,255,0.9); margin-bottom: 16px; line-height: 1.6; max-width: 640px; margin-left: auto; margin-right: auto;">
+            We're so confident Butter Oasis will transform your skin that we offer a 30-day satisfaction guarantee.
+            If you're not thrilled with the results, contact us within 30 days for a full refund.
+        </p>
+        <p style="font-size: 14px; color: rgba(255,255,255,0.7); margin-bottom: 32px;">
+            <a href="/policies/refund-policy" style="color: rgba(255,255,255,0.9); text-decoration: underline;">Read our full return policy</a> — no fine print, no hassle.
+        </p>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 24px; max-width: 768px; margin: 0 auto;">
+            <div style="background: rgba(255,255,255,0.1); backdrop-filter: blur(8px); padding: 24px; border-radius: 12px;">
+                <p style="font-size: 32px; margin-bottom: 8px;">📦</p>
+                <p style="font-weight: 600; margin-bottom: 4px;">Free Shipping</p>
+                <p style="font-size: 14px; color: rgba(255,255,255,0.7);">Expedited available</p>
+            </div>
+            <div style="background: rgba(255,255,255,0.1); backdrop-filter: blur(8px); padding: 24px; border-radius: 12px;">
+                <p style="font-size: 32px; margin-bottom: 8px;">⚡</p>
+                <p style="font-weight: 600; margin-bottom: 4px;">Fast Delivery</p>
+                <p style="font-size: 14px; color: rgba(255,255,255,0.7);">Ships in 1-2 days</p>
+            </div>
+            <div style="background: rgba(255,255,255,0.1); backdrop-filter: blur(8px); padding: 24px; border-radius: 12px;">
+                <p style="font-size: 32px; margin-bottom: 8px;">💚</p>
+                <p style="font-weight: 600; margin-bottom: 4px;">30-Day Returns</p>
+                <p style="font-size: 14px; color: rgba(255,255,255,0.7);">Full satisfaction</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Final CTA -->
+<section style="padding: 80px 0; background: linear-gradient(to bottom, #1F1F1F, black); color: white;">
+    <div style="max-width: 896px; margin: 0 auto; padding: 0 24px; text-align: center;">
+        <h2 style="font-size: 40px; font-family: 'Playfair Display', Georgia, serif; font-weight: 300; margin-bottom: 24px; line-height: 1.2;">
+            Your skin has been <span style="font-style: italic; font-weight: 600;">waiting for this</span>
+        </h2>
+        <p style="font-size: 18px; color: rgba(255,255,255,0.8); margin-bottom: 40px; max-width: 640px; margin-left: auto; margin-right: auto; line-height: 1.6;">
+            Stop settling for temporary relief. Experience deep, lasting nourishment with the purest ingredients nature offers.
+        </p>
+        <a href="#purchase" style="display: inline-flex; align-items: center; background: white; color: #1F1F1F; padding: 20px 40px; border-radius: 9999px; font-size: 18px; font-weight: 600; text-decoration: none; box-shadow: 0 20px 40px rgba(0,0,0,0.3); margin-bottom: 24px;">
+            Shop Butter Oasis — {{ product.price | money }}
+            <svg style="width: 24px; height: 24px; margin-left: 8px;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+            </svg>
+        </a>
+        <div style="display: flex; flex-direction: column; align-items: center; gap: 8px;">
+            <div style="color: #FBBF24;">★★★★★</div>
+            <p style="font-size: 14px; color: rgba(255,255,255,0.6);">
+                5.0 rating • Free & expedited shipping • 30-day guarantee
+            </p>
+        </div>
+    </div>
+</section>
+
+<!-- FDA Disclaimer -->
+<section style="padding: 32px 0; background: rgba(248,247,242,0.5);">
+    <div style="max-width: 896px; margin: 0 auto; padding: 0 24px; text-align: center;">
+        <p style="font-size: 12px; color: rgba(100,116,139,0.7); line-height: 1.6;">
+            <strong>Disclaimer:</strong> These statements have not been evaluated by the Food and Drug Administration. This product is not intended to diagnose, treat, cure, or prevent any disease. Individual results may vary.
+        </p>
+    </div>
+</section>
+
+<script>
+// Quantity controls
+const quantityInput = document.getElementById('quantity');
+const totalPriceDisplay = document.getElementById('totalPrice');
+const decreaseBtn = document.getElementById('decreaseQty');
+const increaseBtn = document.getElementById('increaseQty');
+const productPrice = {{ product.price | divided_by: 100.0 }};
+
+function updateTotal() {
+    const qty = parseInt(quantityInput.value) || 1;
+    const total = (qty * productPrice).toFixed(2);
+    totalPriceDisplay.textContent = '$' + total;
+}
+
+decreaseBtn?.addEventListener('click', () => {
+    let qty = parseInt(quantityInput.value) || 1;
+    if (qty > 1) {
+        quantityInput.value = qty - 1;
+        updateTotal();
+    }
+});
+
+increaseBtn?.addEventListener('click', () => {
+    let qty = parseInt(quantityInput.value) || 1;
+    if (qty < 99) {
+        quantityInput.value = qty + 1;
+        updateTotal();
+    }
+});
+
+quantityInput?.addEventListener('change', updateTotal);
+
+// Product Image Gallery
+function changeProductImage(imageUrl, thumbnailButton) {
+    const mainImage = document.getElementById('mainProductImage');
+    if (mainImage) {
+        mainImage.src = imageUrl;
+    }
+
+    const allThumbnails = thumbnailButton.parentElement.querySelectorAll('button');
+    allThumbnails.forEach(btn => {
+        btn.style.borderColor = 'transparent';
+    });
+
+    thumbnailButton.style.borderColor = '#2D5F4C';
+}
+
+// Cart Drawer Functions
+function openBoCart() {
+    document.getElementById('boCartDrawer').classList.add('open');
+    document.getElementById('boCartOverlay').classList.add('open');
+    document.body.style.overflow = 'hidden';
+    refreshBoCart();
+}
+
+function closeBoCart() {
+    document.getElementById('boCartDrawer').classList.remove('open');
+    document.getElementById('boCartOverlay').classList.remove('open');
+    document.body.style.overflow = '';
+}
+
+// Refresh cart drawer contents
+async function refreshBoCart() {
+    try {
+        const response = await fetch('/cart.js');
+        const cart = await response.json();
+        renderBoCart(cart);
+    } catch (error) {
+        console.error('Error fetching cart:', error);
+    }
+}
+
+// Render cart items
+function renderBoCart(cart) {
+    const cartItems = document.getElementById('boCartItems');
+    const cartEmpty = document.getElementById('boCartEmpty');
+    const cartFooter = document.getElementById('boCartFooter');
+    const cartTotal = document.getElementById('boCartTotal');
+
+    if (cart.item_count === 0) {
+        cartItems.innerHTML = '';
+        cartEmpty.style.display = 'block';
+        cartFooter.style.display = 'none';
+        return;
+    }
+
+    cartEmpty.style.display = 'none';
+    cartFooter.style.display = 'block';
+
+    cartItems.innerHTML = cart.items.map((item, index) => `
+        <div style="display: flex; gap: 16px; padding: 16px 0; border-bottom: 1px solid #E8EDE7;">
+            <img src="${item.image || item.featured_image.url}" alt="${item.title}" style="width: 80px; height: 80px; object-fit: cover; border-radius: 8px;">
+            <div style="flex: 1;">
+                <h4 style="font-weight: 600; color: #1F1F1F; margin-bottom: 4px; font-size: 14px;">${item.product_title}</h4>
+                <p style="font-size: 12px; color: rgba(31,31,31,0.6); margin-bottom: 8px;">${item.variant_title || ''}</p>
+                <div style="display: flex; align-items: center; justify-content: space-between;">
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <button onclick="updateBoCartItem(${item.key}, ${item.quantity - 1})" style="width: 28px; height: 28px; border: 1px solid #E8EDE7; border-radius: 4px; background: white; cursor: pointer;">−</button>
+                        <span style="font-weight: 600;">${item.quantity}</span>
+                        <button onclick="updateBoCartItem(${item.key}, ${item.quantity + 1})" style="width: 28px; height: 28px; border: 1px solid #E8EDE7; border-radius: 4px; background: white; cursor: pointer;">+</button>
+                    </div>
+                    <span style="font-weight: 600; color: #2D5F4C;">$${(item.final_line_price / 100).toFixed(2)}</span>
+                </div>
+            </div>
+            <button onclick="removeBoCartItem(${item.key})" style="background: none; border: none; cursor: pointer; color: #EF4444; padding: 4px;">
+                <svg style="width: 18px; height: 18px;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
+                </svg>
+            </button>
+        </div>
+    `).join('');
+
+    cartTotal.textContent = '$' + (cart.total_price / 100).toFixed(2);
+}
+
+// Update cart item quantity
+async function updateBoCartItem(key, quantity) {
+    try {
+        const response = await fetch('/cart/change.js', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ id: key.toString(), quantity: quantity })
+        });
+        const cart = await response.json();
+        renderBoCart(cart);
+        updateHeaderCartCount(cart.item_count);
+    } catch (error) {
+        console.error('Error updating cart:', error);
+    }
+}
+
+// Remove cart item
+async function removeBoCartItem(key) {
+    await updateBoCartItem(key, 0);
+}
+
+// Update header cart count badge
+function updateHeaderCartCount(count) {
+    const badges = document.querySelectorAll('[data-cart-count]');
+    badges.forEach(badge => {
+        badge.textContent = count;
+        badge.style.display = count > 0 ? 'flex' : 'none';
+    });
+}
+
+// AJAX Add to Cart
+const productForm = document.getElementById('product-form');
+const addToCartBtn = document.getElementById('addToCart');
+
+productForm?.addEventListener('submit', async function(e) {
+    e.preventDefault();
+
+    const formData = new FormData(productForm);
+    const originalText = addToCartBtn.innerHTML;
+
+    // Show loading state
+    addToCartBtn.innerHTML = 'Adding...';
+    addToCartBtn.disabled = true;
+
+    try {
+        const response = await fetch('/cart/add.js', {
+            method: 'POST',
+            body: formData
+        });
+
+        if (response.ok) {
+            const item = await response.json();
+
+            // Show success state
+            addToCartBtn.innerHTML = '✓ Added to Cart!';
+            addToCartBtn.style.background = '#1A3A2E';
+
+            // Open cart drawer
+            openBoCart();
+
+            // Reset button after delay
+            setTimeout(() => {
+                addToCartBtn.innerHTML = originalText;
+                addToCartBtn.style.background = 'linear-gradient(to right, #2D5F4C, #1A3A2E)';
+                addToCartBtn.disabled = false;
+            }, 2000);
+        } else {
+            throw new Error('Failed to add to cart');
+        }
+    } catch (error) {
+        console.error('Error:', error);
+        addToCartBtn.innerHTML = 'Error - Try Again';
+        setTimeout(() => {
+            addToCartBtn.innerHTML = originalText;
+            addToCartBtn.disabled = false;
+        }, 2000);
+    }
+});
+</script>
+
+<!-- Responsive styles -->
+<style>
+@media (min-width: 1024px) {
+    #bestseller > div > div {
+        grid-template-columns: 1fr 1fr !important;
+    }
+
+    #bestseller h1 {
+        font-size: 48px !important;
+    }
+}
+</style>
+
+{% schema %}
+{
+  "name": "Butter Oasis Product",
+  "tag": "section",
+  "class": "butter-oasis-product-inline",
+  "settings": []
+}
+{% endschema %}

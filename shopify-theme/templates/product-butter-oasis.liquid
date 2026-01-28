@@ -1,0 +1,489 @@
+{% comment %}
+  Custom Product Template for Butter Oasis
+  Upload this to: Online Store > Themes > Edit Code > Templates > Add new template > product.butter-oasis
+{% endcomment %}
+
+<!-- Load custom styles and fonts -->
+{{ 'butter-oasis-custom.css' | asset_url | stylesheet_tag }}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800&family=Jost:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<!-- Tailwind CDN for utility classes -->
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          ivory: '#FFFEF9',
+          pearl: '#F5F3ED',
+          sage: '#E8EDE7',
+          mint: '#C8E5D3',
+          emerald: '#2D5F4C',
+          forest: '#1A3A2E',
+          gold: '#D4AF37',
+          bronze: '#B08968',
+          charcoal: '#1F1F1F',
+          slate: '#475569',
+        },
+        fontFamily: {
+          display: ['Playfair Display', 'serif'],
+          sans: ['Jost', 'sans-serif'],
+        }
+      }
+    }
+  }
+</script>
+
+<!-- FAQ Schema Markup -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Is shea butter balm good for very dry skin?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes, shea butter is excellent for very dry skin. Our Butter Oasis balm combines raw shea butter with cocoa butter and argan oil to provide intensive, long-lasting moisture."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is this body balm unscented and fragrance-free?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes, Butter Oasis contains only three ingredients: raw shea butter, cocoa butter, and argan oil. There are no added fragrances, essential oils, or synthetic scents."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I use shea butter body balm on my face?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes, our shea butter balm is gentle enough for facial use. Many customers use it as an overnight face moisturizer or to target dry patches."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is shea butter balm safe for babies and sensitive skin?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes, our 3-ingredient formula is gentle enough for newborns and sensitive skin. It contains no fragrances, preservatives, or potential irritants."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How long does a 4oz jar of body balm last?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "A 4oz jar typically lasts 3-4 months with daily use. Because the formula is so concentrated, you only need a small amount."
+      }
+    }
+  ]
+}
+</script>
+
+<div class="butter-oasis-page bg-ivory min-h-screen font-sans">
+
+  <!-- Main Product Section -->
+  <section class="py-8 lg:py-16 bg-gradient-to-b from-pearl to-ivory">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+      <div class="grid lg:grid-cols-2 gap-12 lg:gap-16 items-start">
+
+        <!-- Product Images -->
+        <div class="order-1">
+          <div class="sticky top-24">
+            <div class="bg-white rounded-3xl p-4 shadow-sm mb-4">
+              <img
+                id="mainProductImage"
+                src="{{ product.featured_image | img_url: '800x800' }}"
+                alt="{{ product.featured_image.alt | default: product.title }}"
+                class="w-full h-auto rounded-2xl object-cover aspect-square"
+              >
+            </div>
+
+            {% if product.images.size > 1 %}
+            <div class="flex gap-3 overflow-x-auto pb-2">
+              {% for image in product.images %}
+              <button
+                onclick="changeProductImage('{{ image | img_url: '800x800' }}', this)"
+                class="flex-shrink-0 w-20 h-20 rounded-xl overflow-hidden border-2 {% if forloop.first %}border-emerald{% else %}border-transparent{% endif %} hover:border-emerald transition"
+              >
+                <img src="{{ image | img_url: '100x100' }}" alt="{{ image.alt }}" class="w-full h-full object-cover">
+              </button>
+              {% endfor %}
+            </div>
+            {% endif %}
+          </div>
+        </div>
+
+        <!-- Product Details -->
+        <div class="order-2">
+          <!-- Badges -->
+          <div class="flex flex-wrap gap-2 mb-4">
+            <div class="inline-flex items-center gap-2 bg-emerald/10 text-emerald px-3 py-1.5 rounded-full text-xs font-medium">
+              <span class="text-yellow-500">★★★★★</span>
+              <span>5.0 ({{ product.metafields.reviews.rating.value | default: '10' }} verified reviews)</span>
+            </div>
+            {% if product.tags contains 'bestseller' %}
+            <div class="inline-flex items-center gap-1 bg-gold/10 text-gold px-3 py-1.5 rounded-full text-xs font-semibold">
+              <span>🔥</span>
+              <span>BEST SELLER</span>
+            </div>
+            {% endif %}
+          </div>
+
+          <!-- Title -->
+          <h1 class="text-4xl lg:text-5xl font-display font-light leading-tight mb-4 text-charcoal">
+            Butter Oasis<br/>
+            <span class="font-semibold">Shea Butter Body Balm</span>
+          </h1>
+
+          <!-- Subhead - Who it's for -->
+          <p class="text-xl text-charcoal/70 mb-6 leading-relaxed">
+            For very dry, cracked, or flaky skin on hands, body, and feet.
+          </p>
+
+          <!-- Price -->
+          <div class="mb-6">
+            <div class="flex items-center gap-3 mb-2">
+              {% if product.compare_at_price > product.price %}
+              <span class="text-2xl text-slate/40 line-through font-display">{{ product.compare_at_price | money }}</span>
+              {% endif %}
+              <span class="text-5xl font-display font-bold text-charcoal">{{ product.price | money }}</span>
+              {% if product.compare_at_price > product.price %}
+              {% assign savings = product.compare_at_price | minus: product.price %}
+              <span class="bg-red-500 text-white px-3 py-1 rounded-full text-sm font-bold">SAVE {{ savings | money }}</span>
+              {% endif %}
+            </div>
+            <div class="flex items-baseline gap-3">
+              <span class="text-sm text-charcoal/60">4oz jar • Only <span class="font-semibold text-emerald">$0.58/day</span> for 4 months</span>
+              <span class="text-sm bg-bronze/10 text-bronze px-3 py-1 rounded-full font-medium">120+ day supply</span>
+            </div>
+          </div>
+
+          <!-- Key Benefits Box -->
+          <div class="benefits-box mb-8">
+            <h3 class="font-semibold text-charcoal mb-4 flex items-center gap-2">
+              <svg class="w-5 h-5 text-emerald" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+              </svg>
+              What makes this different
+            </h3>
+            <ul class="space-y-2.5 text-sm text-charcoal/80">
+              <li class="flex items-start gap-2">
+                <span class="text-emerald mt-0.5">✓</span>
+                <span><strong>Only 3 pure ingredients</strong> — Raw shea butter, cocoa butter & argan oil</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="text-emerald mt-0.5">✓</span>
+                <span><strong>24-hour+ deep hydration</strong> — Not just surface moisture</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="text-emerald mt-0.5">✓</span>
+                <span><strong>Supports skin barrier</strong> — Softens cracks, rough patches & dry skin</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="text-emerald mt-0.5">✓</span>
+                <span><strong>Multi-purpose formula</strong> — Face, hands, body, feet</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="text-emerald mt-0.5">✓</span>
+                <span><strong>Safe for all ages</strong> — From babies to mature skin</span>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Buy Box -->
+          <div class="buy-box mb-8">
+            <form action="/cart/add" method="post" enctype="multipart/form-data" id="product-form">
+              <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+
+              <div class="flex items-center justify-between mb-4">
+                <div>
+                  <p class="text-sm text-charcoal/60 mb-1">Quantity</p>
+                  <div class="flex items-center gap-3">
+                    <button type="button" onclick="decreaseQty()" class="w-10 h-10 border border-sage rounded-lg flex items-center justify-center hover:bg-sage/20 transition">−</button>
+                    <input type="number" name="quantity" id="quantity" value="1" min="1" class="text-lg font-semibold w-12 text-center border-0 bg-transparent">
+                    <button type="button" onclick="increaseQty()" class="w-10 h-10 border border-sage rounded-lg flex items-center justify-center hover:bg-sage/20 transition">+</button>
+                  </div>
+                </div>
+                <div class="text-right">
+                  <p class="text-sm text-charcoal/60 mb-1">Total</p>
+                  <p id="totalPrice" class="text-2xl font-display font-semibold text-charcoal">{{ product.price | money }}</p>
+                </div>
+              </div>
+
+              <!-- Texture/Scent/Absorption callout -->
+              <p class="text-xs text-charcoal/60 text-center mb-3">
+                No added fragrance (mild natural cocoa-shea scent) · Absorbs in 2-3 min · Not greasy
+              </p>
+
+              <button
+                type="submit"
+                class="btn-cta mb-4"
+                {% unless product.available %}disabled{% endunless %}
+              >
+                {% if product.available %}
+                  Add to Cart
+                {% else %}
+                  Sold Out
+                {% endif %}
+              </button>
+            </form>
+
+            <!-- Bundle offer -->
+            <div class="bg-gradient-to-br from-emerald/10 via-mint/20 to-emerald/10 p-4 sm:p-5 rounded-2xl border-2 border-emerald/30 relative overflow-hidden">
+              <div class="absolute top-0 right-0 bg-gold text-white text-xs font-bold px-2 sm:px-3 py-1 rounded-bl-lg">
+                SAVE $21
+              </div>
+              <p class="text-base sm:text-lg font-bold text-forest mb-1">🎉 Bundle & Save 15%</p>
+              <p class="text-sm text-charcoal/80 mb-2">Buy 2 jars for <span class="font-bold text-emerald text-lg sm:text-xl">$119</span> <span class="line-through text-slate/50 text-sm">$140</span></p>
+              <p class="text-xs text-emerald font-semibold">✓ Most popular • 6-8 months</p>
+            </div>
+          </div>
+
+          <!-- Trust Strip -->
+          <div class="trust-strip mb-4">
+            <span class="flex items-center gap-1.5">
+              <svg class="w-4 h-4 text-emerald" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+              Free shipping
+            </span>
+            <span class="flex items-center gap-1.5">
+              <svg class="w-4 h-4 text-emerald" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+              Ships in 1-2 days
+            </span>
+            <span class="flex items-center gap-1.5">
+              <svg class="w-4 h-4 text-emerald" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+              30-day returns
+            </span>
+          </div>
+
+          <!-- Review Snippets -->
+          <div class="space-y-3 mb-6">
+            <div class="review-snippet">
+              <div class="stars mb-1">★★★★★</div>
+              <p class="text-sm text-charcoal/80 italic">"My hands are finally soft after 40 years of struggling with dryness."</p>
+              <p class="text-xs text-charcoal/50 mt-1">— Jennifer M., Verified Buyer</p>
+            </div>
+            <div class="review-snippet">
+              <div class="stars mb-1">★★★★★</div>
+              <p class="text-sm text-charcoal/80 italic">"Transformed my cracked heels in 10 days. I actually cried when I saw the difference."</p>
+              <p class="text-xs text-charcoal/50 mt-1">— Maria S., Verified Buyer</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Product Story Section -->
+  <section class="py-16 lg:py-24 bg-gradient-to-b from-cream to-white">
+    <div class="max-w-4xl mx-auto px-6 lg:px-8">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl lg:text-4xl font-display font-light mb-4 text-charcoal">
+          Why Butter Oasis <span class="italic font-semibold">actually works</span>
+        </h2>
+        <p class="text-lg text-charcoal/70">
+          When conventional moisturizers fail, pure ingredients succeed
+        </p>
+      </div>
+
+      <div class="prose prose-lg max-w-none">
+        <p class="text-charcoal/80 leading-relaxed mb-6">
+          Most moisturizers are 70-90% water with synthetic fillers. They provide temporary relief, but they don't deeply nourish.
+          Your skin drinks them up and hours later, you're dry again.
+        </p>
+        <p class="text-charcoal/80 leading-relaxed mb-6">
+          Butter Oasis is different. We use <strong>only three specially formulated ingredients</strong> in their purest form—raw shea butter,
+          cold-pressed cocoa butter, and Moroccan argan oil. No water. No fillers. No synthetics.
+        </p>
+        <p class="text-charcoal/80 leading-relaxed mb-6">
+          These nutrient-dense butters don't just hydrate the surface. They penetrate deep to support your skin's natural barrier,
+          locking in moisture for 24+ hours while softening cracks and roughness.
+        </p>
+        <div class="bg-emerald/5 border-l-4 border-bronze p-6 rounded-r-xl my-8">
+          <p class="text-charcoal/90 italic font-medium">
+            "I created this formula after seeing too many people struggle with persistent dryness that traditional products couldn't address.
+            The answer wasn't more ingredients—it was the right ingredients in their purest form."
+          </p>
+          <p class="text-charcoal/60 text-sm mt-3">— Dr. Bibi</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section id="faq" class="py-16 lg:py-24 bg-white">
+    <div class="max-w-3xl mx-auto px-6 lg:px-8">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl lg:text-4xl font-display font-light mb-4 text-charcoal">
+          Frequently Asked <span class="italic font-semibold">Questions</span>
+        </h2>
+        <p class="text-lg text-charcoal/70">
+          Everything you need to know about our shea butter body balm
+        </p>
+      </div>
+
+      <div class="space-y-4">
+        <details class="faq-item">
+          <summary class="font-semibold text-charcoal">
+            Is shea butter balm good for very dry skin?
+            <svg class="w-5 h-5 text-emerald transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+            </svg>
+          </summary>
+          <div class="faq-answer">
+            <p>Yes, shea butter is excellent for very dry skin. Our Butter Oasis balm combines raw shea butter with cocoa butter and argan oil to provide intensive, long-lasting moisture. Unlike water-based lotions that evaporate quickly, this oil-based formula creates a protective barrier that locks in hydration for 24+ hours.</p>
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary class="font-semibold text-charcoal">
+            Is this body balm unscented and fragrance-free?
+            <svg class="w-5 h-5 text-emerald transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+            </svg>
+          </summary>
+          <div class="faq-answer">
+            <p>Yes, Butter Oasis contains only three ingredients: raw shea butter, cocoa butter, and argan oil. There are no added fragrances, essential oils, or synthetic scents. It has a subtle, natural nutty aroma from the raw butters that fades quickly after application.</p>
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary class="font-semibold text-charcoal">
+            Can I use shea butter body balm on my face?
+            <svg class="w-5 h-5 text-emerald transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+            </svg>
+          </summary>
+          <div class="faq-answer">
+            <p>Yes, our shea butter balm is gentle enough for facial use. Many customers use it as an overnight face moisturizer or to target dry patches. Because it's oil-based and rich, a small amount goes a long way. Those with oily or acne-prone skin may prefer to use it only on dry areas.</p>
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary class="font-semibold text-charcoal">
+            What's the difference between shea butter balm and regular lotion?
+            <svg class="w-5 h-5 text-emerald transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+            </svg>
+          </summary>
+          <div class="faq-answer">
+            <p>Most lotions are 70-90% water with emulsifiers and preservatives. They absorb quickly but don't provide lasting moisture. Our shea butter balm is 100% pure oils and butters with no water or fillers. It takes slightly longer to absorb but provides much deeper, longer-lasting hydration that actually repairs the skin barrier.</p>
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary class="font-semibold text-charcoal">
+            Is shea butter balm safe for babies and sensitive skin?
+            <svg class="w-5 h-5 text-emerald transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+            </svg>
+          </summary>
+          <div class="faq-answer">
+            <p>Yes, our 3-ingredient formula is gentle enough for newborns and sensitive skin. It contains no fragrances, preservatives, or potential irritants. Many parents use it for dry patches on babies. As with any new product, we recommend patch testing first if you have concerns about sensitivity.</p>
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary class="font-semibold text-charcoal">
+            How long does a 4oz jar of body balm last?
+            <svg class="w-5 h-5 text-emerald transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+            </svg>
+          </summary>
+          <div class="faq-answer">
+            <p>A 4oz jar typically lasts 3-4 months with daily use. Because the formula is so concentrated, you only need a small amount—about the size of a pea for hands or a nickel-sized amount for larger areas. This works out to roughly $0.58 per day.</p>
+          </div>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- Guarantee Section -->
+  <section class="guarantee-section">
+    <div class="max-w-4xl mx-auto">
+      <div class="w-20 h-20 bg-white/10 rounded-full flex items-center justify-center mx-auto mb-6">
+        <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+        </svg>
+      </div>
+      <h2 class="text-3xl lg:text-4xl font-display font-light mb-6">
+        Our 30-day <span class="italic font-semibold">satisfaction guarantee</span>
+      </h2>
+      <p class="text-lg text-white/90 mb-4 leading-relaxed max-w-2xl mx-auto">
+        We're so confident Butter Oasis will transform your skin that we offer a 30-day satisfaction guarantee.
+        If you're not thrilled with the results, contact us within 30 days for a full refund of the product price.
+      </p>
+      <p class="text-sm text-white/70 mb-8">
+        <a href="/policies/refund-policy" class="underline hover:text-white">Read our full return policy</a> — no fine print, no hassle.
+      </p>
+      <div class="grid md:grid-cols-3 gap-6 max-w-3xl mx-auto">
+        <div class="bg-white/10 backdrop-blur-sm p-6 rounded-xl">
+          <p class="text-3xl mb-2">📦</p>
+          <p class="font-semibold mb-1">Free Shipping</p>
+          <p class="text-sm text-white/70">Expedited option available</p>
+        </div>
+        <div class="bg-white/10 backdrop-blur-sm p-6 rounded-xl">
+          <p class="text-3xl mb-2">⚡</p>
+          <p class="font-semibold mb-1">Fast Delivery</p>
+          <p class="text-sm text-white/70">Ships in 1-2 business days</p>
+        </div>
+        <div class="bg-white/10 backdrop-blur-sm p-6 rounded-xl">
+          <p class="text-3xl mb-2">💚</p>
+          <p class="font-semibold mb-1">30-Day Returns</p>
+          <p class="text-sm text-white/70">Full satisfaction guaranteed</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FDA Disclaimer -->
+  <section class="py-8 bg-pearl/50">
+    <div class="max-w-4xl mx-auto px-6 lg:px-8 text-center">
+      <p class="text-xs text-slate/70 leading-relaxed">
+        <strong>Disclaimer:</strong> These statements have not been evaluated by the Food and Drug Administration. This product is not intended to diagnose, treat, cure, or prevent any disease. Individual results may vary. If you have a medical condition or are pregnant/nursing, consult your healthcare provider before use. Discontinue use if irritation occurs.
+      </p>
+    </div>
+  </section>
+
+</div>
+
+<script>
+  // Quantity controls
+  function increaseQty() {
+    const input = document.getElementById('quantity');
+    input.value = parseInt(input.value) + 1;
+    updateTotal();
+  }
+
+  function decreaseQty() {
+    const input = document.getElementById('quantity');
+    if (parseInt(input.value) > 1) {
+      input.value = parseInt(input.value) - 1;
+      updateTotal();
+    }
+  }
+
+  function updateTotal() {
+    const qty = parseInt(document.getElementById('quantity').value);
+    const price = {{ product.price }} / 100;
+    document.getElementById('totalPrice').textContent = '$' + (qty * price).toFixed(2);
+  }
+
+  // Image gallery
+  function changeProductImage(imageUrl, button) {
+    document.getElementById('mainProductImage').src = imageUrl;
+    document.querySelectorAll('.flex.gap-3 button').forEach(btn => {
+      btn.classList.remove('border-emerald');
+      btn.classList.add('border-transparent');
+    });
+    button.classList.remove('border-transparent');
+    button.classList.add('border-emerald');
+  }
+</script>

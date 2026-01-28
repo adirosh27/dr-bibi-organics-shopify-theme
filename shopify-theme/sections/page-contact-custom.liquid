@@ -1,0 +1,211 @@
+{% comment %}
+  Custom Contact Page for Dr. Bibi Organics
+  Matches the Vercel site design - fully inline styled
+{% endcomment %}
+
+<!-- Hero Section -->
+<section style="padding-top: 128px; padding-bottom: 48px; background: linear-gradient(to bottom right, #FBF8F3, #FFFEF9, #C4D5CC); position: relative; overflow: hidden;">
+    <!-- Decorative blurs -->
+    <div style="position: absolute; top: 80px; right: 0; width: 384px; height: 384px; background: rgba(216,232,221,0.2); border-radius: 50%; filter: blur(64px);"></div>
+    <div style="position: absolute; bottom: 0; left: 0; width: 320px; height: 320px; background: rgba(74,155,127,0.1); border-radius: 50%; filter: blur(64px);"></div>
+
+    <div style="max-width: 1280px; margin: 0 auto; padding: 0 24px; position: relative; z-index: 10;">
+        <div style="text-align: center; max-width: 768px; margin: 0 auto;">
+            <h1 style="font-family: 'Playfair Display', Georgia, serif; font-size: 48px; font-weight: 700; line-height: 1.1; margin-bottom: 24px; color: #2D5F4F;">
+                Get in <span style="font-style: italic; color: #4A9B7F;">Touch</span>
+            </h1>
+            <p style="font-size: 20px; color: rgba(100,116,139,0.8); margin-bottom: 32px; font-weight: 300;">
+                Have questions about Butter Oasis? We're here to help. Send us a message and we'll get back to you within 24 hours.
+            </p>
+        </div>
+    </div>
+</section>
+
+<!-- Contact Section -->
+<section style="padding: 48px 0 80px; background: white;">
+    <div style="max-width: 1280px; margin: 0 auto; padding: 0 24px;">
+        <div style="display: grid; grid-template-columns: 1fr; gap: 48px;">
+
+            <!-- Contact Form -->
+            <div style="max-width: 600px;">
+                <h2 style="font-family: 'Playfair Display', Georgia, serif; font-size: 30px; font-weight: 600; color: #2D5F4F; margin-bottom: 24px;">Send us a message</h2>
+
+                {% form 'contact' %}
+                    {% if form.posted_successfully? %}
+                    <div style="padding: 24px; border-radius: 12px; text-align: center; font-weight: 600; background: rgba(74,155,127,0.1); color: #4A9B7F; border: 2px solid rgba(74,155,127,0.3); margin-bottom: 24px;">
+                        ✓ Message sent successfully! We'll respond within 24 hours.
+                    </div>
+                    {% endif %}
+
+                    {% if form.errors %}
+                    <div style="padding: 24px; border-radius: 12px; background: rgba(239,68,68,0.1); color: #DC2626; border: 2px solid rgba(239,68,68,0.3); margin-bottom: 24px;">
+                        {{ form.errors | default_errors }}
+                    </div>
+                    {% endif %}
+
+                    <div style="display: flex; flex-direction: column; gap: 24px;">
+                        <!-- Name -->
+                        <div>
+                            <label for="contact-name" style="display: block; font-size: 14px; font-weight: 600; color: #1F2937; margin-bottom: 8px;">Your Name *</label>
+                            <input
+                                type="text"
+                                id="contact-name"
+                                name="contact[name]"
+                                required
+                                style="width: 100%; padding: 12px 16px; border: 2px solid rgba(196,213,204,0.3); border-radius: 12px; font-size: 16px; color: #1F2937; outline: none; transition: border-color 0.2s; box-sizing: border-box;"
+                                placeholder="John Doe"
+                                onfocus="this.style.borderColor='#4A9B7F'"
+                                onblur="this.style.borderColor='rgba(196,213,204,0.3)'"
+                            >
+                        </div>
+
+                        <!-- Email -->
+                        <div>
+                            <label for="contact-email" style="display: block; font-size: 14px; font-weight: 600; color: #1F2937; margin-bottom: 8px;">Email Address *</label>
+                            <input
+                                type="email"
+                                id="contact-email"
+                                name="contact[email]"
+                                required
+                                style="width: 100%; padding: 12px 16px; border: 2px solid rgba(196,213,204,0.3); border-radius: 12px; font-size: 16px; color: #1F2937; outline: none; transition: border-color 0.2s; box-sizing: border-box;"
+                                placeholder="john@example.com"
+                                onfocus="this.style.borderColor='#4A9B7F'"
+                                onblur="this.style.borderColor='rgba(196,213,204,0.3)'"
+                            >
+                        </div>
+
+                        <!-- Subject -->
+                        <div>
+                            <label for="contact-subject" style="display: block; font-size: 14px; font-weight: 600; color: #1F2937; margin-bottom: 8px;">Subject</label>
+                            <input
+                                type="text"
+                                id="contact-subject"
+                                name="contact[subject]"
+                                style="width: 100%; padding: 12px 16px; border: 2px solid rgba(196,213,204,0.3); border-radius: 12px; font-size: 16px; color: #1F2937; outline: none; transition: border-color 0.2s; box-sizing: border-box;"
+                                placeholder="Product inquiry"
+                                onfocus="this.style.borderColor='#4A9B7F'"
+                                onblur="this.style.borderColor='rgba(196,213,204,0.3)'"
+                            >
+                        </div>
+
+                        <!-- Message -->
+                        <div>
+                            <label for="contact-message" style="display: block; font-size: 14px; font-weight: 600; color: #1F2937; margin-bottom: 8px;">Message *</label>
+                            <textarea
+                                id="contact-message"
+                                name="contact[body]"
+                                required
+                                rows="6"
+                                style="width: 100%; padding: 12px 16px; border: 2px solid rgba(196,213,204,0.3); border-radius: 12px; font-size: 16px; color: #1F2937; outline: none; transition: border-color 0.2s; resize: none; box-sizing: border-box; font-family: inherit;"
+                                placeholder="Tell us how we can help..."
+                                onfocus="this.style.borderColor='#4A9B7F'"
+                                onblur="this.style.borderColor='rgba(196,213,204,0.3)'"
+                            ></textarea>
+                        </div>
+
+                        <!-- Submit Button -->
+                        <button
+                            type="submit"
+                            style="width: 100%; background: linear-gradient(to right, #4A9B7F, #2D5F4F); color: white; padding: 20px 32px; border-radius: 9999px; font-size: 20px; font-weight: 700; border: none; cursor: pointer; box-shadow: 0 10px 30px rgba(74,155,127,0.3); display: flex; align-items: center; justify-content: center; gap: 12px; transition: all 0.3s;"
+                            onmouseover="this.style.transform='scale(1.02)'; this.style.boxShadow='0 15px 40px rgba(74,155,127,0.4)';"
+                            onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='0 10px 30px rgba(74,155,127,0.3)';"
+                        >
+                            <svg style="width: 24px; height: 24px;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                            </svg>
+                            Send Message
+                        </button>
+
+                        <p style="font-size: 14px; color: rgba(100,116,139,0.6); text-align: center;">
+                            We typically respond within 24 hours
+                        </p>
+                    </div>
+                {% endform %}
+            </div>
+
+            <!-- Contact Information -->
+            <div style="padding-left: 0;">
+                <h2 style="font-family: 'Playfair Display', Georgia, serif; font-size: 30px; font-weight: 600; color: #2D5F4F; margin-bottom: 24px;">Contact Information</h2>
+
+                <div style="display: flex; flex-direction: column; gap: 32px;">
+                    <!-- Email -->
+                    <div style="display: flex; align-items: flex-start; gap: 16px;">
+                        <div style="width: 48px; height: 48px; background: linear-gradient(to bottom right, rgba(74,155,127,0.1), rgba(196,213,204,0.1)); border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                            <svg style="width: 24px; height: 24px; color: #4A9B7F;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <h3 style="font-size: 18px; font-weight: 600; color: #2D5F4F; margin-bottom: 4px;">Email</h3>
+                            <a href="mailto:Support@drbibiorganics.com" style="color: #64748B; text-decoration: none;">
+                                Support@drbibiorganics.com
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Response Time -->
+                    <div style="display: flex; align-items: flex-start; gap: 16px;">
+                        <div style="width: 48px; height: 48px; background: linear-gradient(to bottom right, rgba(200,168,130,0.1), rgba(184,152,106,0.1)); border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                            <svg style="width: 24px; height: 24px; color: #C8A882;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <h3 style="font-size: 18px; font-weight: 600; color: #2D5F4F; margin-bottom: 4px;">Response Time</h3>
+                            <p style="color: #64748B; margin: 0;">We aim to respond to all inquiries within 24 hours during business days.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- FAQ Box -->
+                <div style="margin-top: 48px; padding: 24px; background: linear-gradient(to bottom right, rgba(196,213,204,0.1), rgba(216,232,221,0.1)); border-radius: 16px; border: 1px solid rgba(74,155,127,0.1);">
+                    <h3 style="font-family: 'Playfair Display', Georgia, serif; font-size: 20px; font-weight: 600; color: #2D5F4F; margin-bottom: 12px;">Quick Questions?</h3>
+                    <p style="font-size: 14px; color: #64748B; margin-bottom: 16px;">
+                        Check our FAQ page for answers to common questions about Butter Oasis, including ingredients, usage instructions, and shipping.
+                    </p>
+                    <a href="/pages/faqs" style="display: inline-flex; align-items: center; color: #4A9B7F; font-weight: 600; text-decoration: none;">
+                        View FAQs
+                        <svg style="width: 16px; height: 16px; margin-left: 8px;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- Responsive Grid -->
+<style>
+@media (min-width: 1024px) {
+    .contact-grid {
+        grid-template-columns: 1fr 1fr !important;
+    }
+    .contact-info-col {
+        padding-left: 48px !important;
+    }
+    .contact-hero-heading {
+        font-size: 72px !important;
+    }
+}
+</style>
+
+<script>
+// Apply responsive classes after DOM loads
+document.addEventListener('DOMContentLoaded', function() {
+    const grid = document.querySelector('section:nth-of-type(2) > div > div');
+    if (grid) {
+        grid.classList.add('contact-grid');
+    }
+});
+</script>
+
+{% schema %}
+{
+  "name": "Contact Page Custom",
+  "tag": "section",
+  "class": "contact-page-custom",
+  "settings": []
+}
+{% endschema %}

@@ -1,0 +1,1134 @@
+{% comment %}
+  Dr. Bibi Organics - Homepage Template
+  Upload this to: Online Store > Themes > Edit Code > Templates > Add new template > index
+{% endcomment %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ shop.name }} | Natural Skincare for Lasting Relief</title>
+  <meta name="description" content="Experience the transformative power of pure, African-sourced ingredients. Our Butter Oasis Balm delivers deep hydration and healing for mature, sensitive, and sun-damaged skin.">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="{{ 'Bibi_logo-Venmo.png' | asset_url }}">
+  <link rel="apple-touch-icon" href="{{ 'Bibi_logo-Venmo.png' | asset_url }}">
+
+  <!-- Open Graph / Social Media -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="{{ shop.url }}">
+  <meta property="og:title" content="{{ shop.name }} | Natural Skincare">
+  <meta property="og:description" content="Transform dry, damaged skin with pure African ingredients. 24-hour deep hydration. Only 3 ingredients.">
+  <meta property="og:image" content="{{ 'og-image.jpg' | asset_url }}">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="{{ shop.name }} | Natural Skincare">
+  <meta name="twitter:description" content="Transform dry, damaged skin with pure African ingredients. 24-hour deep hydration.">
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800&family=Jost:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  {{ 'butter-oasis-custom.css' | asset_url | stylesheet_tag }}
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            ivory: '#FFFEF9',
+            pearl: '#F5F3ED',
+            sage: '#E8EDE7',
+            mint: '#C8E5D3',
+            emerald: '#2D5F4C',
+            forest: '#1A3A2E',
+            gold: '#D4AF37',
+            bronze: '#B08968',
+            charcoal: '#1F1F1F',
+            slate: '#475569',
+          },
+          fontFamily: {
+            display: ['Playfair Display', 'serif'],
+            sans: ['Jost', 'sans-serif'],
+          },
+        }
+      }
+    }
+  </script>
+  <style>
+    body { font-family: 'Jost', sans-serif; }
+    h1, h2, h3, h4, h5, h6 { font-family: 'Playfair Display', serif; }
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-10px); }
+    }
+    .animate-float { animation: float 3s ease-in-out infinite; }
+    .shine { position: relative; overflow: hidden; }
+    .shine::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+      transition: left 0.5s;
+    }
+    .shine:hover::before { left: 100%; }
+    .dropdown { position: relative; }
+    .dropdown-menu {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      background: white;
+      min-width: 220px;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+      border-radius: 12px;
+      padding: 8px;
+      margin-top: 8px;
+      z-index: 100;
+    }
+    .dropdown-menu.show { display: block; }
+    .dropdown-menu a {
+      display: block;
+      padding: 10px 16px;
+      color: #475569;
+      text-decoration: none;
+      border-radius: 8px;
+      transition: all 0.2s;
+    }
+    .dropdown-menu a:hover { background: #E8EDE7; color: #2D5F4C; }
+    .search-bar { position: relative; }
+    .search-bar input { padding-right: 40px; }
+    .search-bar button { position: absolute; right: 8px; top: 50%; transform: translateY(-50%); }
+  </style>
+</head>
+<body class="bg-ivory text-charcoal antialiased">
+
+  <!-- Navigation -->
+  <nav class="bg-ivory/95 backdrop-blur-lg fixed w-full z-50 shadow-sm">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+      <div class="flex justify-between items-center h-20">
+        <!-- Logo -->
+        <div class="flex-shrink-0">
+          <a href="/" class="flex items-center gap-3">
+            <img src="https://drbibiorganics.com/cdn/shop/files/Bibi_logo-Venmo_007d67d2-4cab-4b38-8401-9114d5c90045.png?height=40"
+                 alt="{{ shop.name }} Logo"
+                 class="h-10"
+                 loading="eager">
+            <span class="text-2xl lg:text-3xl font-display font-bold tracking-tight text-emerald">
+              Dr. Bibi Organics
+            </span>
+          </a>
+        </div>
+
+        <!-- Main Navigation -->
+        <div class="hidden lg:flex items-center space-x-8">
+          <!-- Shop Dropdown -->
+          <div class="dropdown">
+            <a href="/products/butter-oasis-balm" class="text-sm font-semibold text-slate hover:text-emerald transition-colors cursor-pointer">
+              Shop ▾
+            </a>
+            <div class="dropdown-menu">
+              <a href="/products/butter-oasis-balm">Butter Oasis Balm</a>
+              <a href="/products/butter-oasis-balm#bundles">Bundles & Save</a>
+              <a href="/products/butter-oasis-balm#bestseller">Best Seller</a>
+            </div>
+          </div>
+
+          <!-- About Dropdown -->
+          <div class="dropdown">
+            <a href="#story" class="text-sm font-semibold text-slate hover:text-emerald transition-colors cursor-pointer">
+              About ▾
+            </a>
+            <div class="dropdown-menu">
+              <a href="/#story">Our Story</a>
+              <a href="/#benefits">Benefits</a>
+              <a href="/#ingredients">Ingredients</a>
+              <a href="/#reviews">Reviews</a>
+            </div>
+          </div>
+
+          <!-- Resources Dropdown -->
+          <div class="dropdown">
+            <a href="/pages/faqs" class="text-sm font-semibold text-slate hover:text-emerald transition-colors cursor-pointer">
+              Resources ▾
+            </a>
+            <div class="dropdown-menu">
+              <a href="/pages/faqs">FAQs</a>
+              <a href="/pages/contact">Contact Us</a>
+              <a href="/policies/refund-policy">Returns & Refunds</a>
+              <a href="/policies/terms-of-service">Terms of Service</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Side Actions -->
+        <div class="flex items-center gap-4">
+          <!-- Search Bar -->
+          <div class="hidden md:block search-bar">
+            <form action="/search" method="get">
+              <input type="search"
+                     name="q"
+                     placeholder="Search..."
+                     class="w-48 px-4 py-2 rounded-full border border-sage focus:outline-none focus:ring-2 focus:ring-emerald/30 bg-white text-sm">
+              <button type="submit" class="text-emerald hover:text-forest">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                </svg>
+              </button>
+            </form>
+          </div>
+
+          <!-- Account Link -->
+          <a href="/account" class="hidden md:flex items-center gap-1 text-sm font-medium text-slate hover:text-emerald transition-colors">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
+            </svg>
+            <span class="hidden xl:inline">Account</span>
+          </a>
+
+          <!-- CTA Button -->
+          <a href="/products/butter-oasis-balm" class="bg-gradient-to-r from-emerald to-forest text-white px-4 py-2 sm:px-6 sm:py-2.5 rounded-full text-xs sm:text-sm font-semibold hover:shadow-lg transition-all duration-300 shine whitespace-nowrap">
+            Shop Now
+          </a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const dropdowns = document.querySelectorAll('.dropdown');
+      dropdowns.forEach(dropdown => {
+        let closeTimer;
+        const menu = dropdown.querySelector('.dropdown-menu');
+        dropdown.addEventListener('mouseenter', function() {
+          clearTimeout(closeTimer);
+          menu.classList.add('show');
+        });
+        dropdown.addEventListener('mouseleave', function() {
+          closeTimer = setTimeout(() => {
+            menu.classList.remove('show');
+          }, 300);
+        });
+      });
+    });
+  </script>
+
+  <!-- Hero Section -->
+  <section class="pt-28 pb-12 lg:pt-32 lg:pb-16 bg-gradient-to-br from-pearl via-ivory to-sage relative overflow-hidden">
+    <div class="absolute top-20 right-0 w-96 h-96 bg-mint/20 rounded-full blur-3xl"></div>
+    <div class="absolute bottom-0 left-0 w-80 h-80 bg-emerald/10 rounded-full blur-3xl"></div>
+    <div class="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
+      <div class="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+        <div class="order-2 lg:order-1">
+          <div class="inline-flex items-center gap-2 bg-gradient-to-r from-gold/20 to-emerald/20 backdrop-blur-sm px-5 py-2 rounded-full text-xs font-semibold mb-6 border border-gold/30">
+            <span class="text-gold">★★★★★</span>
+            <span class="text-emerald">5.0 from verified customers</span>
+          </div>
+          <h1 class="text-6xl lg:text-8xl font-display font-bold leading-[0.95] mb-6 text-forest">
+            Deep Healing.
+            <span class="block text-emerald italic mt-2">Pure Nature.</span>
+          </h1>
+          <p class="text-lg lg:text-2xl text-slate/80 mb-10 leading-relaxed max-w-xl font-light">
+            When ordinary moisturizers fail, our <span class="font-semibold text-emerald">skin-loving</span> Butter Oasis Balm delivers transformative relief. Just 3 pure African ingredients.
+          </p>
+          <div class="flex flex-col sm:flex-row gap-5 mb-12">
+            <a href="/products/butter-oasis-balm" class="group inline-flex items-center justify-center bg-gradient-to-r from-emerald to-forest text-white px-6 py-3 sm:px-10 sm:py-5 rounded-full text-base sm:text-lg font-bold hover:shadow-2xl hover:scale-105 transition-all duration-300 shine">
+              Shop Butter Oasis
+              <svg class="w-5 h-5 sm:w-6 sm:h-6 ml-2 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+              </svg>
+            </a>
+            <a href="#story" class="inline-flex items-center justify-center border-2 border-emerald text-emerald px-6 py-3 sm:px-10 sm:py-5 rounded-full text-base sm:text-lg font-semibold hover:bg-emerald hover:text-white transition-all duration-300">
+              Our Story
+            </a>
+          </div>
+          <div class="grid grid-cols-3 gap-6 pt-8">
+            <div class="text-center lg:text-left">
+              <p class="text-4xl font-display font-bold text-emerald mb-2">24hr+</p>
+              <p class="text-sm text-slate font-medium">Deep Hydration</p>
+            </div>
+            <div class="text-center lg:text-left">
+              <p class="text-4xl font-display font-bold text-gold mb-2">3</p>
+              <p class="text-sm text-slate font-medium">Pure Ingredients</p>
+            </div>
+            <div class="text-center lg:text-left">
+              <p class="text-4xl font-display font-bold text-forest mb-2">0</p>
+              <p class="text-sm text-slate font-medium">Harsh Chemicals</p>
+            </div>
+          </div>
+        </div>
+        <div class="order-1 lg:order-2 relative">
+          <div class="relative animate-float">
+            <div class="absolute -z-10 inset-0 bg-gradient-to-br from-emerald/20 to-gold/20 rounded-full blur-3xl transform scale-110"></div>
+            <div class="aspect-square bg-gradient-to-br from-sage to-pearl rounded-3xl overflow-hidden shadow-2xl ring-1 ring-emerald/10">
+              <video autoplay loop muted playsinline preload="auto" class="w-full h-full object-cover">
+                <source src="{{ 'hero-video.mp4' | asset_url }}" type="video/mp4">
+              </video>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Trust Badges Section -->
+  <section class="py-10 bg-white border-y border-sage/20">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <!-- Free Shipping -->
+        <div class="flex flex-col items-center text-center">
+          <div class="w-16 h-16 bg-gradient-to-br from-emerald/10 to-sage/10 rounded-full flex items-center justify-center mb-4">
+            <svg class="w-8 h-8 text-emerald" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16V6a1 1 0 00-1-1H4a1 1 0 00-1 1v10a1 1 0 001 1h1m8-1a1 1 0 01-1 1H9m4-1V8a1 1 0 011-1h2.586a1 1 0 01.707.293l3.414 3.414a1 1 0 01.293.707V16a1 1 0 01-1 1h-1m-6-1a1 1 0 001 1h1M5 17a2 2 0 104 0m-4 0a2 2 0 114 0m6 0a2 2 0 104 0m-4 0a2 2 0 114 0"/>
+            </svg>
+          </div>
+          <h4 class="text-lg font-semibold text-forest mb-2">Free Shipping</h4>
+          <p class="text-sm text-slate/70">All orders ship free. Expedited available.</p>
+        </div>
+
+        <!-- Secure Payments -->
+        <div class="flex flex-col items-center text-center">
+          <div class="w-16 h-16 bg-gradient-to-br from-emerald/10 to-sage/10 rounded-full flex items-center justify-center mb-4">
+            <svg class="w-8 h-8 text-emerald" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"/>
+            </svg>
+          </div>
+          <h4 class="text-lg font-semibold text-forest mb-2">Secure Payments</h4>
+          <p class="text-sm text-slate/70">Our customers can pay securely through our website</p>
+        </div>
+
+        <!-- Customer Support -->
+        <div class="flex flex-col items-center text-center">
+          <div class="w-16 h-16 bg-gradient-to-br from-emerald/10 to-sage/10 rounded-full flex items-center justify-center mb-4">
+            <svg class="w-8 h-8 text-emerald" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/>
+            </svg>
+          </div>
+          <h4 class="text-lg font-semibold text-forest mb-2">Customer Support</h4>
+          <p class="text-sm text-slate/70">We are available 24/7 for our customers</p>
+        </div>
+
+        <!-- Money-Back Guarantee -->
+        <div class="flex flex-col items-center text-center">
+          <div class="w-16 h-16 bg-gradient-to-br from-gold/10 to-bronze/10 rounded-full flex items-center justify-center mb-4">
+            <svg class="w-8 h-8 text-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
+            </svg>
+          </div>
+          <h4 class="text-lg font-semibold text-forest mb-2">30-Day Guarantee</h4>
+          <p class="text-sm text-slate/70">Love it or your money back. Risk-free.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Benefits Section -->
+  <section id="benefits" class="py-12 lg:py-20 bg-white relative">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+      <div class="text-center mb-10">
+        <h2 class="text-3xl lg:text-5xl font-display font-light mb-4 text-forest leading-tight">
+          Transformative benefits you can <span class="italic font-bold">see and feel</span>
+        </h2>
+        <p class="text-xl text-slate/80 max-w-2xl mx-auto font-light">
+          Pure ingredients working in harmony to nourish, protect, and restore your skin's natural vitality.
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <!-- Benefit 1 -->
+        <div class="group bg-gradient-to-br from-sage/20 to-mint/20 p-10 rounded-3xl border border-emerald/10 hover:border-emerald/30 hover:shadow-2xl transition-all duration-300">
+          <div class="w-16 h-16 bg-gradient-to-br from-emerald to-forest rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+            <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+            </svg>
+          </div>
+          <h3 class="text-2xl font-display font-semibold mb-4 text-forest">24-Hour Deep Hydration</h3>
+          <p class="text-slate/80 leading-relaxed">
+            Shea butter penetrates beyond the surface, locking in moisture at the cellular level for all-day comfort and suppleness.
+          </p>
+        </div>
+
+        <!-- Benefit 2 -->
+        <div class="group bg-gradient-to-br from-sage/20 to-mint/20 p-10 rounded-3xl border border-emerald/10 hover:border-emerald/30 hover:shadow-2xl transition-all duration-300">
+          <div class="w-16 h-16 bg-gradient-to-br from-emerald to-forest rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+            <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
+            </svg>
+          </div>
+          <h3 class="text-2xl font-display font-semibold mb-4 text-forest">Repairs Damaged Skin Barrier</h3>
+          <p class="text-slate/80 leading-relaxed">
+            Essential fatty acids rebuild your skin's protective barrier, addressing cracks, rough patches, and chronic dryness at the source.
+          </p>
+        </div>
+
+        <!-- Benefit 3 -->
+        <div class="group bg-gradient-to-br from-sage/20 to-mint/20 p-10 rounded-3xl border border-emerald/10 hover:border-emerald/30 hover:shadow-2xl transition-all duration-300">
+          <div class="w-16 h-16 bg-gradient-to-br from-emerald to-forest rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+            <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707"/>
+            </svg>
+          </div>
+          <h3 class="text-2xl font-display font-semibold mb-4 text-forest">Powerful Antioxidant Protection</h3>
+          <p class="text-slate/80 leading-relaxed">
+            Vitamins A, E, and F combat environmental damage and protect against premature aging.
+          </p>
+        </div>
+
+        <!-- Benefit 4 -->
+        <div class="group bg-gradient-to-br from-sage/20 to-mint/20 p-10 rounded-3xl border border-emerald/10 hover:border-emerald/30 hover:shadow-2xl transition-all duration-300">
+          <div class="w-16 h-16 bg-gradient-to-br from-emerald to-forest rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+            <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"/>
+            </svg>
+          </div>
+          <h3 class="text-2xl font-display font-semibold mb-4 text-forest">Soothes Sensitive Skin</h3>
+          <p class="text-slate/80 leading-relaxed">
+            Gentle enough for dry, irritated skin and reactive skin. Non-comedogenic formula won't clog pores or cause breakouts.
+          </p>
+        </div>
+
+        <!-- Benefit 5 -->
+        <div class="group bg-gradient-to-br from-sage/20 to-mint/20 p-10 rounded-3xl border border-emerald/10 hover:border-emerald/30 hover:shadow-2xl transition-all duration-300">
+          <div class="w-16 h-16 bg-gradient-to-br from-emerald to-forest rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+            <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"/>
+            </svg>
+          </div>
+          <h3 class="text-2xl font-display font-semibold mb-4 text-forest">Visibly Improves Texture & Tone</h3>
+          <p class="text-slate/80 leading-relaxed">
+            Softens fine lines, evens skin tone, and restores youthful radiance. See visible improvement in just 7 days.
+          </p>
+        </div>
+
+        <!-- Benefit 6 -->
+        <div class="group bg-gradient-to-br from-sage/20 to-mint/20 p-10 rounded-3xl border border-emerald/10 hover:border-emerald/30 hover:shadow-2xl transition-all duration-300">
+          <div class="w-16 h-16 bg-gradient-to-br from-emerald to-forest rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+            <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064"/>
+            </svg>
+          </div>
+          <h3 class="text-2xl font-display font-semibold mb-4 text-forest">Safe for the Whole Family</h3>
+          <p class="text-slate/80 leading-relaxed">
+            From babies to grandparents. Safe during pregnancy and nursing. Multi-purpose formula works on face, hands, body, and feet.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- YouTube Short Feature -->
+  <section class="py-12 lg:py-16 bg-gradient-to-r from-charcoal via-forest to-charcoal text-white relative overflow-hidden">
+    <div class="absolute inset-0 opacity-10">
+      <div class="absolute top-0 right-1/4 w-96 h-96 bg-red-600 rounded-full blur-3xl"></div>
+      <div class="absolute bottom-0 left-1/4 w-80 h-80 bg-gold rounded-full blur-3xl"></div>
+    </div>
+
+    <div class="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
+      <div class="grid lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+        <!-- Text Content -->
+        <div class="lg:col-span-7">
+          <div class="inline-flex items-center gap-2 bg-red-600/20 backdrop-blur-sm px-4 py-2 rounded-full text-sm font-semibold mb-4 border border-red-500/30">
+            <svg class="w-4 h-4 text-red-500" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+            </svg>
+            <span class="text-red-500">Featured on YouTube</span>
+          </div>
+          <h2 class="text-3xl lg:text-5xl font-display font-light mb-4 leading-tight">
+            Expert advice from <span class="italic font-bold">The Rogue Dermatologist</span>
+          </h2>
+          <p class="text-xl text-white/90 mb-8 leading-relaxed">
+            Dr. Bibi shares science-backed skincare tips, natural ingredient breakdowns, and real dermatology Q&A. Subscribe for weekly expert content.
+          </p>
+          <a href="https://www.youtube.com/@theroguedermatologist?sub_confirmation=1"
+             target="_blank"
+             rel="noopener noreferrer"
+             class="inline-flex items-center justify-center gap-2 bg-red-600 hover:bg-red-700 text-white px-8 py-4 rounded-full text-lg font-bold transition-all shadow-2xl hover:shadow-3xl hover:scale-105">
+            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+            </svg>
+            Subscribe Now
+          </a>
+        </div>
+
+        <!-- Video Thumbnail -->
+        <div class="lg:col-span-5">
+          <a href="https://www.youtube.com/shorts/nxByXKdYTJc"
+             target="_blank"
+             rel="noopener noreferrer"
+             class="block group">
+            <div class="relative bg-black rounded-2xl overflow-hidden shadow-2xl hover:shadow-3xl transition-all duration-300 max-w-sm mx-auto">
+              <div class="relative" style="padding-bottom: 177.78%;">
+                <img src="https://i.ytimg.com/vi/nxByXKdYTJc/hqdefault.jpg"
+                     alt="The Rogue Dermatologist - Skincare Tips"
+                     class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent flex items-center justify-center">
+                  <div class="w-16 h-16 bg-red-600 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform shadow-2xl">
+                    <svg class="w-7 h-7 text-white ml-1" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M8 5v14l11-7z"/>
+                    </svg>
+                  </div>
+                </div>
+                <div class="absolute top-3 left-3 bg-red-600 text-white px-2.5 py-1 rounded-md text-xs font-bold">
+                  Shorts
+                </div>
+                <div class="absolute bottom-3 right-3 bg-black/80 text-white px-2 py-1 rounded text-xs font-semibold">
+                  0:60
+                </div>
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Before/After Results Section -->
+  <section class="py-12 lg:py-20 bg-gradient-to-br from-forest via-emerald to-forest text-white relative overflow-hidden">
+    <div class="absolute top-0 right-0 w-96 h-96 bg-gold/20 rounded-full blur-3xl"></div>
+    <div class="absolute bottom-0 left-0 w-80 h-80 bg-mint/10 rounded-full blur-3xl"></div>
+    <div class="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
+      <div class="text-center mb-10">
+        <h2 class="text-3xl lg:text-5xl font-display font-light mb-4 leading-tight">
+          Real results. <span class="italic font-bold">Real people.</span>
+        </h2>
+        <p class="text-lg text-white/90 max-w-2xl mx-auto font-light">
+          See the transformative power of pure ingredients in just 7-14 days.
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-6 mb-8">
+        <div class="bg-white/10 backdrop-blur-md p-8 rounded-3xl border border-white/20 hover:bg-white/15 transition-all">
+          <h3 class="font-display font-semibold text-xl mb-2 text-white">Cracked Hands Healed</h3>
+          <p class="text-white/80 text-sm mb-4">After just 10 days of twice-daily use</p>
+          <div class="flex items-center gap-1 text-gold text-base">★★★★★</div>
+        </div>
+
+        <div class="bg-white/10 backdrop-blur-md p-8 rounded-3xl border border-white/20 hover:bg-white/15 transition-all">
+          <h3 class="font-display font-semibold text-xl mb-2 text-white">Rough Patches Softened</h3>
+          <p class="text-white/80 text-sm mb-4">Elbows and knees visibly improved in 7 days</p>
+          <div class="flex items-center gap-1 text-gold text-base">★★★★★</div>
+        </div>
+
+        <div class="bg-white/10 backdrop-blur-md p-8 rounded-3xl border border-white/20 hover:bg-white/15 transition-all">
+          <h3 class="font-display font-semibold text-xl mb-2 text-white">Radiant Glow Restored</h3>
+          <p class="text-white/80 text-sm mb-4">Mature skin regains youthful luminosity</p>
+          <div class="flex items-center gap-1 text-gold text-base">★★★★★</div>
+        </div>
+      </div>
+
+      <div class="text-center">
+        <a href="/products/butter-oasis-balm" class="inline-flex items-center justify-center bg-white text-forest px-6 py-3 sm:px-10 sm:py-5 rounded-full text-sm sm:text-lg font-bold hover:bg-gold hover:text-charcoal transition-all shadow-2xl shine">
+          <span class="hidden sm:inline">Experience the Transformation</span>
+          <span class="sm:hidden">Get Started</span>
+          <svg class="w-5 h-5 sm:w-6 sm:h-6 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials Section -->
+  <section id="reviews" class="py-12 lg:py-20 bg-gradient-to-b from-pearl to-ivory">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+      <div class="text-center mb-10">
+        <div class="inline-flex items-center gap-2 bg-gradient-to-r from-gold/20 to-emerald/20 backdrop-blur-sm text-emerald px-6 py-3 rounded-full text-sm font-semibold mb-4 border border-gold/30">
+          <span class="text-gold">★★★★★</span>
+          <span>Rated 5.0 by verified customers</span>
+        </div>
+        <h2 class="text-3xl lg:text-5xl font-display font-light mb-4 text-forest leading-tight">
+          Trusted by <span class="italic font-bold">thousands</span>
+        </h2>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-6 mb-8">
+        <!-- Testimonial 1 -->
+        <div class="bg-white/80 backdrop-blur-sm p-10 rounded-3xl border border-emerald/10 shadow-lg hover:shadow-2xl hover:scale-105 transition-all duration-300">
+          <div class="flex items-center gap-1 text-gold mb-6 text-lg">★★★★★</div>
+          <p class="text-slate/90 leading-relaxed mb-8 italic text-lg">
+            "I've tried everything for my dry, irritated skin. This is the only product that actually works. My skin has never felt better."
+          </p>
+          <div class="flex items-center gap-4">
+            <div class="w-14 h-14 bg-gradient-to-br from-emerald to-forest rounded-full flex items-center justify-center font-display font-bold text-white text-lg">JM</div>
+            <div>
+              <p class="font-bold text-forest">Jennifer M., 52</p>
+              <p class="text-sm text-slate/70">Verified Customer • 3 months ago</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Testimonial 2 -->
+        <div class="bg-white/80 backdrop-blur-sm p-10 rounded-3xl border border-emerald/10 shadow-lg hover:shadow-2xl hover:scale-105 transition-all duration-300">
+          <div class="flex items-center gap-1 text-gold mb-6 text-lg">★★★★★</div>
+          <p class="text-slate/90 leading-relaxed mb-8 italic text-lg">
+            "As a nurse, my hands were destroyed. This balm addressed years of damage in just two weeks. Absolutely life-changing."
+          </p>
+          <div class="flex items-center gap-4">
+            <div class="w-14 h-14 bg-gradient-to-br from-emerald to-forest rounded-full flex items-center justify-center font-display font-bold text-white text-lg">SK</div>
+            <div>
+              <p class="font-bold text-forest">Sarah K., 38</p>
+              <p class="text-sm text-slate/70">ICU Nurse • 1 month ago</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Testimonial 3 -->
+        <div class="bg-white/80 backdrop-blur-sm p-10 rounded-3xl border border-emerald/10 shadow-lg hover:shadow-2xl hover:scale-105 transition-all duration-300">
+          <div class="flex items-center gap-1 text-gold mb-6 text-lg">★★★★★</div>
+          <p class="text-slate/90 leading-relaxed mb-8 italic text-lg">
+            "Finally, a product that's safe for my baby's sensitive skin and powerful enough for my sun-damaged face. One jar does it all."
+          </p>
+          <div class="flex items-center gap-4">
+            <div class="w-14 h-14 bg-gradient-to-br from-emerald to-forest rounded-full flex items-center justify-center font-display font-bold text-white text-lg">ML</div>
+            <div>
+              <p class="font-bold text-forest">Maria L., 45</p>
+              <p class="text-sm text-slate/70">Mother of Two • 2 weeks ago</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- More testimonials -->
+      <div class="grid md:grid-cols-2 gap-6">
+        <div class="bg-white/60 backdrop-blur-sm p-8 rounded-2xl border border-emerald/10 flex gap-4 hover:bg-white/80 transition-all">
+          <div class="flex-shrink-0">
+            <div class="w-12 h-12 bg-gradient-to-br from-sage to-mint rounded-full flex items-center justify-center font-display font-bold text-forest">DR</div>
+          </div>
+          <div>
+            <div class="flex items-center gap-2 mb-2">
+              <p class="font-bold text-forest">David R.</p>
+              <span class="text-gold text-sm">★★★★★</span>
+            </div>
+            <p class="text-slate/80">"Best moisturizer I've ever used. My wife stole mine and ordered two more jars!"</p>
+          </div>
+        </div>
+
+        <div class="bg-white/60 backdrop-blur-sm p-8 rounded-2xl border border-emerald/10 flex gap-4 hover:bg-white/80 transition-all">
+          <div class="flex-shrink-0">
+            <div class="w-12 h-12 bg-gradient-to-br from-sage to-mint rounded-full flex items-center justify-center font-display font-bold text-forest">TC</div>
+          </div>
+          <div>
+            <div class="flex items-center gap-2 mb-2">
+              <p class="font-bold text-forest">Tina C.</p>
+              <span class="text-gold text-sm">★★★★★</span>
+            </div>
+            <p class="text-slate/80">"This saved my cracked heels. Nothing else worked. I'm a customer for life."</p>
+          </div>
+        </div>
+      </div>
+
+      <p class="text-xs text-slate/60 text-center mt-10 max-w-3xl mx-auto">
+        <strong>Disclaimer:</strong> Individual results may vary. Testimonials are not typical results and your experience may differ. These statements represent individual customer experiences and are not guarantees of results.
+      </p>
+    </div>
+  </section>
+
+  <!-- Brand Story Section -->
+  <section id="story" class="py-12 lg:py-20 bg-white relative overflow-hidden">
+    <div class="absolute top-0 right-0 w-96 h-96 bg-sage/20 rounded-full blur-3xl"></div>
+    <div class="max-w-6xl mx-auto px-6 lg:px-8 relative z-10">
+      <div class="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+        <div class="order-2 lg:order-1">
+          <div class="aspect-[4/5] bg-gradient-to-br from-sage to-mint rounded-3xl overflow-hidden shadow-2xl ring-1 ring-emerald/10">
+            <img src="{{ 'dr-bibi.jpeg' | asset_url }}"
+                 alt="Dr. Yuval Bibi - Founder of Dr. Bibi Organics"
+                 class="w-full h-full object-cover"
+                 loading="lazy">
+          </div>
+        </div>
+        <div class="order-1 lg:order-2">
+          <div class="mb-8">
+            <p class="text-sm font-bold text-gold mb-3 uppercase tracking-widest">Meet Dr. Yuval Bibi - Founder of Dr. Bibi Organics</p>
+            <h2 class="text-4xl lg:text-6xl font-display font-light mb-4 text-forest leading-tight">
+              The Man Behind <span class="italic font-bold">Your Skin's New Best Friend</span>
+            </h2>
+          </div>
+
+          <div class="space-y-5 text-slate/80 leading-relaxed">
+            <p class="text-xl text-forest font-medium">
+              Sometimes the most powerful solutions are the simplest ones.
+            </p>
+
+            <h3 class="text-2xl font-display font-semibold text-emerald mt-8 mb-4">
+              My Story: From Frustration to Formula
+            </h3>
+
+            <p>
+              After years of watching patients struggle with complicated skincare routines that promised everything and delivered disappointment, I knew there had to be a better way. As a physician, I witnessed too many patients trapped in exhausting beauty routines—juggling 10-step regimens, expensive serums, and products with ingredient lists they couldn't pronounce.
+            </p>
+
+            <p class="font-semibold text-emerald">
+              There had to be a better way.
+            </p>
+
+            <p>
+              Drawing on my dual heritage—the refined elegance of Italian craftsmanship and the powerful botanical wisdom of South Africa—I embarked on a journey. Not to create complexity, but to strip it away.
+            </p>
+
+            <h3 class="text-2xl font-display font-semibold text-gold mt-8 mb-4">
+              A Touch of Italian Elegance, a Whiff of South African Spirit
+            </h3>
+
+            <p>
+              The breakthrough came when I discovered that ancient African ingredients held secrets modern science was only beginning to understand. Shea butter from West African women's cooperatives. Pure cocoa butter cold-pressed to preserve every nutrient. Moroccan argan oil, liquid gold pressed from hand-cracked kernels.
+            </p>
+
+            <p class="font-semibold text-emerald">
+              Three ingredients. That's all.
+            </p>
+
+            <p>
+              No water to dilute their power. No synthetic fillers to pad the formula. No fragrances to mask the purity. Just pure concentrations of nature's most effective skin nourishment, working in perfect harmony.
+            </p>
+          </div>
+
+          <div class="mt-10 p-8 bg-gradient-to-br from-emerald/10 to-forest/5 border-l-4 border-gold rounded-r-2xl shadow-lg">
+            <p class="text-slate/90 italic text-xl leading-relaxed mb-4">
+              "I created Butter Oasis for people who've tried everything else. For those ready to trade complicated routines for simple, proven results. Your skin doesn't need more products—it needs the right ones."
+            </p>
+            <div class="flex items-center gap-4">
+              <div class="w-14 h-14 bg-gradient-to-br from-gold to-bronze rounded-full flex items-center justify-center shadow-lg">
+                <span class="font-display font-bold text-xl text-white">YB</span>
+              </div>
+              <div>
+                <p class="text-forest font-bold text-lg">Dr. Yuval Bibi</p>
+                <p class="text-slate/70 text-sm">Founder, Dr. Bibi Organics</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Ingredients Section -->
+  <section id="ingredients" class="py-12 lg:py-20 bg-gradient-to-br from-pearl via-ivory to-sage relative overflow-hidden">
+    <div class="absolute top-0 left-0 w-96 h-96 bg-emerald/10 rounded-full blur-3xl"></div>
+    <div class="absolute bottom-0 right-0 w-80 h-80 bg-gold/10 rounded-full blur-3xl"></div>
+
+    <div class="max-w-6xl mx-auto px-6 lg:px-8 relative z-10">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl lg:text-5xl font-display font-light mb-4 text-forest leading-tight">
+          Three ingredients. <span class="italic font-bold">Infinite benefits.</span>
+        </h2>
+        <p class="text-xl text-slate/80 max-w-2xl mx-auto font-light">
+          Each ingredient is sourced directly from its origin, tested for purity, and used in pure, concentrated formulations.
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-8">
+        <!-- Ingredient 1: Shea Butter -->
+        <div class="bg-white/80 backdrop-blur-sm p-8 rounded-2xl border border-emerald/10 hover:shadow-xl transition-all">
+          <div class="w-24 h-24 mb-6 mx-auto">
+            <img src="{{ 'shea-nut.png' | asset_url }}" alt="Shea Nut" class="w-full h-full object-contain">
+          </div>
+          <div class="inline-block bg-emerald/10 text-emerald px-3 py-1 rounded-full text-xs font-semibold mb-3">
+            60% Concentration
+          </div>
+          <h3 class="text-xl font-display font-semibold mb-3 text-forest">African Shea Butter</h3>
+          <p class="text-slate/70 text-sm leading-relaxed">
+            Sourced from women's cooperatives in West Africa. Provides deep hydration and repairs skin barrier.
+          </p>
+        </div>
+
+        <!-- Ingredient 2: Cocoa Butter -->
+        <div class="bg-white/80 backdrop-blur-sm p-8 rounded-2xl border border-emerald/10 hover:shadow-xl transition-all">
+          <div class="w-24 h-24 mb-6 mx-auto">
+            <img src="{{ 'cocoa-bean.png' | asset_url }}" alt="Cocoa Bean" class="w-full h-full object-contain">
+          </div>
+          <div class="inline-block bg-emerald/10 text-emerald px-3 py-1 rounded-full text-xs font-semibold mb-3">
+            30% Concentration
+          </div>
+          <h3 class="text-xl font-display font-semibold mb-3 text-forest">Pure Cocoa Butter</h3>
+          <p class="text-slate/70 text-sm leading-relaxed">
+            Cold-pressed from premium cacao beans. Creates moisture lock for 24+ hours and improves skin elasticity.
+          </p>
+        </div>
+
+        <!-- Ingredient 3: Argan Oil -->
+        <div class="bg-white/80 backdrop-blur-sm p-8 rounded-2xl border border-emerald/10 hover:shadow-xl transition-all">
+          <div class="w-24 h-24 mb-6 mx-auto">
+            <img src="{{ 'argan-fruit.png' | asset_url }}" alt="Argan Fruit" class="w-full h-full object-contain">
+          </div>
+          <div class="inline-block bg-emerald/10 text-emerald px-3 py-1 rounded-full text-xs font-semibold mb-3">
+            10% Concentration
+          </div>
+          <h3 class="text-xl font-display font-semibold mb-3 text-forest">Moroccan Argan Oil</h3>
+          <p class="text-slate/70 text-sm leading-relaxed">
+            Cold-pressed liquid gold from Morocco. Rich in Vitamin E and Omega fatty acids for cellular repair and regeneration.
+          </p>
+        </div>
+      </div>
+
+      <div class="text-center mt-12">
+        <a href="/products/butter-oasis-balm" class="inline-flex items-center justify-center gap-2 bg-gradient-to-r from-emerald to-forest text-white px-8 py-4 rounded-full text-lg font-bold hover:shadow-xl hover:scale-105 transition-all duration-300 shine">
+          Learn More About Our Ingredients
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Trust Badges Section -->
+  <section class="py-12 bg-gradient-to-b from-pearl to-ivory border-y border-emerald/10">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-8 lg:gap-12 items-center">
+        <div class="text-center group">
+          <div class="w-20 h-20 mx-auto mb-4 bg-gradient-to-br from-emerald to-forest rounded-2xl flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
+            <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+            </svg>
+          </div>
+          <p class="text-base font-bold text-forest">30-Day</p>
+          <p class="text-sm text-slate/70">Money-Back Guarantee</p>
+        </div>
+
+        <div class="text-center group">
+          <div class="w-20 h-20 mx-auto mb-4 bg-gradient-to-br from-emerald to-forest rounded-2xl flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
+            <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 6l3 1m0 0l-3 9a5.002 5.002 0 006.001 0M6 7l3 9M6 7l6-2m6 2l3-1m-3 1l-3 9a5.002 5.002 0 006.001 0M18 7l3 9m-3-9l-6-2m0-2v2m0 16V5m0 16H9m3 0h3"/>
+            </svg>
+          </div>
+          <p class="text-base font-bold text-forest">Cruelty-Free</p>
+          <p class="text-sm text-slate/70">Never Tested on Animals</p>
+        </div>
+
+        <div class="text-center group">
+          <div class="w-20 h-20 mx-auto mb-4 bg-gradient-to-br from-emerald to-forest rounded-2xl flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
+            <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064"/>
+            </svg>
+          </div>
+          <p class="text-base font-bold text-forest">100% Natural</p>
+          <p class="text-sm text-slate/70">3 Pure Ingredients Only</p>
+        </div>
+
+        <div class="text-center group">
+          <div class="w-20 h-20 mx-auto mb-4 bg-gradient-to-br from-emerald to-forest rounded-2xl flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
+            <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4"/>
+            </svg>
+          </div>
+          <p class="text-base font-bold text-forest">Small Batch</p>
+          <p class="text-sm text-slate/70">Handcrafted Quality</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Final CTA Section -->
+  <section class="py-12 lg:py-20 bg-gradient-to-br from-forest via-emerald to-forest text-white relative overflow-hidden">
+    <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[800px] bg-gold/20 rounded-full blur-3xl"></div>
+    <div class="max-w-4xl mx-auto px-6 lg:px-8 text-center relative z-10">
+      <h2 class="text-4xl lg:text-7xl font-display font-light mb-8 leading-tight">
+        Your skin deserves <span class="italic font-bold">real nourishment</span>
+      </h2>
+      <p class="text-xl lg:text-2xl text-white/90 mb-12 max-w-2xl mx-auto font-light">
+        Join thousands who've found lasting relief with Butter Oasis. 30-day money-back guarantee. Free shipping and expedited shipping available.
+      </p>
+      <a href="/products/butter-oasis-balm" class="inline-flex items-center justify-center bg-white text-forest px-6 py-3 lg:px-12 lg:py-6 rounded-full text-sm lg:text-xl font-bold hover:bg-gold hover:text-charcoal hover:scale-105 transition-all shadow-2xl shine">
+        <span>Get Yours Now - $70</span>
+        <svg class="hidden lg:inline-block w-7 h-7 ml-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+        </svg>
+      </a>
+      <p class="text-base text-white/80 mt-8 flex items-center justify-center gap-2">
+        <span class="text-gold text-xl">★★★★★</span>
+        <span>Rated 5.0 by verified customers</span>
+      </p>
+    </div>
+  </section>
+
+  <!-- Newsletter Section -->
+  <section class="py-12 lg:py-20 bg-gradient-to-br from-sage via-mint to-pearl relative overflow-hidden">
+    <div class="absolute top-1/2 left-1/4 w-[600px] h-[600px] bg-emerald/10 rounded-full blur-3xl"></div>
+    <div class="absolute bottom-1/4 right-1/4 w-[400px] h-[400px] bg-gold/10 rounded-full blur-3xl"></div>
+
+    <div class="max-w-4xl mx-auto px-6 lg:px-8 text-center relative z-10">
+      <div class="bg-white/80 backdrop-blur-sm rounded-3xl shadow-2xl ring-1 ring-emerald/10 p-12 lg:p-16">
+        <h2 class="text-4xl lg:text-6xl font-display font-light text-forest mb-6 leading-tight">
+          Subscribe to our <span class="italic font-bold">Newsletter!</span>
+        </h2>
+        <p class="text-xl lg:text-2xl text-emerald/80 mb-10 max-w-2xl mx-auto">
+          Get 10% off your first purchase by subscribing to our newsletter.
+        </p>
+
+        <form action="https://formsubmit.co/Support@drbibiorganics.com" method="POST" class="max-w-md mx-auto">
+          <input type="hidden" name="_subject" value="New Newsletter Subscription">
+          <input type="hidden" name="_captcha" value="false">
+          <input type="hidden" name="_next" value="{{ shop.url }}/pages/thank-you">
+          <div class="flex flex-col sm:flex-row gap-4">
+            <div class="flex-1 relative">
+              <svg class="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-emerald/40" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+              </svg>
+              <input
+                type="email"
+                name="email"
+                placeholder="Enter your email"
+                required
+                class="w-full pl-12 pr-4 py-4 rounded-full border-2 border-sage/30 focus:border-emerald focus:outline-none focus:ring-2 focus:ring-emerald/20 transition text-forest placeholder-emerald/40"
+              />
+            </div>
+            <button
+              type="submit"
+              class="bg-gradient-to-r from-emerald to-forest text-white px-10 py-4 rounded-full font-bold hover:from-forest hover:to-emerald hover:scale-105 transition-all shadow-xl shine whitespace-nowrap"
+            >
+              Subscribe
+            </button>
+          </div>
+          <p class="text-sm text-emerald/60 mt-4">
+            Join thousands of happy customers. Unsubscribe anytime.
+          </p>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-forest text-white/80 py-12 lg:py-16">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+      <div class="grid md:grid-cols-4 gap-12 mb-12">
+        <div class="md:col-span-2">
+          <h4 class="text-3xl font-display font-semibold text-white mb-4">Dr. Bibi Organics</h4>
+          <p class="text-base leading-relaxed mb-6 text-white/70 max-w-md">
+            Natural skincare crafted with pure African ingredients. Nourishing your skin, naturally.
+          </p>
+
+          <!-- Social Media Links -->
+          <div class="mt-6">
+            <h5 class="font-semibold text-white text-sm mb-3">Follow The Rogue Dermatologist</h5>
+            <div class="flex gap-4">
+              <a href="https://www.youtube.com/@theroguedermatologist" target="_blank" rel="noopener noreferrer"
+                 class="w-10 h-10 bg-white/10 hover:bg-red-600 rounded-full flex items-center justify-center transition-all duration-300 group">
+                <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+                </svg>
+              </a>
+              <a href="https://www.instagram.com/drbibiorganics" target="_blank" rel="noopener noreferrer"
+                 class="w-10 h-10 bg-white/10 hover:bg-gradient-to-tr hover:from-yellow-400 hover:via-pink-500 hover:to-purple-600 rounded-full flex items-center justify-center transition-all duration-300 group">
+                <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                </svg>
+              </a>
+              <a href="https://www.facebook.com/drbibiorganics" target="_blank" rel="noopener noreferrer"
+                 class="w-10 h-10 bg-white/10 hover:bg-blue-600 rounded-full flex items-center justify-center transition-all duration-300 group">
+                <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                </svg>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <h5 class="font-semibold text-white text-lg mb-4">Quick Links</h5>
+          <ul class="space-y-3 text-base">
+            <li><a href="/search" class="hover:text-gold transition">Search</a></li>
+            <li><a href="/pages/faqs" class="hover:text-gold transition">FAQs</a></li>
+            <li><a href="/policies/terms-of-service" class="hover:text-gold transition">Terms and Conditions</a></li>
+            <li><a href="/policies/privacy-policy" class="hover:text-gold transition">Privacy Policy</a></li>
+            <li><a href="/policies/refund-policy" class="hover:text-gold transition">Refund Policy</a></li>
+            <li><a href="/pages/data-sharing-opt-out" class="hover:text-gold transition">Your Privacy Choices</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h5 class="font-semibold text-white text-lg mb-4">Support</h5>
+          <ul class="space-y-3 text-base">
+            <li><a href="/pages/contact" class="hover:text-gold transition">Contact Us</a></li>
+            <li><a href="tel:561-201-9109" class="hover:text-gold transition">561-201-9109</a></li>
+          </ul>
+
+          <h5 class="font-semibold text-white text-lg mb-4 mt-8">Shop</h5>
+          <ul class="space-y-3 text-base">
+            <li><a href="/products/butter-oasis-balm" class="hover:text-gold transition">Butter Oasis Balm</a></li>
+            <li><a href="/products/butter-oasis-balm#purchase" class="hover:text-gold transition">Buy Now</a></li>
+            <li><a href="/products/butter-oasis-balm#bundles" class="hover:text-gold transition">Bundle & Save</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="pt-8 border-t border-white/20">
+        <p class="text-white/70 text-sm mb-3">
+          <strong>Dr. Bibi Organics LLC</strong><br>
+          Email: <a href="mailto:Support@drbibiorganics.com" class="hover:text-gold transition">Support@drbibiorganics.com</a>
+        </p>
+        <p class="text-white/60 text-center">&copy; {{ 'now' | date: '%Y' }} Dr. Bibi Organics. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Exit Intent Popup -->
+  <div id="exitPopup" class="fixed inset-0 bg-charcoal/80 backdrop-blur-sm z-[100] flex items-center justify-center p-4 hidden opacity-0 transition-opacity duration-300">
+    <div class="bg-white rounded-3xl max-w-md w-full shadow-2xl transform scale-95 transition-transform duration-300 relative overflow-hidden">
+      <button id="closeExitPopup" class="absolute top-4 right-4 text-slate/50 hover:text-charcoal transition z-10">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+        </svg>
+      </button>
+
+      <div class="absolute top-0 right-0 w-40 h-40 bg-gradient-to-br from-emerald/10 to-gold/10 rounded-full blur-3xl"></div>
+
+      <div class="relative p-6 sm:p-8 text-center">
+        <div class="text-4xl sm:text-5xl mb-3 sm:mb-4">✋</div>
+        <h3 class="text-2xl sm:text-3xl font-display font-bold text-forest mb-2 sm:mb-3">Wait! Don't Leave Empty-Handed</h3>
+        <p class="text-base sm:text-lg text-slate mb-4 sm:mb-6">Get <span class="font-bold text-emerald">15% OFF</span> your first order of Butter Oasis Balm</p>
+
+        <form id="exitPopupForm" action="https://formsubmit.co/Support@drbibiorganics.com" method="POST" class="space-y-4">
+          <input type="hidden" name="_subject" value="New Exit Popup - 15% Discount Request">
+          <input type="hidden" name="_captcha" value="false">
+          <input type="hidden" name="_template" value="box">
+          <input type="hidden" name="discount_code" value="WELCOME15">
+          <div class="relative">
+            <input
+              type="email"
+              name="email"
+              placeholder="Enter your email"
+              required
+              class="w-full px-6 py-4 rounded-full border-2 border-sage/30 focus:border-emerald focus:outline-none focus:ring-2 focus:ring-emerald/20 transition"
+            />
+          </div>
+          <button type="submit" class="w-full bg-gradient-to-r from-emerald to-forest text-white px-8 py-4 rounded-full font-bold hover:shadow-xl hover:scale-105 transition-all duration-300 shine">
+            Get My 15% OFF Code
+          </button>
+        </form>
+
+        <p class="text-xs text-slate/60 mt-4">Your discount code will be sent instantly. Unsubscribe anytime.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Exit Intent JavaScript -->
+  <script>
+    let exitIntentShown = false;
+    const exitPopup = document.getElementById('exitPopup');
+    const closeBtn = document.getElementById('closeExitPopup');
+    const exitForm = document.getElementById('exitPopupForm');
+
+    const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+
+    if (!isMobile) {
+      document.addEventListener('mouseout', function(e) {
+        if (!exitIntentShown && e.clientY <= 0) {
+          showExitPopup();
+        }
+      });
+    }
+
+    if (isMobile) {
+      let hasScrolled = false;
+      window.addEventListener('scroll', function() {
+        if (hasScrolled) return;
+        const scrollPercent = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
+        if (scrollPercent > 50 && !exitIntentShown) {
+          hasScrolled = true;
+          showExitPopup();
+        }
+      });
+    }
+
+    closeBtn.addEventListener('click', closeExitPopup);
+    exitPopup.addEventListener('click', function(e) {
+      if (e.target === exitPopup) {
+        closeExitPopup();
+      }
+    });
+
+    exitForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      const email = exitForm.querySelector('input[name="email"]').value;
+      localStorage.setItem('exitPopupEmail', email);
+      exitIntentShown = true;
+
+      const iframe = document.createElement('iframe');
+      iframe.name = 'exitPopupFrame';
+      iframe.style.display = 'none';
+      document.body.appendChild(iframe);
+
+      const submitForm = document.createElement('form');
+      submitForm.action = 'https://formsubmit.co/Support@drbibiorganics.com';
+      submitForm.method = 'POST';
+      submitForm.target = 'exitPopupFrame';
+
+      const fields = {
+        email: email,
+        _subject: 'New Exit Popup - 15% Discount Request',
+        _autoresponse: 'Thank you for your interest in Dr. Bibi Organics! Here\'s your exclusive 15% discount code: WELCOME15. Use it at checkout to save on your first order of Butter Oasis Balm. Shop now: https://drbibiorganics.com/products/butter-oasis-balm',
+        discount_code: 'WELCOME15',
+        _captcha: 'false',
+        message: 'Customer requested discount code via exit popup.'
+      };
+
+      Object.keys(fields).forEach(key => {
+        const input = document.createElement('input');
+        input.type = 'hidden';
+        input.name = key;
+        input.value = fields[key];
+        submitForm.appendChild(input);
+      });
+
+      document.body.appendChild(submitForm);
+      submitForm.submit();
+
+      setTimeout(() => {
+        document.body.removeChild(submitForm);
+        document.body.removeChild(iframe);
+      }, 2000);
+
+      exitForm.innerHTML = `
+        <div class="text-center py-6">
+          <div class="text-5xl mb-4">🎉</div>
+          <h4 class="text-2xl font-display font-bold text-forest mb-3">Here's Your Discount Code!</h4>
+          <div class="bg-emerald/10 border-2 border-emerald rounded-2xl p-4 mb-4">
+            <p class="text-xs text-slate mb-2">Use this code at checkout:</p>
+            <p class="text-3xl font-bold text-emerald mb-2">WELCOME15</p>
+            <p class="text-xs text-forest">Save 15% on your first order</p>
+          </div>
+          <p class="text-xs text-slate/70 mb-4">📧 Code sent to: ${email}</p>
+          <a href="/products/butter-oasis-balm" class="inline-block bg-gradient-to-r from-emerald to-forest text-white px-8 py-4 rounded-full font-bold hover:shadow-xl hover:scale-105 transition-all">
+            Shop Now & Save 15%
+          </a>
+        </div>
+      `;
+
+      setTimeout(closeExitPopup, 20000);
+    });
+
+    function showExitPopup() {
+      if (exitIntentShown) return;
+      exitIntentShown = true;
+      exitPopup.classList.remove('hidden');
+      setTimeout(() => {
+        exitPopup.classList.remove('opacity-0');
+        exitPopup.querySelector('.bg-white').classList.remove('scale-95');
+        exitPopup.querySelector('.bg-white').classList.add('scale-100');
+      }, 10);
+    }
+
+    function closeExitPopup() {
+      exitPopup.classList.add('opacity-0');
+      exitPopup.querySelector('.bg-white').classList.add('scale-95');
+      setTimeout(() => {
+        exitPopup.classList.add('hidden');
+      }, 300);
+    }
+
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape' && !exitPopup.classList.contains('hidden')) {
+        closeExitPopup();
+      }
+    });
+  </script>
+
+</body>
+</html>
