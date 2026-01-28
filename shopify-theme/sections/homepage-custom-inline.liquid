@@ -2,6 +2,36 @@
   Custom Homepage for Dr. Bibi Organics - Inline Styles Version
 {% endcomment %}
 
+<!-- Load Google Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,700&display=swap" rel="stylesheet">
+
+<style>
+/* Base font styles to match Vercel - use !important to override Dawn */
+.drb-homepage * {
+    box-sizing: border-box !important;
+}
+.drb-homepage {
+    font-family: 'Jost', sans-serif !important;
+    font-size: 16px !important;
+    line-height: 1.5 !important;
+    color: #475569 !important;
+}
+.drb-homepage p {
+    font-family: 'Jost', sans-serif !important;
+    margin: 0 !important;
+}
+.drb-homepage h1, .drb-homepage h2, .drb-homepage h3, .drb-homepage h4 {
+    font-family: 'Playfair Display', serif !important;
+    line-height: 1.1 !important;
+    margin: 0 !important;
+}
+.drb-homepage a {
+    text-decoration: none !important;
+}
+</style>
+
 {%- style -%}
 @keyframes float {
     0%, 100% { transform: translateY(0px); }
@@ -22,6 +52,8 @@
 .shine:hover::before { left: 100%; }
 {%- endstyle -%}
 
+<div class="drb-homepage">
+
 <!-- Hero Section -->
 <section style="padding-top: 112px; padding-bottom: 48px; background: linear-gradient(to bottom right, #F5F3ED, #FFFEF9, #E8EDE7); position: relative; overflow: hidden;">
     <div style="position: absolute; top: 80px; right: 0; width: 384px; height: 384px; background: rgba(200,229,211,0.2); border-radius: 50%; filter: blur(48px);"></div>
@@ -33,11 +65,11 @@
                     <span style="color: #D4AF37;">★★★★★</span>
                     <span style="color: #2D5F4C;">5.0 from verified customers</span>
                 </div>
-                <h1 style="font-family: 'Playfair Display', serif; font-size: 48px; font-weight: 700; line-height: 0.95; margin-bottom: 24px; color: #1A3A2E;">
+                <h1 class="hero-heading" style="font-family: 'Playfair Display', serif; font-size: 60px; font-weight: 700; line-height: 0.95; margin-bottom: 24px; color: #1A3A2E;">
                     Deep Healing.
                     <span style="display: block; color: #2D5F4C; font-style: italic; margin-top: 8px;">Pure Nature.</span>
                 </h1>
-                <p style="font-family: 'Jost', sans-serif; font-size: 18px; color: rgba(71,85,105,0.8); margin-bottom: 40px; line-height: 1.7; max-width: 540px; font-weight: 300;">
+                <p class="hero-subhead" style="font-family: 'Jost', sans-serif; font-size: 18px; color: rgba(71,85,105,0.8); margin-bottom: 40px; line-height: 1.7; max-width: 540px; font-weight: 300;">
                     When ordinary moisturizers fail, our <span style="font-weight: 600; color: #2D5F4C;">skin-loving</span> Butter Oasis Balm delivers transformative relief. Just 3 pure African ingredients.
                 </p>
                 <div style="display: flex; flex-direction: column; gap: 20px; margin-bottom: 48px;" class="hero-buttons">
@@ -66,9 +98,10 @@
                     </div>
                 </div>
             </div>
-            <div style="order: 1;" class="hero-media">
-                <div class="animate-float">
-                    <div style="aspect-ratio: 1; background: linear-gradient(to bottom right, #E8EDE7, #F5F3ED); border-radius: 24px; overflow: hidden; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25);">
+            <div style="order: 1; max-width: 400px; margin: 0 auto;" class="hero-media">
+                <div class="animate-float" style="position: relative;">
+                    <div style="position: absolute; inset: 0; background: linear-gradient(to bottom right, rgba(45,95,76,0.2), rgba(212,175,55,0.2)); border-radius: 50%; filter: blur(48px); transform: scale(1.1); z-index: -1;"></div>
+                    <div style="aspect-ratio: 1; background: linear-gradient(to bottom right, #E8EDE7, #F5F3ED); border-radius: 24px; overflow: hidden; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25); border: 1px solid rgba(45,95,76,0.1);">
                         {% if section.settings.hero_video != blank %}
                         <video autoplay loop muted playsinline preload="auto" style="width: 100%; height: 100%; object-fit: cover;">
                             <source src="{{ section.settings.hero_video }}" type="video/mp4">
@@ -110,51 +143,51 @@
 </section>
 
 <!-- Benefits Section -->
-<section id="benefits" style="padding: 64px 0; background: white; scroll-margin-top: 80px;">
-    <div style="max-width: 1280px; margin: 0 auto; padding: 0 24px;">
-        <div style="text-align: center; margin-bottom: 48px;">
-            <h2 style="font-family: 'Playfair Display', serif; font-size: 32px; font-weight: 400; margin-bottom: 16px; color: #1A3A2E; line-height: 1.2;">
+<section id="benefits" style="padding: 48px 0 64px; background: white; scroll-margin-top: 80px;">
+    <div style="max-width: 1152px; margin: 0 auto; padding: 0 24px;">
+        <div style="text-align: center; margin-bottom: 32px;">
+            <h3 style="font-family: 'Playfair Display', serif; font-size: 30px; font-weight: 300; margin-bottom: 12px; color: #1A3A2E; line-height: 1.2;">
                 Transformative benefits you can <span style="font-style: italic; font-weight: 700;">see and feel</span>
-            </h2>
-            <p style="font-family: 'Jost', sans-serif; font-size: 18px; color: rgba(71,85,105,0.8); max-width: 640px; margin: 0 auto; font-weight: 300;">
+            </h3>
+            <p style="font-family: 'Jost', sans-serif !important; font-size: 18px !important; color: rgba(71,85,105,0.8) !important; max-width: 640px !important; margin-left: auto !important; margin-right: auto !important; font-weight: 300 !important; text-align: center !important;">
                 Pure ingredients working in harmony to nourish, protect, and restore your skin's natural vitality.
             </p>
         </div>
 
-        <div style="display: grid; grid-template-columns: 1fr; gap: 24px;" class="benefits-grid">
-            <div style="background: linear-gradient(to bottom right, rgba(232,237,231,0.2), rgba(200,229,211,0.2)); padding: 40px; border-radius: 24px; border: 1px solid rgba(45,95,76,0.1);">
-                <div style="width: 64px; height: 64px; background: linear-gradient(to bottom right, #2D5F4C, #1A3A2E); border-radius: 16px; display: flex; align-items: center; justify-content: center; margin-bottom: 24px;">
-                    <svg style="width: 32px; height: 32px; color: white;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;" class="benefits-grid">
+            <div style="background: linear-gradient(to bottom right, rgba(232,237,231,0.3), rgba(200,229,211,0.2)); padding: 24px; border-radius: 16px; border: 1px solid rgba(45,95,76,0.1); transition: all 0.3s;">
+                <div style="width: 48px; height: 48px; background: linear-gradient(to bottom right, #2D5F4C, #1A3A2E); border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-bottom: 16px;">
+                    <svg style="width: 24px; height: 24px; color: white;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
                     </svg>
                 </div>
-                <h3 style="font-family: 'Playfair Display', serif; font-size: 24px; font-weight: 600; margin-bottom: 16px; color: #1A3A2E;">24-Hour Deep Hydration</h3>
-                <p style="font-family: 'Jost', sans-serif; font-size: 16px; color: rgba(71,85,105,0.8); line-height: 1.6;">
-                    Shea butter penetrates beyond the surface, locking in moisture at the cellular level for all-day comfort.
+                <h4 style="font-family: 'Playfair Display', serif; font-size: 20px; font-weight: 600; margin-bottom: 8px; color: #1A3A2E;">24-Hour Deep Hydration</h4>
+                <p style="font-family: 'Jost', sans-serif; font-size: 15px; color: rgba(71,85,105,0.8); line-height: 1.6;">
+                    Shea butter penetrates beyond the surface, locking in moisture at the cellular level for all-day comfort and suppleness.
                 </p>
             </div>
 
-            <div style="background: linear-gradient(to bottom right, rgba(232,237,231,0.2), rgba(200,229,211,0.2)); padding: 40px; border-radius: 24px; border: 1px solid rgba(45,95,76,0.1);">
-                <div style="width: 64px; height: 64px; background: linear-gradient(to bottom right, #2D5F4C, #1A3A2E); border-radius: 16px; display: flex; align-items: center; justify-content: center; margin-bottom: 24px;">
-                    <svg style="width: 32px; height: 32px; color: white;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div style="background: linear-gradient(to bottom right, rgba(232,237,231,0.3), rgba(200,229,211,0.2)); padding: 24px; border-radius: 16px; border: 1px solid rgba(45,95,76,0.1); transition: all 0.3s;">
+                <div style="width: 48px; height: 48px; background: linear-gradient(to bottom right, #2D5F4C, #1A3A2E); border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-bottom: 16px;">
+                    <svg style="width: 24px; height: 24px; color: white;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
                     </svg>
                 </div>
-                <h3 style="font-family: 'Playfair Display', serif; font-size: 24px; font-weight: 600; margin-bottom: 16px; color: #1A3A2E;">Repairs Skin Barrier</h3>
-                <p style="font-family: 'Jost', sans-serif; font-size: 16px; color: rgba(71,85,105,0.8); line-height: 1.6;">
-                    Essential fatty acids rebuild your skin's protective barrier, healing cracks and chronic dryness.
+                <h4 style="font-family: 'Playfair Display', serif; font-size: 20px; font-weight: 600; margin-bottom: 8px; color: #1A3A2E;">Repairs Damaged Skin Barrier</h4>
+                <p style="font-family: 'Jost', sans-serif; font-size: 15px; color: rgba(71,85,105,0.8); line-height: 1.6;">
+                    Essential fatty acids rebuild your skin's protective barrier, healing cracks, rough patches, and chronic dryness at the source.
                 </p>
             </div>
 
-            <div style="background: linear-gradient(to bottom right, rgba(232,237,231,0.2), rgba(200,229,211,0.2)); padding: 40px; border-radius: 24px; border: 1px solid rgba(45,95,76,0.1);">
-                <div style="width: 64px; height: 64px; background: linear-gradient(to bottom right, #2D5F4C, #1A3A2E); border-radius: 16px; display: flex; align-items: center; justify-content: center; margin-bottom: 24px;">
-                    <svg style="width: 32px; height: 32px; color: white;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div style="background: linear-gradient(to bottom right, rgba(232,237,231,0.3), rgba(200,229,211,0.2)); padding: 24px; border-radius: 16px; border: 1px solid rgba(45,95,76,0.1); transition: all 0.3s;">
+                <div style="width: 48px; height: 48px; background: linear-gradient(to bottom right, #2D5F4C, #1A3A2E); border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-bottom: 16px;">
+                    <svg style="width: 24px; height: 24px; color: white;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064"/>
                     </svg>
                 </div>
-                <h3 style="font-family: 'Playfair Display', serif; font-size: 24px; font-weight: 600; margin-bottom: 16px; color: #1A3A2E;">Safe for Whole Family</h3>
-                <p style="font-family: 'Jost', sans-serif; font-size: 16px; color: rgba(71,85,105,0.8); line-height: 1.6;">
-                    From babies to grandparents. Safe during pregnancy. Works on face, hands, body, and feet.
+                <h4 style="font-family: 'Playfair Display', serif; font-size: 20px; font-weight: 600; margin-bottom: 8px; color: #1A3A2E;">Safe for Whole Family</h4>
+                <p style="font-family: 'Jost', sans-serif; font-size: 15px; color: rgba(71,85,105,0.8); line-height: 1.6;">
+                    From babies to grandparents. Safe during pregnancy. Non-comedogenic formula won't clog pores or cause breakouts.
                 </p>
             </div>
         </div>
@@ -169,7 +202,7 @@
                 <span style="color: #D4AF37;">★★★★★</span>
                 <span>Rated 5.0 by verified customers</span>
             </div>
-            <h2 style="font-family: 'Playfair Display', serif; font-size: 32px; font-weight: 400; color: #1A3A2E; line-height: 1.2;">
+            <h2 style="font-family: 'Playfair Display', serif; font-size: 30px; font-weight: 400; color: #1A3A2E; line-height: 1.2;">
                 Trusted by <span style="font-style: italic; font-weight: 700;">thousands</span>
             </h2>
         </div>
@@ -208,37 +241,44 @@
 
 <!-- Founder Story -->
 <section id="story" style="padding: 64px 0; background: white; scroll-margin-top: 80px;">
-    <div style="max-width: 1024px; margin: 0 auto; padding: 0 24px;">
-        <div style="text-align: center; margin-bottom: 32px;">
-            <p style="font-family: 'Jost', sans-serif; font-size: 12px; font-weight: 700; color: #D4AF37; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 12px;">Meet Dr. Yuval Bibi</p>
-            <h2 style="font-family: 'Playfair Display', serif; font-size: 32px; font-weight: 400; color: #1A3A2E; line-height: 1.2;">
-                The Man Behind <span style="font-style: italic; font-weight: 700;">Your Skin's New Best Friend</span>
-            </h2>
-        </div>
+    <div style="max-width: 1152px; margin: 0 auto; padding: 0 24px;">
+        <div style="display: grid; grid-template-columns: 1fr; gap: 48px; align-items: center;" class="founder-grid">
+            <!-- Photo -->
+            <div style="order: 2;" class="founder-image">
+                <div style="aspect-ratio: 4/5; background: linear-gradient(to bottom right, #C4D5CC, #D8E8DD); border-radius: 24px; overflow: hidden; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25);">
+                    <img src="https://cdn.shopify.com/s/files/1/0922/8068/4819/files/Dr-BIBI.jpg?v=1768911683" alt="Dr. Yuval Bibi - Founder" style="width: 100%; height: 100%; object-fit: cover;" loading="lazy">
+                </div>
+            </div>
+            <!-- Text -->
+            <div style="order: 1;" class="founder-text">
+                <p style="font-family: 'Jost', sans-serif; font-size: 12px; font-weight: 700; color: #D4AF37; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 12px;">Meet Dr. Yuval Bibi</p>
+                <h2 style="font-family: 'Playfair Display', serif; font-size: 36px; font-weight: 400; color: #1A3A2E; line-height: 1.1; margin-bottom: 24px;">
+                    The Man Behind <span style="font-style: italic; font-weight: 700;">Your Skin's New Best Friend</span>
+                </h2>
 
-        <div style="max-width: 720px; margin: 0 auto;">
-            <p style="font-family: 'Jost', sans-serif; font-size: 18px; color: #1A3A2E; font-weight: 500; margin-bottom: 24px;">
-                Sometimes the most powerful solutions are the simplest ones.
-            </p>
-            <p style="font-family: 'Jost', sans-serif; font-size: 16px; color: rgba(71,85,105,0.8); line-height: 1.7; margin-bottom: 24px;">
-                After years of watching patients struggle with complicated skincare routines that promised everything and delivered disappointment, I knew there had to be a better way.
-            </p>
-            <p style="font-family: 'Jost', sans-serif; font-size: 18px; color: #2D5F4C; font-weight: 600; margin-bottom: 24px;">
-                Three ingredients. That's all.
-            </p>
-            <p style="font-family: 'Jost', sans-serif; font-size: 16px; color: rgba(71,85,105,0.8); line-height: 1.7; margin-bottom: 32px;">
-                No water to dilute their power. No synthetic fillers. No fragrances. Just pure concentrations of nature's most effective skin healers.
-            </p>
-
-            <div style="background: linear-gradient(to bottom right, rgba(45,95,76,0.1), rgba(26,58,46,0.05)); border-left: 4px solid #D4AF37; border-radius: 0 16px 16px 0; padding: 32px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);">
-                <p style="font-family: 'Jost', sans-serif; font-size: 18px; color: rgba(71,85,105,0.9); font-style: italic; line-height: 1.7; margin-bottom: 16px;">
-                    "I created Butter Oasis for people who've tried everything else. For those ready to trade complicated routines for simple, proven results."
+                <p style="font-family: 'Jost', sans-serif; font-size: 20px; color: #1A3A2E; font-weight: 500; margin-bottom: 20px;">
+                    Sometimes the most powerful solutions are the simplest ones.
                 </p>
-                <div style="display: flex; align-items: center; gap: 16px;">
-                    <div style="width: 56px; height: 56px; background: linear-gradient(to bottom right, #D4AF37, #B08968); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: 'Playfair Display', serif; font-weight: 700; color: white; font-size: 18px;">YB</div>
-                    <div>
-                        <p style="font-family: 'Jost', sans-serif; font-weight: 700; color: #1A3A2E;">Dr. Yuval Bibi</p>
-                        <p style="font-family: 'Jost', sans-serif; font-size: 14px; color: rgba(71,85,105,0.7);">Founder, Dr. Bibi Organics</p>
+                <p style="font-family: 'Jost', sans-serif; font-size: 16px; color: rgba(71,85,105,0.8); line-height: 1.7; margin-bottom: 20px;">
+                    After years of watching patients struggle with complicated skincare routines that promised everything and delivered disappointment, I knew there had to be a better way.
+                </p>
+                <p style="font-family: 'Jost', sans-serif; font-size: 18px; color: #2D5F4C; font-weight: 600; margin-bottom: 20px;">
+                    Three ingredients. That's all.
+                </p>
+                <p style="font-family: 'Jost', sans-serif; font-size: 16px; color: rgba(71,85,105,0.8); line-height: 1.7; margin-bottom: 32px;">
+                    No water to dilute their power. No synthetic fillers. No fragrances. Just pure concentrations of nature's most effective skin healers.
+                </p>
+
+                <div style="background: linear-gradient(to bottom right, rgba(45,95,76,0.1), rgba(26,58,46,0.05)); border-left: 4px solid #D4AF37; border-radius: 0 16px 16px 0; padding: 32px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);">
+                    <p style="font-family: 'Jost', sans-serif; font-size: 18px; color: rgba(71,85,105,0.9); font-style: italic; line-height: 1.7; margin-bottom: 16px;">
+                        "I created Butter Oasis for people who've tried everything else. For those ready to trade complicated routines for simple, proven results."
+                    </p>
+                    <div style="display: flex; align-items: center; gap: 16px;">
+                        <div style="width: 56px; height: 56px; background: linear-gradient(to bottom right, #D4AF37, #B08968); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: 'Playfair Display', serif; font-weight: 700; color: white; font-size: 18px;">YB</div>
+                        <div>
+                            <p style="font-family: 'Jost', sans-serif; font-weight: 700; color: #1A3A2E; margin: 0;">Dr. Yuval Bibi</p>
+                            <p style="font-family: 'Jost', sans-serif; font-size: 14px; color: rgba(71,85,105,0.7); margin: 0;">Founder, Dr. Bibi Organics</p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -247,86 +287,230 @@
 </section>
 
 <!-- Ingredients -->
-<section id="ingredients" style="padding: 64px 0; background: linear-gradient(to bottom right, #F5F3ED, #FFFEF9, #E8EDE7); scroll-margin-top: 80px;">
-    <div style="max-width: 1024px; margin: 0 auto; padding: 0 24px;">
-        <div style="text-align: center; margin-bottom: 48px;">
-            <h2 style="font-family: 'Playfair Display', serif; font-size: 32px; font-weight: 400; margin-bottom: 16px; color: #1A3A2E; line-height: 1.2;">
+<section id="ingredients" style="padding: 48px 0 64px; background: linear-gradient(to bottom right, #F5F3ED, #FFFEF9, #E8EDE7); scroll-margin-top: 80px; position: relative; overflow: hidden;">
+    <div style="position: absolute; top: 0; left: 0; width: 300px; height: 300px; background: rgba(45,95,76,0.1); border-radius: 50%; filter: blur(64px);"></div>
+    <div style="position: absolute; bottom: 0; right: 0; width: 250px; height: 250px; background: rgba(212,175,55,0.1); border-radius: 50%; filter: blur(64px);"></div>
+    <div style="max-width: 1024px; margin: 0 auto; padding: 0 24px; position: relative; z-index: 10;">
+        <div style="text-align: center; margin-bottom: 32px;">
+            <h2 style="font-family: 'Playfair Display', serif; font-size: 30px; font-weight: 400; margin-bottom: 12px; color: #1A3A2E; line-height: 1.2;">
                 Three ingredients. <span style="font-style: italic; font-weight: 700;">Infinite benefits.</span>
             </h2>
-            <p style="font-family: 'Jost', sans-serif; font-size: 18px; color: rgba(71,85,105,0.8); max-width: 640px; margin: 0 auto; font-weight: 300;">
+            <p style="font-family: 'Jost', sans-serif !important; font-size: 18px !important; color: rgba(71,85,105,0.8) !important; max-width: 560px !important; margin-left: auto !important; margin-right: auto !important; font-weight: 300 !important; text-align: center !important;">
                 Each ingredient is sourced directly from its origin and tested for purity.
             </p>
         </div>
 
-        <div style="display: grid; grid-template-columns: 1fr; gap: 24px;" class="ingredients-grid">
-            <div style="background: rgba(255,255,255,0.8); padding: 32px; border-radius: 16px; border: 1px solid rgba(45,95,76,0.1); text-align: center;">
-                <div style="width: 96px; height: 96px; margin: 0 auto 24px; background: rgba(232,237,231,0.3); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 48px;">🥜</div>
-                <span style="display: inline-block; background: rgba(45,95,76,0.1); color: #2D5F4C; padding: 4px 12px; border-radius: 50px; font-size: 12px; font-weight: 600; margin-bottom: 12px;">60% Concentration</span>
-                <h3 style="font-family: 'Playfair Display', serif; font-size: 20px; font-weight: 600; margin-bottom: 12px; color: #1A3A2E;">African Shea Butter</h3>
-                <p style="font-family: 'Jost', sans-serif; font-size: 14px; color: rgba(71,85,105,0.7); line-height: 1.6;">
-                    Sourced from women's cooperatives in West Africa. Deep hydration and skin barrier repair.
+        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;" class="ingredients-grid">
+            <div style="background: rgba(255,255,255,0.8); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); padding: 24px; border-radius: 16px; border: 1px solid rgba(45,95,76,0.1); transition: box-shadow 0.3s; text-align: center;">
+                <div style="width: 72px; height: 72px; margin: 0 auto 16px;">
+                    <img src="https://cdn.shopify.com/s/files/1/0922/8068/4819/files/shea_nut.webp?v=1766360987" alt="Shea Nut" style="width: 100%; height: 100%; object-fit: contain;">
+                </div>
+                <div style="display: inline-block; background: rgba(45,95,76,0.1); color: #2D5F4C; padding: 4px 12px; border-radius: 50px; font-size: 11px; font-weight: 600; margin-bottom: 8px;">60% Concentration</div>
+                <h4 style="font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 600; margin-bottom: 8px; color: #1A3A2E;">African Shea Butter</h4>
+                <p style="font-family: 'Jost', sans-serif; font-size: 14px; color: rgba(71,85,105,0.7); line-height: 1.5;">
+                    Sourced from women's cooperatives in West Africa. Provides deep hydration, repairs skin barrier, and fights inflammation.
                 </p>
             </div>
 
-            <div style="background: rgba(255,255,255,0.8); padding: 32px; border-radius: 16px; border: 1px solid rgba(45,95,76,0.1); text-align: center;">
-                <div style="width: 96px; height: 96px; margin: 0 auto 24px; background: rgba(232,237,231,0.3); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 48px;">🫘</div>
-                <span style="display: inline-block; background: rgba(45,95,76,0.1); color: #2D5F4C; padding: 4px 12px; border-radius: 50px; font-size: 12px; font-weight: 600; margin-bottom: 12px;">30% Concentration</span>
-                <h3 style="font-family: 'Playfair Display', serif; font-size: 20px; font-weight: 600; margin-bottom: 12px; color: #1A3A2E;">Pure Cocoa Butter</h3>
-                <p style="font-family: 'Jost', sans-serif; font-size: 14px; color: rgba(71,85,105,0.7); line-height: 1.6;">
-                    Cold-pressed from premium cacao beans. 24+ hour moisture lock and improved elasticity.
+            <div style="background: rgba(255,255,255,0.8); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); padding: 24px; border-radius: 16px; border: 1px solid rgba(45,95,76,0.1); transition: box-shadow 0.3s; text-align: center;">
+                <div style="width: 72px; height: 72px; margin: 0 auto 16px;">
+                    <img src="https://cdn.shopify.com/s/files/1/0922/8068/4819/files/cocoa_bean.webp?v=1766360987" alt="Cocoa Bean" style="width: 100%; height: 100%; object-fit: contain;">
+                </div>
+                <div style="display: inline-block; background: rgba(45,95,76,0.1); color: #2D5F4C; padding: 4px 12px; border-radius: 50px; font-size: 11px; font-weight: 600; margin-bottom: 8px;">30% Concentration</div>
+                <h4 style="font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 600; margin-bottom: 8px; color: #1A3A2E;">Pure Cocoa Butter</h4>
+                <p style="font-family: 'Jost', sans-serif; font-size: 14px; color: rgba(71,85,105,0.7); line-height: 1.5;">
+                    Cold-pressed from premium cacao beans. Creates moisture lock for 24+ hours and improves skin elasticity.
                 </p>
             </div>
 
-            <div style="background: rgba(255,255,255,0.8); padding: 32px; border-radius: 16px; border: 1px solid rgba(45,95,76,0.1); text-align: center;">
-                <div style="width: 96px; height: 96px; margin: 0 auto 24px; background: rgba(232,237,231,0.3); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 48px;">🌰</div>
-                <span style="display: inline-block; background: rgba(45,95,76,0.1); color: #2D5F4C; padding: 4px 12px; border-radius: 50px; font-size: 12px; font-weight: 600; margin-bottom: 12px;">10% Concentration</span>
-                <h3 style="font-family: 'Playfair Display', serif; font-size: 20px; font-weight: 600; margin-bottom: 12px; color: #1A3A2E;">Moroccan Argan Oil</h3>
-                <p style="font-family: 'Jost', sans-serif; font-size: 14px; color: rgba(71,85,105,0.7); line-height: 1.6;">
-                    Cold-pressed liquid gold. Rich in Vitamin E and Omega fatty acids for cellular repair.
+            <div style="background: rgba(255,255,255,0.8); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); padding: 24px; border-radius: 16px; border: 1px solid rgba(45,95,76,0.1); transition: box-shadow 0.3s; text-align: center;">
+                <div style="width: 72px; height: 72px; margin: 0 auto 16px;">
+                    <img src="https://cdn.shopify.com/s/files/1/0922/8068/4819/files/argan_fruit.webp?v=1766360987" alt="Argan Fruit" style="width: 100%; height: 100%; object-fit: contain;">
+                </div>
+                <div style="display: inline-block; background: rgba(45,95,76,0.1); color: #2D5F4C; padding: 4px 12px; border-radius: 50px; font-size: 11px; font-weight: 600; margin-bottom: 8px;">10% Concentration</div>
+                <h4 style="font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 600; margin-bottom: 8px; color: #1A3A2E;">Moroccan Argan Oil</h4>
+                <p style="font-family: 'Jost', sans-serif; font-size: 14px; color: rgba(71,85,105,0.7); line-height: 1.5;">
+                    Cold-pressed liquid gold from Morocco. Rich in Vitamin E and Omega fatty acids for cellular repair and regeneration.
                 </p>
             </div>
+        </div>
+
+        <div style="text-align: center; margin-top: 32px;">
+            <a href="/products/butter-oasis-moisturizing-balm" style="display: inline-flex; align-items: center; justify-content: center; gap: 8px; background: linear-gradient(to right, #2D5F4C, #1A3A2E); color: white; padding: 14px 28px; border-radius: 50px; font-size: 16px; font-weight: 700; text-decoration: none; font-family: 'Jost', sans-serif;">
+                Learn More About Our Ingredients
+                <svg style="width: 18px; height: 18px;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+                </svg>
+            </a>
         </div>
     </div>
 </section>
 
 <!-- Final CTA -->
-<section style="padding: 80px 0; background: linear-gradient(to bottom right, #1A3A2E, #2D5F4C, #1A3A2E); color: white;">
-    <div style="max-width: 800px; margin: 0 auto; padding: 0 24px; text-align: center;">
-        <h2 style="font-family: 'Playfair Display', serif; font-size: 36px; font-weight: 400; margin-bottom: 32px; line-height: 1.2;">
+<section style="padding: 48px 0 80px; background: linear-gradient(to bottom right, #1A3A2E, #2D5F4C, #1A3A2E); color: white; position: relative; overflow: hidden;">
+    <div style="position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 800px; height: 800px; background: rgba(212,175,55,0.2); border-radius: 50%; filter: blur(64px);"></div>
+    <div style="max-width: 896px; margin: 0 auto; padding: 0 24px; text-align: center; position: relative; z-index: 10;">
+        <h3 style="font-family: 'Playfair Display', serif; font-size: 36px; font-weight: 300; margin-bottom: 32px; line-height: 1.1;">
             Your skin deserves <span style="font-style: italic; font-weight: 700;">real healing</span>
-        </h2>
-        <p style="font-family: 'Jost', sans-serif; font-size: 18px; color: rgba(255,255,255,0.9); margin-bottom: 48px; font-weight: 300;">
-            Join thousands who've found lasting relief with Butter Oasis. 30-day money-back guarantee.
+        </h3>
+        <p style="font-family: 'Jost', sans-serif; font-size: 20px; color: rgba(255,255,255,0.9); margin-bottom: 48px; max-width: 672px; margin-left: auto; margin-right: auto; font-weight: 300;">
+            Join thousands who've found lasting relief with Butter Oasis. 30-day money-back guarantee. Free shipping available.
         </p>
-        <a href="/products/butter-oasis-moisturizing-balm" style="display: inline-flex; align-items: center; justify-content: center; background: white; color: #1A3A2E; padding: 20px 48px; border-radius: 50px; font-size: 18px; font-weight: 700; text-decoration: none; font-family: 'Jost', sans-serif;">
+        <a href="/products/butter-oasis-moisturizing-balm" class="shine" style="display: inline-flex; align-items: center; justify-content: center; background: white; color: #1A3A2E; padding: 16px 48px; border-radius: 50px; font-size: 20px; font-weight: 700; text-decoration: none; font-family: 'Jost', sans-serif; box-shadow: 0 25px 50px rgba(0,0,0,0.25);">
             Get Yours Now - $70
-            <svg style="width: 24px; height: 24px; margin-left: 12px;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg style="width: 28px; height: 28px; margin-left: 12px;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
             </svg>
         </a>
-        <p style="font-family: 'Jost', sans-serif; font-size: 16px; color: rgba(255,255,255,0.8); margin-top: 32px;">
-            <span style="color: #D4AF37;">★★★★★</span> Rated 5.0 by verified customers
+        <p style="font-family: 'Jost', sans-serif; font-size: 16px; color: rgba(255,255,255,0.8); margin-top: 32px; display: flex; align-items: center; justify-content: center; gap: 8px;">
+            <span style="color: #D4AF37; font-size: 20px;">★★★★★</span>
+            <span>Rated 5.0 by verified customers</span>
         </p>
     </div>
 </section>
 
+<!-- Newsletter Section -->
+<section style="padding: 48px 0 80px; background: linear-gradient(to bottom right, #E8EDE7, #D8E8DD, #F5F3ED); position: relative; overflow: hidden;">
+    <div style="position: absolute; top: 50%; left: 25%; width: 600px; height: 600px; background: rgba(45,95,76,0.1); border-radius: 50%; filter: blur(64px);"></div>
+    <div style="position: absolute; bottom: 25%; right: 25%; width: 400px; height: 400px; background: rgba(212,175,55,0.1); border-radius: 50%; filter: blur(64px);"></div>
+
+    <div style="max-width: 896px; margin: 0 auto; padding: 0 24px; text-align: center; position: relative; z-index: 10;">
+        <div style="background: rgba(255,255,255,0.8); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-radius: 24px; box-shadow: 0 25px 50px rgba(0,0,0,0.1); border: 1px solid rgba(45,95,76,0.1); padding: 48px 32px;">
+            <h3 style="font-family: 'Playfair Display', serif; font-size: 36px; font-weight: 300; color: #1A3A2E; margin-bottom: 24px; line-height: 1.1;">
+                Subscribe to our <span style="font-style: italic; font-weight: 700;">Newsletter!</span>
+            </h3>
+            <p style="font-family: 'Jost', sans-serif; font-size: 20px; color: rgba(45,95,76,0.8); margin-bottom: 40px; max-width: 672px; margin-left: auto; margin-right: auto;">
+                Get 10% off your first purchase by subscribing to our newsletter.
+            </p>
+
+            <form action="https://formsubmit.co/Support@drbibiorganics.com" method="POST" style="max-width: 448px; margin: 0 auto;">
+                <input type="hidden" name="_subject" value="New Newsletter Subscription">
+                <input type="hidden" name="_captcha" value="false">
+                <input type="hidden" name="_next" value="https://drbibiorganics.com/pages/thank-you">
+                <div style="display: flex; flex-direction: column; gap: 16px;" class="newsletter-form">
+                    <div style="position: relative; flex: 1;">
+                        <svg style="position: absolute; left: 16px; top: 50%; transform: translateY(-50%); width: 20px; height: 20px; color: rgba(45,95,76,0.4);" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                        </svg>
+                        <input type="email" name="email" placeholder="Enter your email" required style="width: 100%; padding: 16px 16px 16px 48px; border-radius: 50px; border: 2px solid rgba(196,213,204,0.3); font-size: 16px; font-family: 'Jost', sans-serif; color: #1A3A2E; outline: none; box-sizing: border-box;" onfocus="this.style.borderColor='#2D5F4C'" onblur="this.style.borderColor='rgba(196,213,204,0.3)'">
+                    </div>
+                    <button type="submit" class="shine" style="background: linear-gradient(to right, #2D5F4C, #1A3A2E); color: white; padding: 16px 40px; border-radius: 50px; font-size: 16px; font-weight: 700; font-family: 'Jost', sans-serif; border: none; cursor: pointer; box-shadow: 0 10px 25px rgba(45,95,76,0.3); white-space: nowrap;">
+                        Subscribe
+                    </button>
+                </div>
+                <p style="font-family: 'Jost', sans-serif; font-size: 14px; color: rgba(45,95,76,0.6); margin-top: 16px;">
+                    Join thousands of happy customers. Unsubscribe anytime.
+                </p>
+            </form>
+        </div>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer style="background: #1A3A2E; color: rgba(255,255,255,0.8); padding: 48px 0 64px;">
+    <div style="max-width: 1280px; margin: 0 auto; padding: 0 24px;">
+        <div style="display: grid; grid-template-columns: 1fr; gap: 48px; margin-bottom: 48px;" class="footer-grid">
+            <div class="footer-brand">
+                <h4 style="font-family: 'Playfair Display', serif; font-size: 30px; font-weight: 600; color: white; margin-bottom: 16px;">Dr. Bibi Organics</h4>
+                <p style="font-family: 'Jost', sans-serif; font-size: 16px; line-height: 1.7; margin-bottom: 24px; color: rgba(255,255,255,0.7); max-width: 400px;">
+                    Natural skincare crafted with pure African ingredients. Nourishing your skin, naturally.
+                </p>
+
+                <!-- Social Media Links -->
+                <div style="margin-top: 24px;">
+                    <h5 style="font-family: 'Jost', sans-serif; font-weight: 600; color: white; font-size: 14px; margin-bottom: 12px;">Follow The Rogue Dermatologist</h5>
+                    <div style="display: flex; gap: 16px;">
+                        <a href="https://www.youtube.com/@theroguedermatologist" target="_blank" rel="noopener noreferrer" style="width: 40px; height: 40px; background: rgba(255,255,255,0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: background 0.3s;">
+                            <svg style="width: 20px; height: 20px; color: white;" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+                            </svg>
+                        </a>
+                        <a href="https://www.instagram.com/drbibiorganics" target="_blank" rel="noopener noreferrer" style="width: 40px; height: 40px; background: rgba(255,255,255,0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: background 0.3s;">
+                            <svg style="width: 20px; height: 20px; color: white;" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                            </svg>
+                        </a>
+                        <a href="https://www.facebook.com/drbibiorganics" target="_blank" rel="noopener noreferrer" style="width: 40px; height: 40px; background: rgba(255,255,255,0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: background 0.3s;">
+                            <svg style="width: 20px; height: 20px; color: white;" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div>
+                <h5 style="font-family: 'Jost', sans-serif; font-weight: 600; color: white; font-size: 18px; margin-bottom: 16px;">Quick Links</h5>
+                <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 12px;">
+                    <li><a href="/search" style="font-family: 'Jost', sans-serif; font-size: 16px; color: rgba(255,255,255,0.8); text-decoration: none;">Search</a></li>
+                    <li><a href="/pages/faqs" style="font-family: 'Jost', sans-serif; font-size: 16px; color: rgba(255,255,255,0.8); text-decoration: none;">FAQs</a></li>
+                    <li><a href="/policies/terms-of-service" style="font-family: 'Jost', sans-serif; font-size: 16px; color: rgba(255,255,255,0.8); text-decoration: none;">Terms and Conditions</a></li>
+                    <li><a href="/policies/privacy-policy" style="font-family: 'Jost', sans-serif; font-size: 16px; color: rgba(255,255,255,0.8); text-decoration: none;">Privacy Policy</a></li>
+                    <li><a href="/policies/refund-policy" style="font-family: 'Jost', sans-serif; font-size: 16px; color: rgba(255,255,255,0.8); text-decoration: none;">Refund Policy</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h5 style="font-family: 'Jost', sans-serif; font-weight: 600; color: white; font-size: 18px; margin-bottom: 16px;">Support</h5>
+                <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 12px;">
+                    <li><a href="/pages/contact" style="font-family: 'Jost', sans-serif; font-size: 16px; color: rgba(255,255,255,0.8); text-decoration: none;">Contact Us</a></li>
+                    <li><a href="tel:561-201-9109" style="font-family: 'Jost', sans-serif; font-size: 16px; color: rgba(255,255,255,0.8); text-decoration: none;">561-201-9109</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h5 style="font-family: 'Jost', sans-serif; font-weight: 600; color: white; font-size: 18px; margin-bottom: 16px;">Shop</h5>
+                <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 12px;">
+                    <li><a href="/products/butter-oasis-moisturizing-balm" style="font-family: 'Jost', sans-serif; font-size: 16px; color: rgba(255,255,255,0.8); text-decoration: none;">Butter Oasis Balm</a></li>
+                    <li><a href="/products/butter-oasis-moisturizing-balm" style="font-family: 'Jost', sans-serif; font-size: 16px; color: rgba(255,255,255,0.8); text-decoration: none;">Buy Now</a></li>
+                    <li><a href="/products/butter-oasis-moisturizing-balm#bundles" style="font-family: 'Jost', sans-serif; font-size: 16px; color: rgba(255,255,255,0.8); text-decoration: none;">Bundle & Save</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div style="padding-top: 32px; border-top: 1px solid rgba(255,255,255,0.2);">
+            <p style="font-family: 'Jost', sans-serif; font-size: 14px; color: rgba(255,255,255,0.7); margin-bottom: 12px;">
+                <strong>Dr. Bibi Organics LLC</strong><br>
+                Email: <a href="mailto:Support@drbibiorganics.com" style="color: rgba(255,255,255,0.8); text-decoration: none;">Support@drbibiorganics.com</a>
+            </p>
+            <p style="font-family: 'Jost', sans-serif; font-size: 14px; color: rgba(255,255,255,0.6); text-align: center;">
+                © 2024 Dr. Bibi Organics. All rights reserved.
+            </p>
+        </div>
+    </div>
+</footer>
+
+</div><!-- end .drb-homepage -->
+
 <!-- Responsive Styles -->
 <style>
-@media (min-width: 768px) {
-    .hero-grid { grid-template-columns: 1fr 1fr; }
-    .hero-text { order: 1 !important; }
-    .hero-media { order: 2 !important; }
+@media (min-width: 640px) {
     .hero-buttons { flex-direction: row !important; }
+    .newsletter-form { flex-direction: row !important; }
+}
+@media (max-width: 767px) {
+    .benefits-grid { grid-template-columns: 1fr !important; }
+    .ingredients-grid { grid-template-columns: 1fr !important; }
+}
+@media (min-width: 768px) {
     .trust-grid { grid-template-columns: repeat(4, 1fr); }
-    .benefits-grid { grid-template-columns: repeat(3, 1fr); }
     .testimonials-grid { grid-template-columns: repeat(2, 1fr); }
-    .ingredients-grid { grid-template-columns: repeat(3, 1fr); }
+    .footer-grid { grid-template-columns: 2fr 1fr 1fr 1fr !important; }
 }
 @media (min-width: 1024px) {
-    .hero-grid h1 { font-size: 72px !important; }
-    .hero-grid h1 span { font-size: 72px !important; }
-    #benefits h2, #reviews h2, #story h2, #ingredients h2 { font-size: 48px !important; }
-    section > div > div > h2 { font-size: 48px !important; }
+    .hero-grid { grid-template-columns: 1fr 1fr !important; gap: 80px !important; }
+    .hero-text { order: 1 !important; }
+    .hero-media { order: 2 !important; max-width: 100% !important; margin: 0 !important; }
+    .hero-heading { font-size: 96px !important; }
+    .hero-heading span { font-size: 96px !important; }
+    .hero-subhead { font-size: 24px !important; }
+    #benefits h3 { font-size: 36px !important; }
+    #reviews h2 { font-size: 36px !important; }
+    #ingredients h2 { font-size: 36px !important; }
+    .founder-grid { grid-template-columns: 1fr 1fr !important; gap: 64px !important; }
+    .founder-image { order: 1 !important; }
+    .founder-text { order: 2 !important; }
+    .founder-text h2 { font-size: 42px !important; }
 }
 </style>
 

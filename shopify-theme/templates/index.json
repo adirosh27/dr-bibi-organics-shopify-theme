@@ -1,11 +1,9 @@
 {
   "sections": {
     "homepage-custom": {
-      "type": "homepage-custom",
+      "type": "homepage-custom-inline",
       "settings": {
-        "hero_video": "",
-        "hero_image": "",
-        "founder_image": ""
+        "hero_video": ""
       }
     }
   },

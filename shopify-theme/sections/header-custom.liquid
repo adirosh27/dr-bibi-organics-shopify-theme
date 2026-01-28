@@ -3,6 +3,11 @@
   Fully inline-styled - includes cart drawer like Vercel
 {% endcomment %}
 
+<!-- Load Google Fonts for header -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,700&display=swap" rel="stylesheet">
+
 <style>
 /* Dropdown hover - pure CSS */
 .drb-dropdown { position: relative; display: inline-block; }
@@ -49,6 +54,7 @@
 }
 @media (min-width: 1024px) {
     .drb-mobile-toggle { display: none !important; }
+    .drb-logo-text { font-size: 30px !important; }
 }
 
 /* Cart drawer styles - matches Vercel */
@@ -174,7 +180,7 @@
                          style="height: 40px;"
                          loading="eager">
                     {% endif %}
-                    <span style="font-size: 24px; font-family: 'Playfair Display', Georgia, serif; font-weight: 700; color: #2D5F4C; letter-spacing: -0.5px;">
+                    <span class="drb-logo-text" style="font-size: 24px; font-family: 'Playfair Display', serif; font-weight: 700; color: #2D5F4C; letter-spacing: -0.025em;">
                         Dr. Bibi Organics
                     </span>
                 </a>
