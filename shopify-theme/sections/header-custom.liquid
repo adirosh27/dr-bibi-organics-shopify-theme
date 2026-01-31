@@ -3,6 +3,28 @@
   Fully inline-styled - includes cart drawer like Vercel
 {% endcomment %}
 
+<!-- Favicon for browser tab - injected via JS since sections load in body -->
+<script>
+(function() {
+    // Remove any existing favicons
+    var existingIcons = document.querySelectorAll('link[rel="icon"], link[rel="shortcut icon"], link[rel="apple-touch-icon"]');
+    existingIcons.forEach(function(icon) { icon.remove(); });
+
+    // Add new favicon
+    var favicon = document.createElement('link');
+    favicon.rel = 'icon';
+    favicon.type = 'image/png';
+    favicon.href = 'https://cdn.shopify.com/s/files/1/0922/8068/4819/files/Bibi_logo-Venmo_007d67d2-4cab-4b38-8401-9114d5c90045.png?height=32';
+    document.head.appendChild(favicon);
+
+    // Add apple touch icon
+    var appleIcon = document.createElement('link');
+    appleIcon.rel = 'apple-touch-icon';
+    appleIcon.href = 'https://cdn.shopify.com/s/files/1/0922/8068/4819/files/Bibi_logo-Venmo_007d67d2-4cab-4b38-8401-9114d5c90045.png?height=180';
+    document.head.appendChild(appleIcon);
+})();
+</script>
+
 <!-- Load Google Fonts for header -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -180,7 +202,7 @@
                          style="height: 40px;"
                          loading="eager">
                     {% endif %}
-                    <span class="drb-logo-text" style="font-size: 24px; font-family: 'Playfair Display', serif; font-weight: 700; color: #2D5F4C; letter-spacing: -0.025em;">
+                    <span class="drb-logo-text" style="font-size: 24px; font-family: 'Playfair Display', serif; font-weight: 600; color: #2D5F4C;">
                         Dr. Bibi Organics
                     </span>
                 </a>
@@ -220,6 +242,7 @@
                         Resources ▾
                     </span>
                     <div class="drb-dropdown-menu">
+                        <a href="/pages/dr-bibis-curated-resources">Skincare</a>
                         <a href="/pages/faqs">FAQs</a>
                         <a href="/pages/contact">Contact Us</a>
                         <a href="/policies/refund-policy">Returns & Refunds</a>
