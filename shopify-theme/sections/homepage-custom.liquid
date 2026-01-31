@@ -398,53 +398,53 @@
 </section>
 
 <!-- Founder Story Section -->
-<section id="story" class="py-12 lg:py-20 bg-white relative overflow-hidden scroll-mt-20">
-    <div class="absolute top-0 right-0 w-96 h-96 bg-sage/20 rounded-full blur-3xl"></div>
-    <div class="max-w-6xl mx-auto px-6 lg:px-8 relative z-10">
-        <div class="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
-            <div class="order-2 lg:order-1">
-                <div class="aspect-[4/5] bg-gradient-to-br from-sage to-mint rounded-3xl overflow-hidden shadow-2xl ring-1 ring-emerald/10">
+<section id="story" style="padding: 48px 0 80px; background: white; position: relative; overflow: hidden;">
+    <div style="position: absolute; top: 0; right: 0; width: 384px; height: 384px; background: rgba(196,213,204,0.2); border-radius: 50%; filter: blur(64px);"></div>
+    <div style="max-width: 1152px; margin: 0 auto; padding: 0 24px; position: relative; z-index: 10;">
+        <div style="display: grid; grid-template-columns: 1fr; gap: 48px; align-items: center;" class="founder-grid">
+            <div style="order: 2;" class="founder-image-col">
+                <div style="aspect-ratio: 4/5; background: linear-gradient(to bottom right, #C4D5CC, #D8E8DD); border-radius: 24px; overflow: hidden; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25);">
                     {% if section.settings.founder_image != blank %}
-                    <img src="{{ section.settings.founder_image | image_url: width: 800 }}" alt="Dr. Yuval Bibi - Founder" class="w-full h-full object-cover" loading="lazy">
+                    <img src="{{ section.settings.founder_image | image_url: width: 800 }}" alt="Dr. Yuval Bibi - Founder" style="width: 100%; height: 100%; object-fit: cover;" loading="lazy">
                     {% else %}
-                    <img src="https://drbibiorganics.com/cdn/shop/files/dr-bibi-founder.jpg" alt="Dr. Yuval Bibi - Founder" class="w-full h-full object-cover" loading="lazy">
+                    <img src="https://cdn.shopify.com/s/files/1/0922/8068/4819/files/Dr-BIBI.jpg?v=1768911683" alt="Dr. Yuval Bibi - Founder" style="width: 100%; height: 100%; object-fit: cover;" loading="lazy">
                     {% endif %}
                 </div>
             </div>
-            <div class="order-1 lg:order-2">
-                <div class="mb-8">
-                    <p class="text-sm font-bold text-gold mb-3 uppercase tracking-widest">Meet Dr. Yuval Bibi</p>
-                    <h2 class="text-4xl lg:text-6xl font-display font-light mb-4 text-forest leading-tight">
-                        The Man Behind <span class="italic font-bold">Your Skin's New Best Friend</span>
+            <div style="order: 1;" class="founder-text-col">
+                <div style="margin-bottom: 32px;">
+                    <p style="font-size: 12px; font-weight: 700; color: #D4AF37; margin-bottom: 12px; text-transform: uppercase; letter-spacing: 0.1em;">Meet Dr. Yuval Bibi</p>
+                    <h2 style="font-family: 'Playfair Display', Georgia, serif; font-size: 36px; font-weight: 300; margin-bottom: 16px; color: #2D5F4F; line-height: 1.1;">
+                        The Man Behind <span style="font-style: italic; font-weight: 700;">Your Skin's New Best Friend</span>
                     </h2>
                 </div>
 
-                <div class="space-y-5 text-slate/80 leading-relaxed">
-                    <p class="text-xl text-forest font-medium">
+                <div style="display: flex; flex-direction: column; gap: 20px; color: rgba(100,116,139,0.8); line-height: 1.7;">
+                    <p style="font-size: 20px; color: #2D5F4F; font-weight: 500; margin: 0;">
                         Sometimes the most powerful solutions are the simplest ones.
                     </p>
-                    <p>
+                    <p style="margin: 0;">
                         After years of watching patients struggle with complicated skincare routines that promised everything and delivered disappointment, I knew there had to be a better way.
                     </p>
-                    <p class="font-semibold text-emerald">
+                    <p style="font-weight: 600; color: #4A9B7F; margin: 0;">
                         Three ingredients. That's all.
                     </p>
-                    <p>
+                    <p style="margin: 0;">
                         No water to dilute their power. No synthetic fillers to pad the formula. No fragrances to mask the purity. Just pure concentrations of nature's most effective skin healers, working in perfect harmony.
                     </p>
                 </div>
 
-                <div class="mt-10 p-8 bg-gradient-to-br from-emerald/10 to-forest/5 border-l-4 border-gold rounded-r-2xl shadow-lg">
-                    <p class="text-slate/90 italic text-xl leading-relaxed mb-4">
+                <div style="margin-top: 40px; padding: 32px; background: linear-gradient(to bottom right, rgba(74,155,127,0.1), rgba(45,95,79,0.05)); border-left: 4px solid #D4AF37; border-radius: 0 16px 16px 0; box-shadow: 0 10px 25px rgba(0,0,0,0.1);">
+                    <p style="color: rgba(100,116,139,0.9); font-style: italic; font-size: 20px; line-height: 1.7; margin-bottom: 16px;">
                         "I created Butter Oasis for people who've tried everything else. For those ready to trade complicated routines for simple, proven results."
                     </p>
-                    <div class="flex items-center gap-4">
-                        <div class="w-14 h-14 bg-gradient-to-br from-gold to-bronze rounded-full flex items-center justify-center shadow-lg">
-                            <span class="font-display font-bold text-xl text-white">YB</span>
+                    <div style="display: flex; align-items: center; gap: 16px;">
+                        <div style="width: 56px; height: 56px; background: linear-gradient(to bottom right, #D4AF37, #B8986A); border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 10px 25px rgba(0,0,0,0.15);">
+                            <span style="font-family: 'Playfair Display', Georgia, serif; font-weight: 700; font-size: 20px; color: white;">YB</span>
                         </div>
                         <div>
-                            <p class="text-forest font-bold text-lg">Dr. Yuval Bibi</p>
-                            <p class="text-slate/70 text-sm">Founder, Dr. Bibi Organics</p>
+                            <p style="color: #2D5F4F; font-weight: 700; font-size: 18px; margin: 0;">Dr. Yuval Bibi</p>
+                            <p style="color: rgba(100,116,139,0.7); font-size: 14px; margin: 0;">Founder, Dr. Bibi Organics</p>
                         </div>
                     </div>
                 </div>
@@ -452,6 +452,24 @@
         </div>
     </div>
 </section>
+
+<style>
+@media (min-width: 1024px) {
+    .founder-grid {
+        grid-template-columns: 1fr 1fr !important;
+        gap: 80px !important;
+    }
+    .founder-image-col {
+        order: 1 !important;
+    }
+    .founder-text-col {
+        order: 2 !important;
+    }
+    .founder-text-col h2 {
+        font-size: 48px !important;
+    }
+}
+</style>
 
 <!-- Ingredients Section -->
 <section id="ingredients" class="py-12 lg:py-20 bg-gradient-to-br from-pearl via-ivory to-sage relative overflow-hidden scroll-mt-20">
