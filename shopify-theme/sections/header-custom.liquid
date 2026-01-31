@@ -74,6 +74,20 @@
     .drb-search-desktop { display: none !important; }
     .drb-account-link { display: none !important; }
 }
+/* Mobile styles */
+@media (max-width: 767px) {
+    .drb-logo-text { font-size: 18px !important; }
+    .drb-shop-now-btn { display: none !important; }
+}
+/* Tablet */
+@media (min-width: 768px) and (max-width: 1023px) {
+    .drb-logo-text { font-size: 20px !important; }
+    .drb-shop-now-btn { padding: 8px 16px !important; font-size: 13px !important; }
+}
+@media (min-width: 768px) {
+    .drb-nav-container { padding: 0 24px !important; }
+    .drb-nav-container > div { height: 80px !important; }
+}
 @media (min-width: 1024px) {
     .drb-mobile-toggle { display: none !important; }
     .drb-logo-text { font-size: 30px !important; }
@@ -163,6 +177,8 @@
 
         <!-- Footer -->
         <div id="drbCartFooter" style="border-top: 1px solid #C4D5CC; padding-top: 16px; display: none;">
+            <!-- Discounts display -->
+            <div id="drbCartDiscounts"></div>
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
                 <span style="font-weight: 600; color: #2D5F4C;">Total:</span>
                 <span id="drbCartTotal" style="font-size: 24px; font-family: 'Playfair Display', Georgia, serif; font-weight: 600; color: #2D5F4C;">$0.00</span>
@@ -184,9 +200,9 @@
 </div>
 
 <!-- Navigation -->
-<nav style="background: rgba(255,254,249,0.97); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); position: fixed; width: 100%; top: 0; left: 0; z-index: 50; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
-    <div style="max-width: 1280px; margin: 0 auto; padding: 0 24px;">
-        <div style="display: flex; justify-content: space-between; align-items: center; height: 80px;">
+<nav class="drb-nav" style="background: rgba(255,254,249,0.97); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); position: fixed; width: 100%; top: 0; left: 0; z-index: 50; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
+    <div class="drb-nav-container" style="max-width: 1280px; margin: 0 auto; padding: 0 16px;">
+        <div style="display: flex; justify-content: space-between; align-items: center; height: 70px;">
 
             <!-- Logo -->
             <div style="flex-shrink: 0;">
@@ -202,7 +218,7 @@
                          style="height: 40px;"
                          loading="eager">
                     {% endif %}
-                    <span class="drb-logo-text" style="font-size: 24px; font-family: 'Playfair Display', serif; font-weight: 600; color: #2D5F4C;">
+                    <span class="drb-logo-text" style="font-size: 24px; font-family: 'Playfair Display', serif; font-weight: 700; letter-spacing: -0.025em; color: #2D5F4C;">
                         Dr. Bibi Organics
                     </span>
                 </a>
@@ -287,7 +303,7 @@
                 </button>
 
                 <!-- Shop Now CTA -->
-                <a href="/products/butter-oasis-moisturizing-balm" style="background: linear-gradient(to right, #2D5F4C, #1A3A2E); color: white; padding: 10px 20px; border-radius: 9999px; font-size: 14px; font-weight: 600; text-decoration: none; white-space: nowrap; box-shadow: 0 2px 8px rgba(45,95,76,0.3);">
+                <a href="/products/butter-oasis-moisturizing-balm" class="drb-shop-now-btn" style="background: linear-gradient(to right, #2D5F4C, #1A3A2E); color: white; padding: 10px 20px; border-radius: 9999px; font-size: 14px; font-weight: 600; text-decoration: none; white-space: nowrap; box-shadow: 0 2px 8px rgba(45,95,76,0.3);">
                     Shop Now
                 </a>
 
@@ -318,7 +334,12 @@
 </nav>
 
 <!-- Spacer for fixed nav -->
-<div style="height: 80px;"></div>
+<div class="drb-nav-spacer" style="height: 70px;"></div>
+<style>
+@media (min-width: 768px) {
+    .drb-nav-spacer { height: 80px !important; }
+}
+</style>
 
 <script>
 // Cart Drawer Functions
@@ -373,12 +394,18 @@ function renderDrbCart(cart) {
     cartEmpty.style.display = 'none';
     cartFooter.style.display = 'block';
 
-    cartItems.innerHTML = cart.items.map(item => `
+    cartItems.innerHTML = cart.items.map(item => {
+        const originalLinePrice = item.original_line_price / 100;
+        const finalLinePrice = item.final_line_price / 100;
+        const hasDiscount = item.original_line_price > item.final_line_price;
+
+        return `
         <div style="display: flex; gap: 16px; background: rgba(196,213,204,0.2); padding: 16px; border-radius: 12px;">
             <img src="${item.image}" alt="${item.title}" style="width: 80px; height: 80px; object-fit: cover; border-radius: 8px;">
             <div style="flex: 1; min-width: 0;">
                 <h4 style="font-weight: 600; color: #1F2937; font-size: 14px; margin-bottom: 4px;">${item.product_title}</h4>
-                <p style="font-size: 14px; color: rgba(31,41,55,0.6); margin-bottom: 8px;">$${(item.price / 100).toFixed(2)} each</p>
+                ${item.variant_title ? `<p style="font-size: 12px; color: rgba(31,41,55,0.5); margin-bottom: 4px;">${item.variant_title}</p>` : ''}
+                <p style="font-size: 14px; color: rgba(31,41,55,0.6); margin-bottom: 8px;">$${(item.final_price / 100).toFixed(2)} each</p>
                 <div style="display: flex; align-items: center; gap: 8px;">
                     <button onclick="updateDrbCart('${item.key}', ${item.quantity - 1})" style="width: 24px; height: 24px; border: 1px solid #C4D5CC; border-radius: 4px; background: white; cursor: pointer; font-size: 14px; display: flex; align-items: center; justify-content: center;">−</button>
                     <span style="font-weight: 500; font-size: 14px; min-width: 24px; text-align: center;">${item.quantity}</span>
@@ -387,12 +414,46 @@ function renderDrbCart(cart) {
                 </div>
             </div>
             <div style="text-align: right;">
-                <p style="font-weight: 600; color: #1F2937;">$${(item.final_line_price / 100).toFixed(2)}</p>
+                ${hasDiscount ? `<p style="font-size: 12px; color: rgba(31,41,55,0.4); text-decoration: line-through;">$${originalLinePrice.toFixed(2)}</p>` : ''}
+                <p style="font-weight: 600; color: ${hasDiscount ? '#2D5F4C' : '#1F2937'};">$${finalLinePrice.toFixed(2)}</p>
+                ${hasDiscount ? `<p style="font-size: 11px; color: #2D5F4C; font-weight: 500;">Save $${(originalLinePrice - finalLinePrice).toFixed(2)}</p>` : ''}
             </div>
         </div>
-    `).join('');
+    `}).join('');
 
-    cartTotal.textContent = '$' + (cart.total_price / 100).toFixed(2);
+    // Show cart discounts if any
+    let discountHtml = '';
+    if (cart.cart_level_discount_applications && cart.cart_level_discount_applications.length > 0) {
+        discountHtml = cart.cart_level_discount_applications.map(discount => `
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; padding: 8px 12px; background: rgba(45,95,76,0.1); border-radius: 8px;">
+                <span style="font-size: 13px; color: #2D5F4C; font-weight: 500;">🏷️ ${discount.title}</span>
+                <span style="font-size: 13px; color: #2D5F4C; font-weight: 600;">-$${(discount.total_allocated_amount / 100).toFixed(2)}</span>
+            </div>
+        `).join('');
+    }
+
+    // Update total display with discounts
+    const totalDiscount = cart.total_discount / 100;
+    const originalTotal = (cart.total_price + cart.total_discount) / 100;
+    const finalTotal = cart.total_price / 100;
+
+    let totalHtml = '';
+    if (totalDiscount > 0) {
+        totalHtml = `
+            ${discountHtml}
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                <span style="color: rgba(31,41,55,0.6);">Subtotal:</span>
+                <span style="text-decoration: line-through; color: rgba(31,41,55,0.4);">$${originalTotal.toFixed(2)}</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                <span style="color: #2D5F4C; font-weight: 500;">You save:</span>
+                <span style="color: #2D5F4C; font-weight: 600;">$${totalDiscount.toFixed(2)}</span>
+            </div>
+        `;
+    }
+
+    document.getElementById('drbCartDiscounts').innerHTML = totalHtml;
+    cartTotal.textContent = '$' + finalTotal.toFixed(2);
 }
 
 // Update cart item
