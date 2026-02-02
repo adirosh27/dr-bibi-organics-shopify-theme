@@ -16,7 +16,13 @@
       "WebFetch(domain:skyorganics.com)",
       "WebSearch",
       "Bash(ls:*)",
-      "WebFetch(domain:www.mypillow.com)"
+      "WebFetch(domain:www.mypillow.com)",
+      "Bash(git push:*)",
+      "WebFetch(domain:boombeauty.com)",
+      "WebFetch(domain:www.youtube.com)",
+      "WebFetch(domain:dr-bibi-organics.vercel.app)",
+      "Bash(gh auth status:*)",
+      "Bash(gh repo create:*)"
     ],
     "deny": [],
     "ask": []
