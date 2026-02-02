@@ -1,0 +1,266 @@
+{% comment %}
+  Custom Policy Page Styling for Dr. Bibi Organics
+  Makes policy pages look professional and on-brand
+{% endcomment %}
+
+<!-- Load Google Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500;600;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+
+<style>
+.policy-page {
+    font-family: 'Jost', sans-serif;
+    background: linear-gradient(180deg, #FFFEF9 0%, #F5F3ED 100%);
+    min-height: 100vh;
+    padding: 60px 20px 80px;
+}
+
+.policy-container {
+    max-width: 800px;
+    margin: 0 auto;
+    background: white;
+    border-radius: 24px;
+    box-shadow: 0 4px 24px rgba(45,95,76,0.08);
+    padding: 48px;
+    border: 1px solid rgba(45,95,76,0.1);
+}
+
+@media (max-width: 768px) {
+    .policy-page {
+        padding: 40px 16px 60px;
+    }
+    .policy-container {
+        padding: 32px 24px;
+        border-radius: 16px;
+    }
+}
+
+.policy-header {
+    text-align: center;
+    margin-bottom: 40px;
+    padding-bottom: 32px;
+    border-bottom: 2px solid rgba(45,95,76,0.1);
+}
+
+.policy-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 36px;
+    font-weight: 700;
+    color: #2D5F4C;
+    margin-bottom: 12px;
+}
+
+@media (max-width: 768px) {
+    .policy-title {
+        font-size: 28px;
+    }
+}
+
+.policy-subtitle {
+    font-size: 16px;
+    color: rgba(31,31,31,0.6);
+}
+
+.policy-content {
+    color: #1F1F1F;
+    line-height: 1.8;
+}
+
+.policy-content h1,
+.policy-content h2,
+.policy-content h3 {
+    font-family: 'Playfair Display', serif;
+    color: #2D5F4C;
+    margin-top: 32px;
+    margin-bottom: 16px;
+}
+
+.policy-content h1 {
+    font-size: 28px;
+    font-weight: 700;
+}
+
+.policy-content h2 {
+    font-size: 22px;
+    font-weight: 600;
+    padding-bottom: 8px;
+    border-bottom: 1px solid rgba(45,95,76,0.15);
+}
+
+.policy-content h3 {
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.policy-content p {
+    margin-bottom: 16px;
+    font-size: 16px;
+    color: rgba(31,31,31,0.85);
+}
+
+.policy-content ul,
+.policy-content ol {
+    margin-bottom: 20px;
+    padding-left: 24px;
+}
+
+.policy-content li {
+    margin-bottom: 10px;
+    font-size: 16px;
+    color: rgba(31,31,31,0.85);
+    position: relative;
+}
+
+.policy-content ul li::marker {
+    color: #2D5F4C;
+}
+
+.policy-content ol li::marker {
+    color: #2D5F4C;
+    font-weight: 600;
+}
+
+.policy-content a {
+    color: #2D5F4C;
+    text-decoration: underline;
+    font-weight: 500;
+    transition: color 0.2s;
+}
+
+.policy-content a:hover {
+    color: #1A3A2E;
+}
+
+.policy-content strong,
+.policy-content b {
+    font-weight: 600;
+    color: #1F1F1F;
+}
+
+.policy-content em {
+    font-style: italic;
+}
+
+/* Highlight important sections */
+.policy-content blockquote {
+    background: rgba(45,95,76,0.05);
+    border-left: 4px solid #2D5F4C;
+    padding: 16px 20px;
+    margin: 24px 0;
+    border-radius: 0 8px 8px 0;
+    font-style: normal;
+}
+
+.policy-content blockquote p {
+    margin-bottom: 0;
+}
+
+/* Contact section styling */
+.policy-contact {
+    background: linear-gradient(135deg, rgba(45,95,76,0.08), rgba(45,95,76,0.04));
+    border-radius: 16px;
+    padding: 24px;
+    margin-top: 40px;
+    text-align: center;
+    border: 1px solid rgba(45,95,76,0.15);
+}
+
+.policy-contact-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+    font-weight: 600;
+    color: #2D5F4C;
+    margin-bottom: 12px;
+}
+
+.policy-contact p {
+    font-size: 15px;
+    color: rgba(31,31,31,0.7);
+    margin-bottom: 8px;
+}
+
+.policy-contact a {
+    color: #2D5F4C;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.policy-contact a:hover {
+    text-decoration: underline;
+}
+
+/* Trust badges */
+.policy-trust {
+    display: flex;
+    justify-content: center;
+    gap: 32px;
+    margin-top: 32px;
+    padding-top: 32px;
+    border-top: 1px solid rgba(45,95,76,0.1);
+    flex-wrap: wrap;
+}
+
+.policy-trust-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    color: rgba(31,31,31,0.6);
+}
+
+.policy-trust-item svg {
+    width: 20px;
+    height: 20px;
+    color: #2D5F4C;
+}
+</style>
+
+<div class="policy-page">
+    <div class="policy-container">
+        <div class="policy-header">
+            <h1 class="policy-title">{{ policy.title }}</h1>
+            <p class="policy-subtitle">Last updated: {{ 'now' | date: '%B %d, %Y' }}</p>
+        </div>
+
+        <div class="policy-content">
+            {{ policy.body }}
+        </div>
+
+        <div class="policy-contact">
+            <p class="policy-contact-title">Questions about this policy?</p>
+            <p>We're here to help! Reach out to our customer service team.</p>
+            <p>
+                <a href="mailto:support@drbibiorganics.com">support@drbibiorganics.com</a>
+            </p>
+        </div>
+
+        <div class="policy-trust">
+            <span class="policy-trust-item">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+                </svg>
+                Secure & Safe
+            </span>
+            <span class="policy-trust-item">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
+                </svg>
+                Customer First
+            </span>
+            <span class="policy-trust-item">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                </svg>
+                Quick Response
+            </span>
+        </div>
+    </div>
+</div>
+
+{% schema %}
+{
+    "name": "Policy Page Custom",
+    "settings": []
+}
+{% endschema %}

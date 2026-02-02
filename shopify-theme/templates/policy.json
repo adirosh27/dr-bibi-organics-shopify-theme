@@ -1,0 +1,10 @@
+{
+  "sections": {
+    "policy-custom": {
+      "type": "policy-custom"
+    }
+  },
+  "order": [
+    "policy-custom"
+  ]
+}
