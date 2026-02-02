@@ -10,16 +10,16 @@
 
 <style>
 .policy-page {
-    font-family: 'Jost', sans-serif;
-    background: linear-gradient(180deg, #FFFEF9 0%, #F5F3ED 100%);
+    font-family: 'Jost', sans-serif !important;
+    background: linear-gradient(180deg, #FFFEF9 0%, #F5F3ED 100%) !important;
     min-height: 100vh;
-    padding: 60px 20px 80px;
+    padding: 120px 20px 80px !important;
 }
 
 .policy-container {
     max-width: 800px;
     margin: 0 auto;
-    background: white;
+    background: white !important;
     border-radius: 24px;
     box-shadow: 0 4px 24px rgba(45,95,76,0.08);
     padding: 48px;
@@ -28,7 +28,7 @@
 
 @media (max-width: 768px) {
     .policy-page {
-        padding: 40px 16px 60px;
+        padding: 100px 16px 60px !important;
     }
     .policy-container {
         padding: 32px 24px;
@@ -44,116 +44,102 @@
 }
 
 .policy-title {
-    font-family: 'Playfair Display', serif;
-    font-size: 36px;
-    font-weight: 700;
-    color: #2D5F4C;
-    margin-bottom: 12px;
+    font-family: 'Playfair Display', serif !important;
+    font-size: 36px !important;
+    font-weight: 700 !important;
+    color: #2D5F4C !important;
+    margin-bottom: 12px !important;
 }
 
 @media (max-width: 768px) {
     .policy-title {
-        font-size: 28px;
+        font-size: 28px !important;
     }
 }
 
 .policy-subtitle {
-    font-size: 16px;
-    color: rgba(31,31,31,0.6);
+    font-size: 16px !important;
+    color: rgba(31,31,31,0.6) !important;
+    margin: 0 !important;
 }
 
-.policy-content {
-    color: #1F1F1F;
-    line-height: 1.8;
+.policy-intro {
+    background: rgba(45,95,76,0.05);
+    border-radius: 12px;
+    padding: 20px 24px;
+    margin-bottom: 32px;
+    border-left: 4px solid #2D5F4C;
 }
 
-.policy-content h1,
-.policy-content h2,
-.policy-content h3 {
-    font-family: 'Playfair Display', serif;
-    color: #2D5F4C;
-    margin-top: 32px;
-    margin-bottom: 16px;
+.policy-intro p {
+    font-size: 16px !important;
+    color: rgba(31,31,31,0.85) !important;
+    line-height: 1.7 !important;
+    margin: 0 !important;
 }
 
-.policy-content h1 {
-    font-size: 28px;
-    font-weight: 700;
+.policy-section {
+    margin-bottom: 32px;
 }
 
-.policy-content h2 {
-    font-size: 22px;
-    font-weight: 600;
+.policy-section-title {
+    font-family: 'Playfair Display', serif !important;
+    font-size: 22px !important;
+    font-weight: 600 !important;
+    color: #2D5F4C !important;
+    margin-bottom: 16px !important;
     padding-bottom: 8px;
     border-bottom: 1px solid rgba(45,95,76,0.15);
+    display: flex;
+    align-items: center;
+    gap: 10px;
 }
 
-.policy-content h3 {
-    font-size: 18px;
-    font-weight: 600;
+.policy-section-title svg {
+    width: 24px;
+    height: 24px;
+    color: #2D5F4C;
+    flex-shrink: 0;
 }
 
-.policy-content p {
-    margin-bottom: 16px;
-    font-size: 16px;
-    color: rgba(31,31,31,0.85);
+.policy-list {
+    list-style: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
 }
 
-.policy-content ul,
-.policy-content ol {
-    margin-bottom: 20px;
-    padding-left: 24px;
-}
-
-.policy-content li {
-    margin-bottom: 10px;
-    font-size: 16px;
-    color: rgba(31,31,31,0.85);
+.policy-list li {
     position: relative;
+    padding-left: 28px;
+    margin-bottom: 12px;
+    font-size: 15px !important;
+    color: rgba(31,31,31,0.85) !important;
+    line-height: 1.6 !important;
 }
 
-.policy-content ul li::marker {
-    color: #2D5F4C;
+.policy-list li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 8px;
+    width: 8px;
+    height: 8px;
+    background: #2D5F4C;
+    border-radius: 50%;
 }
 
-.policy-content ol li::marker {
-    color: #2D5F4C;
-    font-weight: 600;
+.policy-note {
+    background: rgba(251,191,36,0.1);
+    border: 1px solid rgba(251,191,36,0.3);
+    border-radius: 8px;
+    padding: 12px 16px;
+    margin-top: 16px;
+    font-size: 14px !important;
+    color: rgba(31,31,31,0.8) !important;
 }
 
-.policy-content a {
-    color: #2D5F4C;
-    text-decoration: underline;
-    font-weight: 500;
-    transition: color 0.2s;
-}
-
-.policy-content a:hover {
-    color: #1A3A2E;
-}
-
-.policy-content strong,
-.policy-content b {
-    font-weight: 600;
-    color: #1F1F1F;
-}
-
-.policy-content em {
-    font-style: italic;
-}
-
-/* Highlight important sections */
-.policy-content blockquote {
-    background: rgba(45,95,76,0.05);
-    border-left: 4px solid #2D5F4C;
-    padding: 16px 20px;
-    margin: 24px 0;
-    border-radius: 0 8px 8px 0;
-    font-style: normal;
-}
-
-.policy-content blockquote p {
-    margin-bottom: 0;
+.policy-note strong {
+    color: #92400E;
 }
 
 /* Contact section styling */
@@ -167,27 +153,27 @@
 }
 
 .policy-contact-title {
-    font-family: 'Playfair Display', serif;
-    font-size: 20px;
-    font-weight: 600;
-    color: #2D5F4C;
-    margin-bottom: 12px;
+    font-family: 'Playfair Display', serif !important;
+    font-size: 20px !important;
+    font-weight: 600 !important;
+    color: #2D5F4C !important;
+    margin-bottom: 12px !important;
 }
 
 .policy-contact p {
-    font-size: 15px;
-    color: rgba(31,31,31,0.7);
-    margin-bottom: 8px;
+    font-size: 15px !important;
+    color: rgba(31,31,31,0.7) !important;
+    margin-bottom: 8px !important;
 }
 
 .policy-contact a {
-    color: #2D5F4C;
-    font-weight: 600;
-    text-decoration: none;
+    color: #2D5F4C !important;
+    font-weight: 600 !important;
+    text-decoration: none !important;
 }
 
 .policy-contact a:hover {
-    text-decoration: underline;
+    text-decoration: underline !important;
 }
 
 /* Trust badges */
@@ -205,8 +191,8 @@
     display: flex;
     align-items: center;
     gap: 8px;
-    font-size: 14px;
-    color: rgba(31,31,31,0.6);
+    font-size: 14px !important;
+    color: rgba(31,31,31,0.6) !important;
 }
 
 .policy-trust-item svg {
@@ -220,11 +206,61 @@
     <div class="policy-container">
         <div class="policy-header">
             <h1 class="policy-title">{{ policy.title }}</h1>
-            <p class="policy-subtitle">Last updated: {{ 'now' | date: '%B %d, %Y' }}</p>
+            <p class="policy-subtitle">Your satisfaction is our priority</p>
         </div>
 
-        <div class="policy-content">
-            {{ policy.body }}
+        <div class="policy-intro">
+            <p>Thank you for choosing Dr. Bibi Organics! We hope you love your purchase, but if you're not fully satisfied, please contact us at <a href="mailto:support@drbibiorganics.com" style="color: #2D5F4C; font-weight: 600;">support@drbibiorganics.com</a> within 30 calendar days from the date your order was delivered.</p>
+        </div>
+
+        <div class="policy-section">
+            <h2 class="policy-section-title">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 15v-1a4 4 0 00-4-4H8m0 0l3 3m-3-3l3-3m9 14V5a2 2 0 00-2-2H6a2 2 0 00-2 2v16l4-2 4 2 4-2 4 2z"/></svg>
+                Returns
+            </h2>
+            <ul class="policy-list">
+                <li>You have <strong>30 calendar days</strong> from the delivery date to return any item. After this period, we cannot offer returns, refunds, or exchanges.</li>
+                <li>To be eligible for a return, items must be <strong>unused</strong>, in the same condition you received them, and in their <strong>original packaging</strong>.</li>
+                <li>A receipt or proof of purchase is required to process your return.</li>
+                <li>Shipping fees are non-refundable.</li>
+            </ul>
+            <div class="policy-note">
+                <strong>Note:</strong> A 20% restocking fee may apply to returned items.
+            </div>
+        </div>
+
+        <div class="policy-section">
+            <h2 class="policy-section-title">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"/></svg>
+                Refunds
+            </h2>
+            <ul class="policy-list">
+                <li>Once we receive and inspect your returned item, we'll send you an email to confirm we've received it.</li>
+                <li>If your return is approved, we'll process your refund within <strong>1-2 business days</strong>.</li>
+                <li>Please allow <strong>5-7 business days</strong> for the refund to reflect on your account.</li>
+            </ul>
+        </div>
+
+        <div class="policy-section">
+            <h2 class="policy-section-title">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"/></svg>
+                Exchanges
+            </h2>
+            <ul class="policy-list">
+                <li>We will only replace items that are <strong>damaged or defective</strong>, and only if reported within 30 calendar days from the delivery date.</li>
+                <li>To request an exchange, please reach out to us at <a href="mailto:support@drbibiorganics.com" style="color: #2D5F4C; font-weight: 600;">support@drbibiorganics.com</a>.</li>
+                <li>Shipping fees are non-refundable for exchanges.</li>
+            </ul>
+        </div>
+
+        <div class="policy-section">
+            <h2 class="policy-section-title">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+                Exceptions
+            </h2>
+            <ul class="policy-list">
+                <li><strong>Online Purchases Only:</strong> We cannot accept returns or exchanges for products purchased from third-party retailers. For items bought through authorized partners, please reach out to them directly for their return and exchange guidelines.</li>
+            </ul>
         </div>
 
         <div class="policy-contact">
