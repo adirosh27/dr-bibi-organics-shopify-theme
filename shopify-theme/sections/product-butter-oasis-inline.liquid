@@ -261,7 +261,7 @@ details[open] summary svg { transform: rotate(180deg); }
                                 onmouseout="this.style.boxShadow='0 8px 24px rgba(45,95,76,0.4)'; this.style.transform='translateY(0)';"
                                 {% unless product.available %}disabled{% endunless %}>
                             {% if product.available %}
-                                Add to Cart — {{ product.price | money }}
+                                Add to Cart — <span id="cartButtonPrice">{{ product.price | money }}</span>
                             {% else %}
                                 Sold Out
                             {% endif %}
@@ -714,6 +714,7 @@ details[open] summary svg { transform: rotate(180deg); }
 // Quantity controls
 const quantityInput = document.getElementById('quantity');
 const totalPriceDisplay = document.getElementById('totalPrice');
+const cartButtonPrice = document.getElementById('cartButtonPrice');
 const decreaseBtn = document.getElementById('decreaseQty');
 const increaseBtn = document.getElementById('increaseQty');
 const productPrice = {{ product.price | divided_by: 100.0 }};
@@ -721,7 +722,8 @@ const productPrice = {{ product.price | divided_by: 100.0 }};
 function updateTotal() {
     const qty = parseInt(quantityInput.value) || 1;
     const total = (qty * productPrice).toFixed(2);
-    totalPriceDisplay.textContent = '$' + total;
+    if (totalPriceDisplay) totalPriceDisplay.textContent = '$' + total;
+    if (cartButtonPrice) cartButtonPrice.textContent = '$' + total;
 }
 
 decreaseBtn?.addEventListener('click', () => {
