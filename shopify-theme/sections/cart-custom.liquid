@@ -400,10 +400,10 @@
                         {% endif %}
                         <div class="drb-cart-item-price">{{ item.final_price | money }} each</div>
                         <div class="drb-quantity-controls">
-                            <button class="drb-quantity-btn" onclick="updateCartQuantity('{{ item.key }}', {{ item.quantity | minus: 1 }})">−</button>
+                            <button class="drb-quantity-btn drb-decrease" data-key="{{ item.key }}" data-qty="{{ item.quantity | minus: 1 }}">−</button>
                             <span class="drb-quantity-value">{{ item.quantity }}</span>
-                            <button class="drb-quantity-btn" onclick="updateCartQuantity('{{ item.key }}', {{ item.quantity | plus: 1 }})">+</button>
-                            <button class="drb-remove-btn" onclick="updateCartQuantity('{{ item.key }}', 0)">Remove</button>
+                            <button class="drb-quantity-btn drb-increase" data-key="{{ item.key }}" data-qty="{{ item.quantity | plus: 1 }}">+</button>
+                            <button class="drb-remove-btn" data-key="{{ item.key }}" data-qty="0">Remove</button>
                         </div>
                     </div>
                     <div class="drb-cart-item-total">
@@ -477,7 +477,7 @@
 <script>
 async function updateCartQuantity(key, quantity) {
     const cartPage = document.querySelector('.drb-cart-page');
-    cartPage.classList.add('drb-loading');
+    if (cartPage) cartPage.classList.add('drb-loading');
 
     try {
         const response = await fetch('/cart/change.js', {
@@ -488,34 +488,42 @@ async function updateCartQuantity(key, quantity) {
         const cart = await response.json();
 
         // Refresh the page to show updated cart
-        // This ensures Liquid re-renders with correct values
         window.location.reload();
 
     } catch (error) {
         console.error('Error updating cart:', error);
-        cartPage.classList.remove('drb-loading');
+        if (cartPage) cartPage.classList.remove('drb-loading');
         alert('Error updating cart. Please try again.');
     }
 }
 
-// Update header cart count when page loads
+// Event delegation for quantity buttons - more reliable than inline onclick
 document.addEventListener('DOMContentLoaded', function() {
-    if (typeof refreshDrbCart === 'function') {
-        // Sync with cart drawer
-        fetch('/cart.js')
-            .then(res => res.json())
-            .then(cart => {
-                const cartCount = document.getElementById('drbCartCount');
-                if (cartCount) {
-                    if (cart.item_count > 0) {
-                        cartCount.textContent = cart.item_count;
-                        cartCount.style.display = 'flex';
-                    } else {
-                        cartCount.style.display = 'none';
-                    }
+    document.addEventListener('click', function(e) {
+        const btn = e.target.closest('[data-key][data-qty]');
+        if (btn) {
+            e.preventDefault();
+            const key = btn.getAttribute('data-key');
+            const qty = parseInt(btn.getAttribute('data-qty'), 10);
+            updateCartQuantity(key, qty);
+        }
+    });
+
+    // Sync with cart drawer
+    fetch('/cart.js')
+        .then(res => res.json())
+        .then(cart => {
+            const cartCount = document.getElementById('drbCartCount');
+            if (cartCount) {
+                if (cart.item_count > 0) {
+                    cartCount.textContent = cart.item_count;
+                    cartCount.style.display = 'flex';
+                } else {
+                    cartCount.style.display = 'none';
                 }
-            });
-    }
+            }
+        })
+        .catch(err => console.log('Cart sync error:', err));
 });
 </script>
 
