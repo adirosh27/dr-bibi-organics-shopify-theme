@@ -407,10 +407,10 @@ function renderDrbCart(cart) {
                 ${item.variant_title ? `<p style="font-size: 12px; color: rgba(31,41,55,0.5); margin-bottom: 4px;">${item.variant_title}</p>` : ''}
                 <p style="font-size: 14px; color: rgba(31,41,55,0.6); margin-bottom: 8px;">$${(item.final_price / 100).toFixed(2)} each</p>
                 <div style="display: flex; align-items: center; gap: 8px;">
-                    <button onclick="updateDrbCart(${JSON.stringify(item.key)}, ${item.quantity - 1})" style="width: 24px; height: 24px; border: 1px solid #C4D5CC; border-radius: 4px; background: white; cursor: pointer; font-size: 14px; display: flex; align-items: center; justify-content: center;">−</button>
+                    <button onclick='updateDrbCart(${JSON.stringify(item.key)}, ${item.quantity - 1})' style="width: 24px; height: 24px; border: 1px solid #C4D5CC; border-radius: 4px; background: white; cursor: pointer; font-size: 14px; display: flex; align-items: center; justify-content: center;">−</button>
                     <span style="font-weight: 500; font-size: 14px; min-width: 24px; text-align: center;">${item.quantity}</span>
-                    <button onclick="updateDrbCart(${JSON.stringify(item.key)}, ${item.quantity + 1})" style="width: 24px; height: 24px; border: 1px solid #C4D5CC; border-radius: 4px; background: white; cursor: pointer; font-size: 14px; display: flex; align-items: center; justify-content: center;">+</button>
-                    <button onclick="updateDrbCart(${JSON.stringify(item.key)}, 0)" style="margin-left: auto; background: none; border: none; cursor: pointer; color: rgba(31,41,55,0.6); font-size: 12px;">Remove</button>
+                    <button onclick='updateDrbCart(${JSON.stringify(item.key)}, ${item.quantity + 1})' style="width: 24px; height: 24px; border: 1px solid #C4D5CC; border-radius: 4px; background: white; cursor: pointer; font-size: 14px; display: flex; align-items: center; justify-content: center;">+</button>
+                    <button onclick='updateDrbCart(${JSON.stringify(item.key)}, 0)' style="margin-left: auto; background: none; border: none; cursor: pointer; color: rgba(31,41,55,0.6); font-size: 12px;">Remove</button>
                 </div>
             </div>
             <div style="text-align: right;">
