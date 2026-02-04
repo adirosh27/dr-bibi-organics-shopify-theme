@@ -457,17 +457,25 @@ function renderDrbCart(cart) {
 }
 
 // Update cart item
-async function updateDrbCart(key, quantity) {
+async function updateDrbCart(variantId, quantity) {
     try {
         const response = await fetch('/cart/change.js', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ id: key, quantity: quantity })
+            body: JSON.stringify({ id: String(variantId), quantity: quantity })
         });
-        const cart = await response.json();
-        renderDrbCart(cart);
+        const data = await response.json();
+
+        // Check if response has items (valid cart) or is an error
+        if (data && data.items !== undefined) {
+            renderDrbCart(data);
+        } else {
+            // Refresh cart from server on error
+            refreshDrbCart();
+        }
     } catch (error) {
         console.error('Error updating cart:', error);
+        refreshDrbCart();
     }
 }
 

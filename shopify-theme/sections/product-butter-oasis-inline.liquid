@@ -874,18 +874,38 @@ function renderBoCart(cart) {
 }
 
 // Update cart item quantity
-async function updateBoCartItem(key, quantity) {
+async function updateBoCartItem(variantId, quantity) {
     try {
         const response = await fetch('/cart/change.js', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ id: key.toString(), quantity: quantity })
+            body: JSON.stringify({ id: String(variantId), quantity: quantity })
         });
-        const cart = await response.json();
-        renderBoCart(cart);
-        updateHeaderCartCount(cart.item_count);
+        const data = await response.json();
+
+        // Check if response has items (valid cart) or is an error
+        if (data && data.items !== undefined) {
+            renderBoCart(data);
+            updateHeaderCartCount(data.item_count || 0);
+        } else {
+            // Refresh cart from server on error
+            refreshBoCart();
+        }
     } catch (error) {
         console.error('Error updating cart:', error);
+        refreshBoCart();
+    }
+}
+
+// Refresh cart from server
+async function refreshBoCart() {
+    try {
+        const response = await fetch('/cart.js');
+        const cart = await response.json();
+        renderBoCart(cart);
+        updateHeaderCartCount(cart.item_count || 0);
+    } catch (error) {
+        console.error('Error refreshing cart:', error);
     }
 }
 
