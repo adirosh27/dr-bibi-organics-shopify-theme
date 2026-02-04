@@ -850,37 +850,26 @@ function renderBoCart(cart) {
         </div>
     `}).join('');
 
-    // Display discounts
+    // Display discounts - simple version
     const discountsDiv = document.getElementById('boCartDiscounts');
-    let discountHtml = '';
     const totalDiscount = cart.total_discount || 0;
-
-    // Show discount codes if any
-    const discountApps = cart.discount_applications || [];
-    if (discountApps.length > 0) {
-        discountHtml = discountApps.map(discount => `
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; padding: 8px 12px; background: rgba(45,95,76,0.1); border-radius: 8px;">
-                <span style="font-size: 13px; color: #2D5F4C; font-weight: 500;">🏷️ ${discount.title || 'Discount'}</span>
-                <span style="font-size: 13px; color: #2D5F4C; font-weight: 600;">${discount.value_type === 'percentage' ? discount.value + '% OFF' : '-$' + (discount.value / 100).toFixed(2)}</span>
-            </div>
-        `).join('');
-    }
 
     if (totalDiscount > 0) {
         const originalTotal = (cart.total_price + totalDiscount) / 100;
-        discountHtml += `
+        const savings = totalDiscount / 100;
+        discountsDiv.innerHTML = `
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
                 <span style="color: rgba(31,31,31,0.6);">Subtotal:</span>
                 <span style="text-decoration: line-through; color: rgba(31,31,31,0.4);">$${originalTotal.toFixed(2)}</span>
             </div>
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; padding: 8px 12px; background: rgba(45,95,76,0.1); border-radius: 8px;">
                 <span style="color: #2D5F4C; font-weight: 500;">You save:</span>
-                <span style="color: #2D5F4C; font-weight: 600;">$${(totalDiscount / 100).toFixed(2)}</span>
+                <span style="color: #2D5F4C; font-weight: 600;">$${savings.toFixed(2)}</span>
             </div>
         `;
+    } else {
+        discountsDiv.innerHTML = '';
     }
-
-    discountsDiv.innerHTML = discountHtml;
     cartTotal.textContent = '$' + (cart.total_price / 100).toFixed(2);
 }
 
