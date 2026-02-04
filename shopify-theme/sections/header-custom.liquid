@@ -421,38 +421,27 @@ function renderDrbCart(cart) {
         </div>
     `}).join('');
 
-    // Show cart discounts if any
-    let discountHtml = '';
-    if (cart.cart_level_discount_applications && cart.cart_level_discount_applications.length > 0) {
-        discountHtml = cart.cart_level_discount_applications.map(discount => `
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; padding: 8px 12px; background: rgba(45,95,76,0.1); border-radius: 8px;">
-                <span style="font-size: 13px; color: #2D5F4C; font-weight: 500;">🏷️ ${discount.title}</span>
-                <span style="font-size: 13px; color: #2D5F4C; font-weight: 600;">-$${(discount.total_allocated_amount / 100).toFixed(2)}</span>
-            </div>
-        `).join('');
-    }
-
-    // Update total display with discounts
-    const totalDiscount = cart.total_discount / 100;
-    const originalTotal = (cart.total_price + cart.total_discount) / 100;
-    const finalTotal = cart.total_price / 100;
-
+    // Display discounts - simple version using total_discount
+    const totalDiscount = cart.total_discount || 0;
     let totalHtml = '';
+
     if (totalDiscount > 0) {
+        const originalTotal = (cart.total_price + totalDiscount) / 100;
+        const savings = totalDiscount / 100;
         totalHtml = `
-            ${discountHtml}
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
                 <span style="color: rgba(31,41,55,0.6);">Subtotal:</span>
                 <span style="text-decoration: line-through; color: rgba(31,41,55,0.4);">$${originalTotal.toFixed(2)}</span>
             </div>
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; padding: 8px 12px; background: rgba(45,95,76,0.1); border-radius: 8px;">
                 <span style="color: #2D5F4C; font-weight: 500;">You save:</span>
-                <span style="color: #2D5F4C; font-weight: 600;">$${totalDiscount.toFixed(2)}</span>
+                <span style="color: #2D5F4C; font-weight: 600;">$${savings.toFixed(2)}</span>
             </div>
         `;
     }
 
     document.getElementById('drbCartDiscounts').innerHTML = totalHtml;
+    const finalTotal = cart.total_price / 100;
     cartTotal.textContent = '$' + finalTotal.toFixed(2);
 }
 
